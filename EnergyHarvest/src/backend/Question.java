@@ -35,16 +35,12 @@ package backend;
 public class Question {
 	private String questionText;
 	private String choiceA;
-	private String choiseB;
-	private String choiseC;
-	private String choiseD;
+	private String choiceB;
+	private String choiceC;
+	private String choiceD;
 	
 	public static enum Answer{A, B, C, D};
 	
-	/**
-	 * Stub
-	 */
-	public Question(){
-		
-	}
+	/* Stub */
+	public Question(){}
 }

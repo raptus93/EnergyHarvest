@@ -40,12 +40,8 @@ public class QuestionCatalog {
 	private LinkedList<Question> questions;
 	private int currentQuestionID = -1;
 	
-	/**
-	 * Stub
-	 */
-	public QuestionCatalog(){
-		
-	}
+	/* Stub */
+	public QuestionCatalog(){}
 	
 	/**
 	 * pulls a question from the catalog
