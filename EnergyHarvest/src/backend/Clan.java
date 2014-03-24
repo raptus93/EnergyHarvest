@@ -35,7 +35,7 @@ public class Clan {
 	private int id;
 	private String logoURL;
 	
-	/* etc */
+	/* test */
 	
 	public Clan(){}
 }
