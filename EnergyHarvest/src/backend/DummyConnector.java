@@ -13,13 +13,19 @@ public class DummyConnector {
         System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
 
         /* clancreation  */
-        System.out.println(Server.getInstance().createClan("bart"));
+        System.out.println("Clan creation " + Server.getInstance().createClan("bart"));
 
         /* questions from server */
         QuestionCatalog fragen = Server.getInstance().getRandomQuestions(10);
         for(Question q : fragen.getQuestionList()){
             System.out.println(q.text);
         }
+
+        /* logout */
+        Server.getInstance().logout();
+
+        /* login */
+        System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
 
     }
 }
