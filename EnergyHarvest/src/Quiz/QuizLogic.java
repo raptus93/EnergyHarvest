@@ -1,6 +1,8 @@
 package Quiz;
 
-import java.util.LinkedList;
+import backend.Question;
+import backend.QuestionCatalog;
+import backend.Server;
 
 public class QuizLogic {
 	//10 Fragen gleichzeitig holen
@@ -8,10 +10,17 @@ public class QuizLogic {
 	//LinkedList<Question> questions;
 	private int currentQuestion = 0;
 	private int correctAnswers = 0;
+	private QuestionCatalog questions;
+	
 	
 	private void getQuestions(){
-		//nächste Frage aus der Fragenliste holen
-		
+		//Fragen aus der Fragenliste holen
+		questions = Server.getInstance().getRandomQuestions(10);
+        
+		/*for(Question q : questions.getQuestionList()){
+            System.out.println(q.text);
+        }
+		*/
 		//questions.get(currentQuestion);
 		currentQuestion++;
 	}
