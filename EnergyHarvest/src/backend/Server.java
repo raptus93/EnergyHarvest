@@ -56,7 +56,8 @@ public class Server {
 
     /* members */
 	private boolean session = false;
-    private User user = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO"));
+    private final User GUEST_USER = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO"));
+    private User user = GUEST_USER;
 	private Server(){}
 	
 	public boolean login(String email, String pw){
@@ -93,6 +94,12 @@ public class Server {
         }
 		return session;
 	}
+
+    public boolean logout(){
+        this.user = GUEST_USER;
+        this.session = false;
+        return session;
+    }
 	
 	public boolean checkAnswer(int questionID, Question.Answer answer){
 		return true;
