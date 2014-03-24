@@ -12,5 +12,11 @@ public class DummyConnector {
         System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
 
 
+        QuestionCatalog fragen = Server.getInstance().getRandomQuestions(10);
+
+        for(Question q : fragen.getQuestionList()){
+            System.out.println(q.text);
+        }
+
     }
 }

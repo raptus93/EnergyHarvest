@@ -100,7 +100,12 @@ public class Server {
 	
 	public QuestionCatalog getRandomQuestions(int amount){
         /* fetch questions from server & put them in a list (questioncatalog) */
-		return new QuestionCatalog(new LinkedList<Question>());
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("amount", amount);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_FETCH_QUESTIONS, map));
+		return new QuestionCatalog((LinkedList<Question>) response.getFromContent("response"));
 	}
 	
 	public boolean register(String name, String email, String pw){

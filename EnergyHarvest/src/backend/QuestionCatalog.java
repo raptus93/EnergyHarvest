@@ -60,4 +60,8 @@ public class QuestionCatalog {
     public Question popQuestion(){
         return questions.remove(0);
     }
+
+    public LinkedList<Question> getQuestionList(){
+        return questions;
+    }
 }
