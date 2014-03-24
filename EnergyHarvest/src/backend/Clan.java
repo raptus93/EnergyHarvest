@@ -30,16 +30,16 @@
 package backend;
 
 public class Clan {
-	
-	private final String name;
-	private final int id;
+
+    private final int id;
+    private final String name;
 	private final String logoURL;
 	
 	/* test */
 	
 	public Clan(int id, String name, String logoURL){
-        this.name = name;
         this.id = id;
+        this.name = name;
         this.logoURL = logoURL;
     }
 }
