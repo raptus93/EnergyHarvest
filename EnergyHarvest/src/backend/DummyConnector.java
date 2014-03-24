@@ -9,11 +9,14 @@ public class DummyConnector {
 
     public static void main(String[] args) {
 
+        /* login */
         System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
 
+        /* clancreation  */
+        System.out.println(Server.getInstance().createClan("bart"));
 
+        /* questions from server */
         QuestionCatalog fragen = Server.getInstance().getRandomQuestions(10);
-
         for(Question q : fragen.getQuestionList()){
             System.out.println(q.text);
         }

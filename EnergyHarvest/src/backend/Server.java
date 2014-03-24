@@ -113,7 +113,12 @@ public class Server {
 	}
 	
 	public boolean createClan(String name){
-		return true;
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
+        map.put("userid", getActiveUser().id);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_CLAN, map));
+        return (Boolean) response.getFromContent("response");
 	}
 	
 	public boolean inviteMember(int id){
