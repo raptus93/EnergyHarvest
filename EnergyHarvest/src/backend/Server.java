@@ -135,12 +135,6 @@ public class Server {
         return new Clan(clanID, name, logo, membercount);
     }
 
-    // TODO
-	
-	public boolean inviteMember(int id){
-		return true;
-	}
-
     public boolean checkAnswer(int questionID, Question.Answer answer){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("id", questionID);
@@ -148,6 +142,12 @@ public class Server {
 
         Package response = sendPackage(new Package(Package.Type.REQUEST_CHECK_ANSWER, map));
         return (Boolean) response.getFromContent("response");
+    }
+
+    // TODO
+
+    public boolean inviteMember(int id){
+        return true;
     }
 
     public boolean register(String name, String email, String pw){
