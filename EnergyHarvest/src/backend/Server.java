@@ -46,29 +46,27 @@ public class Server {
         return instance;
     }
 
+    /* members */
 	private boolean session = false;
     private User user;
-
 	private Server(){}
-
-    private void setUser(User user){
-        this.user = user;
-    }
-	
-	public Package sendPackage(Package p){
-		/* request_package -> server | server -> response_package*/
-		return null;
-	}
 	
 	public boolean login(String email, String pw){
-		HashMap<String, Object> request = new HashMap<String, Object>();
-		request.put("email", email); 
-		request.put("password", pw);
-        /* if we login, set the server user */
-        setUser(new User(0, "name", "email", new Clan(0, "name", "logo")));
+        if(!session){
+            HashMap<String, Object> request = new HashMap<String, Object>();
+            request.put("email", email);
+            request.put("password", pw);
 
-        /* checks if a session is set, if not, we try to check login data on the server */
-		return !session ? (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getContent().get("response") : session;
+            boolean loginSuccessful = (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getContent().get("response");
+
+            if(loginSuccessful){
+                /* if the login was sucessful, we fetch the user data from the server */
+                setUser(new User(0, "name", "email", new Clan(0, "name", "logo")));
+                session = true;
+            }
+
+        }
+		return session;
 	}
 	
 	public boolean checkAnswer(int questionID, Question.Answer answer){
@@ -76,7 +74,7 @@ public class Server {
 	}
 	
 	public QuestionCatalog getRandomQuestions(int amount){
-        /* hier fragen vom server ziehen & in die liste packen*/
+        /* fetch questions from server & put them in a list (questioncatalog) */
 		return new QuestionCatalog(new LinkedList<Question>());
 	}
 	
@@ -91,4 +89,19 @@ public class Server {
 	public boolean inviteMember(int id){
 		return true;
 	}
+
+    public User getActiveUser(){
+        return user != null ? user : new User(0, "GUEST", "guest@no-reply.com", new Clan(0, "GUESTCLAN", "GUESTLOGO"));
+    }
+
+    /* PRIVATE */
+
+    private void setUser(User user){
+        this.user = user;
+    }
+
+    private Package sendPackage(Package p){
+		/* request_package -> server | server -> response_package*/
+        return null;
+    }
 }

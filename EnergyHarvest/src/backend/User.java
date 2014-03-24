@@ -35,9 +35,9 @@ package backend;
 public class User {
 	
 	/* class members */
-	public final String name;
-    public final String email;
     public final int id;
+    public final String name;
+    public final String email;
     public final Clan clan;
 
     public User(int id, String name, String email, Clan clan){
