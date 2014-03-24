@@ -56,7 +56,7 @@ public class Server {
 
     /* members */
 	private boolean session = false;
-    private User user;
+    private User user = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO"));
 	private Server(){}
 	
 	public boolean login(String email, String pw){
@@ -74,9 +74,9 @@ public class Server {
 
                 Package response = sendPackage(new Package(Package.Type.REQUEST_GET_USER_BY_EMAIL, map));
 
-                int id = (Integer) response.getContent().get("id");
                 String name = (String) response.getContent().get("name");
                 String response_email = (String) response.getContent().get("email");
+                int id = (Integer) response.getContent().get("id");
                 int score = (Integer) response.getContent().get("score");
                 int clanID = (Integer) response.getContent().get("clanid");
 
@@ -116,7 +116,7 @@ public class Server {
 	}
 
     public User getActiveUser(){
-        return user != null ? user : new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO"));
+        return user;
     }
 
     /* PRIVATE */
