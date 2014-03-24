@@ -23,11 +23,5 @@ public class DummyConnector {
 
         /* logout */
         Server.getInstance().logout();
-
-        /* login */
-        System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
-
-        Server.getInstance().getActiveUser().clan.print();
-
     }
 }

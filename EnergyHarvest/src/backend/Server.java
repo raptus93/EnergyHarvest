@@ -149,6 +149,10 @@ public class Server {
         return true;
     }
 
+    public boolean leaveClan(){
+        return true;
+    }
+
     /* PRIVATE */
 
     private void setUser(User user){
