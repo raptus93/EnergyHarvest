@@ -56,7 +56,7 @@ public class Server {
 
     /* members */
 	private boolean session = false;
-    private final User GUEST_USER = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO"));
+    private final User GUEST_USER = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO", 0));
     private User user = GUEST_USER;
 	private Server(){}
 	
@@ -83,10 +83,7 @@ public class Server {
 
 
                 /* need to fetch clan infos */
-                setUser(new User(id, name, response_email, score, new Clan(clanID, "name", "logo")));
-
-                System.out.println("Debug login print");
-                getActiveUser().print();
+                setUser(new User(id, name, response_email, score, getClanByID(clanID)));
 
                 session = true;
             }
@@ -100,10 +97,10 @@ public class Server {
         this.session = false;
         return session;
     }
-	
-	public boolean checkAnswer(int questionID, Question.Answer answer){
-		return true;
-	}
+
+    public User getActiveUser(){
+        return user;
+    }
 	
 	public QuestionCatalog getRandomQuestions(int amount){
         /* fetch questions from server & put them in a list (questioncatalog) */
@@ -115,10 +112,6 @@ public class Server {
 		return new QuestionCatalog((LinkedList<Question>) response.getFromContent("response"));
 	}
 	
-	public boolean register(String name, String email, String pw){
-		return true;
-	}
-	
 	public boolean createClan(String name){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
@@ -127,13 +120,33 @@ public class Server {
         Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_CLAN, map));
         return (Boolean) response.getFromContent("response");
 	}
+
+    public Clan getClanByID(int id){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("id", id);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_CLAN_INFO_BY_ID, map));
+
+        String name = (String) response.getFromContent("name");
+        String logo = (String) response.getFromContent("logo");
+        int clanID = (Integer) response.getFromContent("id");
+        int membercount = (Integer) response.getFromContent("membercount");
+
+        return new Clan(clanID, name, logo, membercount);
+    }
+
+    // TODO
 	
 	public boolean inviteMember(int id){
 		return true;
 	}
 
-    public User getActiveUser(){
-        return user;
+    public boolean checkAnswer(int questionID, Question.Answer answer){
+        return true;
+    }
+
+    public boolean register(String name, String email, String pw){
+        return true;
     }
 
     /* PRIVATE */

@@ -32,14 +32,23 @@ package backend;
 public class Clan {
 
     public final int id;
+    public final int memberCount;
     public final String name;
     public final String logoURL;
 	
 	/* test */
 	
-	public Clan(int id, String name, String logoURL){
+	public Clan(int id, String name, String logoURL, int memberCount){
         this.id = id;
+        this.memberCount = memberCount;
         this.name = name;
         this.logoURL = logoURL;
+    }
+
+    public void print(){
+        System.out.println("Id: " + id);
+        System.out.println("Name: " + name);
+        System.out.println("Logo: " + logoURL);
+        System.out.println("member count: " + memberCount);
     }
 }
