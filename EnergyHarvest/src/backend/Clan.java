@@ -31,9 +31,9 @@ package backend;
 
 public class Clan {
 
-    private final int id;
-    private final String name;
-	private final String logoURL;
+    public final int id;
+    public final String name;
+    public final String logoURL;
 	
 	/* test */
 	

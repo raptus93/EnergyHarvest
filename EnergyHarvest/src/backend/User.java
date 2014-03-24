@@ -36,15 +36,25 @@ public class User {
 	
 	/* class members */
     public final int id;
+    public final int score;
     public final String name;
     public final String email;
     public final Clan clan;
 
-    public User(int id, String name, String email, Clan clan){
+    public User(int id, String name, String email, int score, Clan clan){
+        this.id = id;
+        this.score = score;
         this.name = name;
         this.email = email;
-        this.id = id;
         this.clan = clan;
+    }
+
+    public void print(){
+        System.out.println("UserID: " + id);
+        System.out.println("User: " + name);
+        System.out.println("Email: " + email);
+        System.out.println("ClanID: " + clan.id);
+        System.out.println("Score: " + score);
     }
 
 }

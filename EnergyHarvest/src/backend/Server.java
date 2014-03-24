@@ -29,6 +29,10 @@
  */
 package backend;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -46,6 +50,10 @@ public class Server {
         return instance;
     }
 
+    /* config */
+    private final String SERVER_IP = "caramelswirl.myqnapcloud.com";
+    private final int SERVER_PORT = 8888;
+
     /* members */
 	private boolean session = false;
     private User user;
@@ -61,7 +69,24 @@ public class Server {
 
             if(loginSuccessful){
                 /* if the login was sucessful, we fetch the user data from the server */
-                setUser(new User(0, "name", "email", new Clan(0, "name", "logo")));
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                map.put("email", email);
+
+                Package response = sendPackage(new Package(Package.Type.REQUEST_GET_USER_BY_EMAIL, map));
+
+                int id = (Integer) response.getContent().get("id");
+                String name = (String) response.getContent().get("name");
+                String response_email = (String) response.getContent().get("email");
+                int score = (Integer) response.getContent().get("score");
+                int clanID = (Integer) response.getContent().get("clanid");
+
+
+                /* need to fetch clan infos */
+                setUser(new User(id, name, response_email, score, new Clan(clanID, "name", "logo")));
+
+                System.out.println("Debug login print");
+                getActiveUser().print();
+
                 session = true;
             }
 
@@ -91,7 +116,7 @@ public class Server {
 	}
 
     public User getActiveUser(){
-        return user != null ? user : new User(0, "GUEST", "guest@no-reply.com", new Clan(0, "GUESTCLAN", "GUESTLOGO"));
+        return user != null ? user : new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO"));
     }
 
     /* PRIVATE */
@@ -101,7 +126,33 @@ public class Server {
     }
 
     private Package sendPackage(Package p){
-		/* request_package -> server | server -> response_package*/
-        return null;
+
+        Socket clientSocket;
+
+        try {
+            clientSocket = new Socket(SERVER_IP, SERVER_PORT);
+            ObjectOutputStream outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
+            outToServer.writeObject(p);
+            outToServer.flush();
+            clientSocket.shutdownOutput();
+
+            ObjectInputStream inFromServer = new ObjectInputStream(clientSocket.getInputStream());
+            Package reponse = (Package) inFromServer.readObject();
+
+            outToServer.close();
+            inFromServer.close();
+            clientSocket.close();
+
+            return reponse;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("response", false);
+        return new Package(Package.Type.FAILED_TO_CONNECT_TO_SERVER, map);
     }
 }
