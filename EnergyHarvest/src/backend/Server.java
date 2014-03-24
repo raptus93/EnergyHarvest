@@ -30,6 +30,7 @@
 package backend;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * 
@@ -37,11 +38,17 @@ import java.util.HashMap;
  */
 public class Server {
 
+    /* singleton */
+    private static Server instance;
+    public static Server getInstance(){
+        if(instance == null)
+            instance = new Server();
+        return instance;
+    }
+
 	private boolean session = false;
 
-	public Server(){
-		
-	}
+	private Server(){}
 	
 	public Package sendPackage(Package p){
 		/* request_package -> server | server -> response_package*/
@@ -52,16 +59,18 @@ public class Server {
 		HashMap<String, Object> request = new HashMap<String, Object>();
 		request.put("email", email); 
 		request.put("password", pw);
-		
-		return session ? (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getContent().get("response") : session;
+
+        /* checks if a session is set, if not, we try to check login data on the server */
+		return !session ? (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getContent().get("response") : session;
 	}
 	
 	public boolean checkAnswer(Question question, Question.Answer answer){
 		return true;
 	}
 	
-	public QuestionCatalog getRandomQuestions(){
-		return new QuestionCatalog();
+	public QuestionCatalog getRandomQuestions(int amount){
+        /* hier fragen vom server ziehen & in die liste packen*/
+		return new QuestionCatalog(new LinkedList<Question>());
 	}
 	
 	public boolean register(String name, String email, String pw){

@@ -41,7 +41,9 @@ public class QuestionCatalog {
 	private int currentQuestionID = -1;
 	
 	/* Stub */
-	public QuestionCatalog(){}
+	public QuestionCatalog(LinkedList<Question> questions){
+        this.questions = questions;
+    }
 	
 	/**
 	 * pulls a question from the catalog

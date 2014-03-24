@@ -32,15 +32,25 @@ package backend;
 /**
  * @author Sergej Schefer
  */
-public class Question {
-	private String questionText;
-	private String choiceA;
-	private String choiceB;
-	private String choiceC;
-	private String choiceD;
-	
-	public static enum Answer{A, B, C, D};
-	
-	/* Stub */
-	public Question(){}
+public class Question implements java.io.Serializable{
+
+    private static final long serialVersionUID = 1L;
+
+    public final int id;
+    public final String text;
+    public final String answerA;
+    public final String answerB;
+    public final String answerC;
+    public final String answerD;
+
+    public static enum Answer{A, B, C, D}
+
+    public Question(int id, String question, String answerA, String answerB, String answerC, String answerD){
+        this.id = id;
+        this.text = question;
+        this.answerA = answerA;
+        this.answerB = answerB;
+        this.answerC = answerC;
+        this.answerD = answerD;
+    }
 }
