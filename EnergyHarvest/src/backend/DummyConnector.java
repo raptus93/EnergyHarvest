@@ -21,6 +21,9 @@ public class DummyConnector {
             System.out.println(q.text);
         }
 
+        /* check answers */
+        System.out.println("ANSWER IS : " + Server.getInstance().checkAnswer(1, Question.Answer.A));
+
         /* logout */
         Server.getInstance().logout();
     }

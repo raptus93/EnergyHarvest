@@ -142,7 +142,12 @@ public class Server {
 	}
 
     public boolean checkAnswer(int questionID, Question.Answer answer){
-        return true;
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("id", questionID);
+        map.put("answer", answer.ordinal());
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_CHECK_ANSWER, map));
+        return (Boolean) response.getFromContent("response");
     }
 
     public boolean register(String name, String email, String pw){
