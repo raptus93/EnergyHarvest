@@ -65,7 +65,7 @@ public class Server {
             request.put("email", email);
             request.put("password", pw);
 
-            boolean loginSuccessful = (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getContent().get("response");
+            boolean loginSuccessful = (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getFromContent("response");
 
             if(loginSuccessful){
                 /* if the login was sucessful, we fetch the user data from the server */
@@ -74,11 +74,11 @@ public class Server {
 
                 Package response = sendPackage(new Package(Package.Type.REQUEST_GET_USER_BY_EMAIL, map));
 
-                String name = (String) response.getContent().get("name");
-                String response_email = (String) response.getContent().get("email");
-                int id = (Integer) response.getContent().get("id");
-                int score = (Integer) response.getContent().get("score");
-                int clanID = (Integer) response.getContent().get("clanid");
+                String name = (String) response.getFromContent("name");
+                String response_email = (String) response.getFromContent("email");
+                int id = (Integer) response.getFromContent("id");
+                int score = (Integer) response.getFromContent("score");
+                int clanID = (Integer) response.getFromContent("clanid");
 
 
                 /* need to fetch clan infos */
