@@ -31,11 +31,15 @@ package backend;
 
 public class Clan {
 	
-	private String name;
-	private int id;
-	private String logoURL;
+	private final String name;
+	private final int id;
+	private final String logoURL;
 	
 	/* test */
 	
-	public Clan(){}
+	public Clan(int id, String name, String logoURL){
+        this.name = name;
+        this.id = id;
+        this.logoURL = logoURL;
+    }
 }

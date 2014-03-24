@@ -47,8 +47,13 @@ public class Server {
     }
 
 	private boolean session = false;
+    private User user;
 
 	private Server(){}
+
+    private void setUser(User user){
+        this.user = user;
+    }
 	
 	public Package sendPackage(Package p){
 		/* request_package -> server | server -> response_package*/
@@ -59,12 +64,14 @@ public class Server {
 		HashMap<String, Object> request = new HashMap<String, Object>();
 		request.put("email", email); 
 		request.put("password", pw);
+        /* if we login, set the server user */
+        setUser(new User(0, "name", "email", new Clan(0, "name", "logo")));
 
         /* checks if a session is set, if not, we try to check login data on the server */
 		return !session ? (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getContent().get("response") : session;
 	}
 	
-	public boolean checkAnswer(Question question, Question.Answer answer){
+	public boolean checkAnswer(int questionID, Question.Answer answer){
 		return true;
 	}
 	
