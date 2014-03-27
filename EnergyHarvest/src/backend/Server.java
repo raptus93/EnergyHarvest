@@ -81,7 +81,6 @@ public class Server {
                 int score = (Integer) response.getFromContent("score");
                 int clanID = (Integer) response.getFromContent("clanid");
 
-
                 /* need to fetch clan infos */
                 setUser(new User(id, name, response_email, score, getClanByID(clanID)));
 
@@ -122,17 +121,22 @@ public class Server {
 	}
 
     public Clan getClanByID(int id){
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("id", id);
 
-        Package response = sendPackage(new Package(Package.Type.REQUEST_CLAN_INFO_BY_ID, map));
+        if(id > 0){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("id", id);
 
-        String name = (String) response.getFromContent("name");
-        String logo = (String) response.getFromContent("logo");
-        int clanID = (Integer) response.getFromContent("id");
-        int membercount = (Integer) response.getFromContent("membercount");
+            Package response = sendPackage(new Package(Package.Type.REQUEST_CLAN_INFO_BY_ID, map));
 
-        return new Clan(clanID, name, logo, membercount);
+            String name = (String) response.getFromContent("name");
+            String logo = (String) response.getFromContent("logo");
+            int clanID = (Integer) response.getFromContent("id");
+            int membercount = (Integer) response.getFromContent("membercount");
+
+            return new Clan(clanID, name, logo, membercount);
+        }else{
+            return new Clan(0, "No Clan", "No Logo", 0);
+        }
     }
 
     public boolean checkAnswer(int questionID, Question.Answer answer){
@@ -155,7 +159,15 @@ public class Server {
     }
 
     public boolean leaveClan(){
-        return true;
+        if(getActiveUser().clan.id > 0){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("userid", getActiveUser().id);
+            map.put("clanid", getActiveUser().clan.id);
+
+            Package response = sendPackage(new Package(Package.Type.REQUEST_LEAVE_CLAN, map));
+            return (Boolean) response.getFromContent("response");
+        }
+        return false;
     }
 
     /* PRIVATE */
