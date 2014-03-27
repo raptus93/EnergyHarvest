@@ -155,7 +155,13 @@ public class Server {
     }
 
     public boolean register(String name, String email, String pw){
-        return true;
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
+        map.put("email", email);
+        map.put("pw", pw);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_USER, map));
+        return (Boolean) response.getFromContent("response");
     }
 
     public boolean leaveClan(){

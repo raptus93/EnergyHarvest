@@ -37,5 +37,8 @@ public class DummyConnector {
 
         /* logout */
         Server.getInstance().logout();
+
+        /* register new user */
+        System.out.println(Server.getInstance().register("hans", "email", "password"));
     }
 }
