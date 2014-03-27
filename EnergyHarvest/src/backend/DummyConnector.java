@@ -13,6 +13,12 @@ public class DummyConnector {
         System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
 
         /* clancreation  */
+
+
+        /*
+            1. After Clan creation -> Logout -> Log back in
+            2. Refresh Users Clan
+        */
         System.out.println("Clan creation " + Server.getInstance().createClan("kaffee"));
 
         /* questions from server */
