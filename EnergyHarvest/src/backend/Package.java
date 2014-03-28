@@ -65,7 +65,7 @@ public class Package implements java.io.Serializable{
     public Object getFromContent(String key){
         Object o = getContent().get(key);
         if(o == null)
-            o = "NULL";
+            o = "0";
         return o;
     }
 

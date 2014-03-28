@@ -10,7 +10,9 @@ public class DummyConnector {
     public static void main(String[] args) {
 
         /* login */
-        System.out.println(Server.getInstance().login("sergej@admin.de", "123456"));
+        System.out.println(Server.getInstance().login("ente@clown.de", "test"));
+
+        Server.getInstance().getActiveUser().print();
 
         /* clancreation  */
 
@@ -40,6 +42,6 @@ public class DummyConnector {
         Server.getInstance().logout();
 
         /* register new user */
-        System.out.println(Server.getInstance().register("hans", "email", "password"));
+        System.out.println(Server.getInstance().register("frosch", "ente@clown.de", "test"));
     }
 }
