@@ -10,7 +10,7 @@ public class DummyConnector {
     public static void main(String[] args) {
 
         /* login */
-        System.out.println(Server.getInstance().login("sergej@admin.de","123456"));
+        System.out.println(Server.getInstance().login("sergej@admin.de", "123456"));
 
         /* clancreation  */
 
@@ -19,7 +19,8 @@ public class DummyConnector {
             1. After Clan creation -> Logout -> Log back in
             2. Refresh Users Clan
         */
-        System.out.println("Clan creation " + Server.getInstance().createClan("kaffee"));
+
+        System.out.println("Clan creation " + Server.getInstance().createClan("kaffee12345"));
 
         /* questions from server */
         QuestionCatalog fragen = Server.getInstance().getRandomQuestions(10);
@@ -32,7 +33,7 @@ public class DummyConnector {
 
 
         /* try to leave clan ! */
-        Server.getInstance().leaveClan();
+        System.out.println(Server.getInstance().leaveClan());
 
 
         /* logout */

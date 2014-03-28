@@ -60,15 +60,16 @@ public class Server {
     private User user = GUEST_USER;
 	private Server(){}
 	
-	public boolean login(String email, String pw){
+	public ErrorCode login(String email, String pw){
         if(!session){
             HashMap<String, Object> request = new HashMap<String, Object>();
             request.put("email", email);
             request.put("password", pw);
 
-            boolean loginSuccessful = (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getFromContent("response");
+            Package login = sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request));
+            ErrorCode loginResponse = (ErrorCode) login.getFromContent("response");
 
-            if(loginSuccessful){
+            if(loginResponse == ErrorCode.SUCCESS){
                 /* if the login was sucessful, we fetch the user data from the server */
                 HashMap<String, Object> map = new HashMap<String, Object>();
                 map.put("email", email);
@@ -86,9 +87,11 @@ public class Server {
 
                 session = true;
             }
+            return loginResponse;
 
         }
-		return session;
+        /* user is not logged in */
+		return ErrorCode.ERROR;
 	}
 
     public boolean logout(){
@@ -111,13 +114,13 @@ public class Server {
 		return new QuestionCatalog((LinkedList<Question>) response.getFromContent("response"));
 	}
 	
-	public boolean createClan(String name){
+	public ErrorCode createClan(String name){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
         map.put("userid", getActiveUser().id);
 
         Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_CLAN, map));
-        return (Boolean) response.getFromContent("response");
+        return (ErrorCode) response.getFromContent("response");
 	}
 
     public Clan getClanByID(int id){
@@ -154,14 +157,14 @@ public class Server {
         return true;
     }
 
-    public boolean register(String name, String email, String pw){
+    public ErrorCode register(String name, String email, String pw){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
         map.put("email", email);
         map.put("pw", pw);
 
         Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_USER, map));
-        return (Boolean) response.getFromContent("response");
+        return (ErrorCode) response.getFromContent("response");
     }
 
     public boolean leaveClan(){
