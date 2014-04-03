@@ -28,45 +28,14 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* used across backend & client */
-
 package backend;
 
-import java.util.HashMap;
+public enum ErrorCode implements java.io.Serializable{
+    /* error messages */
+    ERROR, INVALID_EMAIL, WRONG_PASSWORD, USERNAME_TAKEN, CLANNAME_TAKEN,
+    CLAN_INVITE_WRONG_ID, CLAN_INVITE_USER_ALREADY_IN_CLAN, EMAIL_TAKEN,
+    EMAIL_AND_USER_NAME_TAKEN,
 
-public class Package implements java.io.Serializable{
-
-    private static final long serialVersionUID = 1L;
-
-    public static enum Type{
-        REQUEST_CHECK_LOGIN, REQUEST_FETCH_QUESTIONS, REQUEST_REGISTER_CLAN, REQUEST_INVITE_MEMBER,
-        RESPONSE_CHECK_LOGIN, RESPONSE_FETCH_QUESTIONS, RESPONSE_REGISTER_CLAN, RESPONSE_INVITE_MEMBER,
-        REQUEST_GET_USER_BY_EMAIL, RESPONSE_GET_USER_BY_EMAIL, REQUEST_CLAN_INFO_BY_ID, RESPONSE_CLAN_INFO_BY_ID,
-        REQUEST_CHECK_ANSWER, RESPONSE_CHECK_ANSWER, REQUEST_LEAVE_CLAN, RESPONSE_LEAVE_CLAN,
-        REQUEST_REGISTER_USER, RESPONSE_REGISTER_USER, FAILED_TO_CONNECT_TO_SERVER
-    }
-
-    private HashMap<String, Object> content;
-    private Type type;
-
-    public Package(Type type, HashMap<String, Object> content){
-        this.type = type;
-        this.content = content;
-    }
-
-    public HashMap<String, Object> getContent(){
-        return content;
-    }
-
-    public Type getType(){
-        return type;
-    }
-
-    public Object getFromContent(String key){
-        Object o = getContent().get(key);
-        if(o == null)
-            o = "0";
-        return o;
-    }
-
+    /* success messages */
+    SUCCESS
 }

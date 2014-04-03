@@ -60,15 +60,16 @@ public class Server {
     private User user = GUEST_USER;
 	private Server(){}
 	
-	public boolean login(String email, String pw){
+	public ErrorCode login(String email, String pw){
         if(!session){
             HashMap<String, Object> request = new HashMap<String, Object>();
             request.put("email", email);
             request.put("password", pw);
 
-            boolean loginSuccessful = (Boolean) sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request)).getFromContent("response");
+            Package login = sendPackage(new Package(Package.Type.REQUEST_CHECK_LOGIN, request));
+            ErrorCode loginResponse = (ErrorCode) login.getFromContent("response");
 
-            if(loginSuccessful){
+            if(loginResponse == ErrorCode.SUCCESS){
                 /* if the login was sucessful, we fetch the user data from the server */
                 HashMap<String, Object> map = new HashMap<String, Object>();
                 map.put("email", email);
@@ -81,15 +82,16 @@ public class Server {
                 int score = (Integer) response.getFromContent("score");
                 int clanID = (Integer) response.getFromContent("clanid");
 
-
                 /* need to fetch clan infos */
                 setUser(new User(id, name, response_email, score, getClanByID(clanID)));
 
                 session = true;
             }
+            return loginResponse;
 
         }
-		return session;
+        /* user is not logged in */
+		return ErrorCode.ERROR;
 	}
 
     public boolean logout(){
@@ -112,27 +114,32 @@ public class Server {
 		return new QuestionCatalog((LinkedList<Question>) response.getFromContent("response"));
 	}
 	
-	public boolean createClan(String name){
+	public ErrorCode createClan(String name){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
         map.put("userid", getActiveUser().id);
 
         Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_CLAN, map));
-        return (Boolean) response.getFromContent("response");
+        return (ErrorCode) response.getFromContent("response");
 	}
 
     public Clan getClanByID(int id){
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("id", id);
 
-        Package response = sendPackage(new Package(Package.Type.REQUEST_CLAN_INFO_BY_ID, map));
+        if(id > 0){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("id", id);
 
-        String name = (String) response.getFromContent("name");
-        String logo = (String) response.getFromContent("logo");
-        int clanID = (Integer) response.getFromContent("id");
-        int membercount = (Integer) response.getFromContent("membercount");
+            Package response = sendPackage(new Package(Package.Type.REQUEST_CLAN_INFO_BY_ID, map));
 
-        return new Clan(clanID, name, logo, membercount);
+            String name = (String) response.getFromContent("name");
+            String logo = (String) response.getFromContent("logo");
+            int clanID = (Integer) response.getFromContent("id");
+            int membercount = (Integer) response.getFromContent("membercount");
+
+            return new Clan(clanID, name, logo, membercount);
+        }else{
+            return new Clan(0, "No Clan", "No Logo", 0);
+        }
     }
 
     public boolean checkAnswer(int questionID, Question.Answer answer){
@@ -150,12 +157,26 @@ public class Server {
         return true;
     }
 
-    public boolean register(String name, String email, String pw){
-        return true;
+    public ErrorCode register(String name, String email, String pw){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
+        map.put("email", email);
+        map.put("pw", pw);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_USER, map));
+        return (ErrorCode) response.getFromContent("response");
     }
 
     public boolean leaveClan(){
-        return true;
+        if(getActiveUser().clan.id > 0){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("userid", getActiveUser().id);
+            map.put("clanid", getActiveUser().clan.id);
+
+            Package response = sendPackage(new Package(Package.Type.REQUEST_LEAVE_CLAN, map));
+            return (Boolean) response.getFromContent("response");
+        }
+        return false;
     }
 
     /* PRIVATE */
