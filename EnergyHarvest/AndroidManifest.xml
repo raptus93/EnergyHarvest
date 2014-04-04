@@ -12,15 +12,64 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
-            android:name="Quiz.MainActivity"
+            android:name="gui.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="gui.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:parentActivityName="gui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MainActivity" />
+        </activity>
+        <activity
+            android:name="gui.MapActivity"
+            android:label="@string/title_activity_map"
+            android:parentActivityName="gui.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MenuActivity" />
+        </activity>
+        <activity
+            android:name="gui.ClanActivity"
+            android:label="@string/title_activity_clan"
+            android:parentActivityName="gui.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MenuActivity" />
+        </activity>
+        <activity
+            android:name="gui.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName="gui.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MenuActivity" />
+        </activity>
+        <activity
+            android:name="gui.TutorialActivity"
+            android:label="@string/title_activity_tutorial"
+            android:parentActivityName="gui.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MenuActivity" />
+        </activity>
+        <activity
+            android:name="gui.RegistryActivity"
+            android:label="@string/title_activity_registry"
+            android:parentActivityName="gui.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MenuActivity" />
         </activity>
     </application>
 

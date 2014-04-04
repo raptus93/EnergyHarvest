@@ -7,5 +7,27 @@
     <string name="answerB">answerB</string>
     <string name="answerC">answerC</string>
     <string name="answerD">answerD</string>
-	<string name="question">How is that possible?</string>
+    <string name="question">How is that possible?</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="username">Benutzername</string>
+    <string name="hello_clan">Hello Clan!</string>
+    <string name="hello_map">Hello Map!</string>
+    <string name="hello_tutorial">Hello Tutorial!</string>
+    <string name="hello_profile">Hello Profile!</string>
+    <string name="hello_menu">Hello Menu!</string>
+    <string name="hello_registry">Hello Registry!</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="confirm">Confirm</string>
+    <string name="username_not_found">Username does not exist!</string>
+    <string name="password_incorrect">The password is not correct!</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_clan">ClanActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="title_activity_registry">RegistryActivity</string>
+
 </resources>
