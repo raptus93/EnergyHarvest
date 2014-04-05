@@ -2,11 +2,9 @@ package gui;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import backend.AndroidServerInterface;
 import backend.ErrorCode;
-import backend.ServerAsyncErrocodeCallback;
 import com.example.energyharvest.R;
-import com.example.energyharvest.R.layout;
-import com.example.energyharvest.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -26,27 +24,8 @@ public class RegistryActivity extends Activity {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registry);
         Log.i("error","onCreate");
-        AsyncTask<String, Void, ErrorCode> task = new ServerAsyncErrocodeCallback().execute();
 
-        try {
-            Log.i("error", task.get().toString() + " THIS IS OUR CALLBACKC");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-
-        /*fails */
-        try {
-            Log.i("error", new ServerAsyncErrocodeCallback().execute().get() + " THIS IS OUR INLINE CALLBACK");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-
+        ErrorCode ec = AndroidServerInterface.login("sergej@admin.de","123456");
     }
 
 	@Override
