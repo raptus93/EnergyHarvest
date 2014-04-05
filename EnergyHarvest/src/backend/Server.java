@@ -36,6 +36,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import android.util.Log;
+
 /**
  * 
  * @author Sergej Schefer
@@ -214,5 +216,10 @@ public class Server {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("response", false);
         return new Package(Package.Type.FAILED_TO_CONNECT_TO_SERVER, map);
+    }
+    
+    public String test() {
+    	return "test";
+    	
     }
 }
