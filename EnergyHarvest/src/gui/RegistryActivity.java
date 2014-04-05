@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import backend.AndroidServerInterface;
 import backend.ErrorCode;
+import backend.Question;
+import backend.QuestionCatalog;
 import com.example.energyharvest.R;
 
 import android.os.Bundle;
@@ -24,8 +26,14 @@ public class RegistryActivity extends Activity {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registry);
         Log.i("error","onCreate");
+        ErrorCode ec = AndroidServerInterface.login("sergej@admin.de", "123456");
+        Log.i("error", ec.toString());
 
-        ErrorCode ec = AndroidServerInterface.login("sergej@admin.de","123456");
+        QuestionCatalog q= AndroidServerInterface.getRandomQuestions(10);
+
+        for(Question que: q.getQuestionList()){
+            Log.i("error", que.text);
+        }
     }
 
 	@Override

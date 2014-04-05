@@ -10,7 +10,6 @@ public class AndroidServerInterface {
 
 
     public static ErrorCode login(String email, String password){
-
         /* anonymous inner class */
         AsyncTask<String, Void, ErrorCode> task = new AsyncTask<String, Void, ErrorCode>() {
             private Exception exception;
@@ -33,6 +32,8 @@ public class AndroidServerInterface {
                 // TODO: do something with the feed
             }
         };
+
+        task.execute(email, password);
 
         try {
             return task.get();
@@ -75,6 +76,16 @@ public class AndroidServerInterface {
                 // TODO: do something with the feed
             }
         };
+
+        task.execute(amount);
+
+        try {
+            return task.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         /* empty list ! */
         return new QuestionCatalog(new LinkedList<Question>());
