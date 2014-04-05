@@ -153,6 +153,15 @@ public class Server {
         return (Boolean) response.getFromContent("response");
     }
 
+    public boolean checkAnswerOrdinal(int questionID, int answer){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("id", questionID);
+        map.put("answer", answer);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_CHECK_ANSWER, map));
+        return (Boolean) response.getFromContent("response");
+    }
+
     // TODO
 
     public boolean inviteMember(int id){
@@ -217,9 +226,5 @@ public class Server {
         map.put("response", false);
         return new Package(Package.Type.FAILED_TO_CONNECT_TO_SERVER, map);
     }
-    
-    public String test() {
-    	return "test";
-    	
-    }
+
 }
