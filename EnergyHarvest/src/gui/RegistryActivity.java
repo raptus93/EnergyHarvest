@@ -1,5 +1,9 @@
 package gui;
 
+import android.os.AsyncTask;
+import android.util.Log;
+import backend.ErrorCode;
+import backend.ServerAsyncErrocodeCallback;
 import com.example.energyharvest.R;
 import com.example.energyharvest.R.layout;
 import com.example.energyharvest.R.menu;
@@ -12,13 +16,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.NavUtils;
 
+import java.util.concurrent.ExecutionException;
+
 public class RegistryActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registry);
-	}
+        Log.i("error","onCreate");
+        AsyncTask<String, Void, ErrorCode> task = new ServerAsyncErrocodeCallback().execute();
+
+        try {
+            Log.i("error", task.get().toString() + " THIS IS OUR CALLBACKC");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        /*fails */
+        try {
+            Log.i("error", new ServerAsyncErrocodeCallback().execute().get() + " THIS IS OUR INLINE CALLBACK");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
