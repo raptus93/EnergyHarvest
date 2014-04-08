@@ -1,5 +1,6 @@
 package gui;
 
+import quiz.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,6 +60,11 @@ public class MenuActivity extends Activity {
 	
 	public void goToTutorial(View view) {
 		Intent intent = new Intent(this, TutorialActivity.class);	    
+	    startActivity(intent);
+	}
+	
+	public void goToQuiz(View view) {
+		Intent intent = new Intent(this, quiz.QuizGUI.class);	    
 	    startActivity(intent);
 	}
 

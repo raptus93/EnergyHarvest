@@ -73,6 +73,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gui.MenuActivity" />
         </activity>
+        <activity
+            android:name="quiz.QuizGUI"
+            android:label="@string/title_activity_quiz"
+            android:parentActivityName="gui.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>

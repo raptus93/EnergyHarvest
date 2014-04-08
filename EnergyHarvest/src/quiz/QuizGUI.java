@@ -1,5 +1,6 @@
-package Quiz;
+package quiz;
 
+import quiz.QuizLogic;
 import backend.Question;
 import backend.Question.Answer;
 
@@ -9,6 +10,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.service.wallpaper.WallpaperService.Engine;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -50,10 +53,44 @@ public class QuizGUI extends Activity implements OnClickListener{
         //Create the first Question
         showNextQuestion();
     }
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	//Die folgende Methode wird benötigt, um die Activity in fullscreen zu haben, Standardmethode.
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	//Auskommentiert, da die Methode den Absturz verursacht. Ursache ist mir noch unklar :D
 
+
+	////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void onClick(View v) {		
-		if(v.getId() == R.id.answerA){
+		/*if(v.getId() == R.id.answerA){
 			chosenAnswer=Answer.A;
 		}
 		else if(v.getId() == R.id.answerB){
@@ -65,7 +102,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 		else if(v.getId() == R.id.answerD){
 			chosenAnswer=Answer.A;
 		}
-		logic.checkAnswer(chosenAnswer, this);
+		logic.checkAnswer(chosenAnswer, this);*/
 	}
 	/**
 	 * all buttons are blocked

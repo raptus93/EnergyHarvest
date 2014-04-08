@@ -1,7 +1,8 @@
-package Quiz;
+package quiz;
 
 import backend.Question;
 import backend.Question.Answer;
+import backend.AndroidServerInterface;
 import backend.QuestionCatalog;
 import backend.Server;
 
@@ -17,7 +18,14 @@ public class QuizLogic {
 	
 	public void getQuestions(){
 		//Fragen aus der Fragenliste holen
-		questions = Server.getInstance().getRandomQuestions(10);
+		////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		//Hier die Schnittstelle zum Server geändert.
+
+
+		////////////////////////////////////////////////////////////////////////////////////
+		questions = AndroidServerInterface.getRandomQuestions(10);
  
 		currentQuestion++;
 	}
@@ -45,7 +53,14 @@ public class QuizLogic {
 		gui.blockButtons();
 		
 		//Auswertung der Antwort
-		if(Server.getInstance().checkAnswer(questions.get(currentQuestion).id, chosenAnswer)){
+		////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		//Hier die Schnittstelle zum Server geändert.
+
+
+		////////////////////////////////////////////////////////////////////////////////////
+		if(AndroidServerInterface.checkAnswer(questions.get(currentQuestion).id, chosenAnswer)){
 			correctAnswers++;
 			gui.highlight(true, chosenAnswer);
 		}
