@@ -1,6 +1,7 @@
 package Quiz;
 
 import backend.Question;
+import backend.Question.Answer;
 import backend.QuestionCatalog;
 import backend.Server;
 
@@ -12,46 +13,53 @@ public class QuizLogic {
 	private int correctAnswers = 0;
 	private QuestionCatalog questions;
 	
+	private QuizGUI gui;
 	
-	private void getQuestions(){
+	public void getQuestions(){
 		//Fragen aus der Fragenliste holen
 		questions = Server.getInstance().getRandomQuestions(10);
-        
-		/*for(Question q : questions.getQuestionList()){
-            System.out.println(q.text);
-        }
-		*/
-		//questions.get(currentQuestion);
+ 
 		currentQuestion++;
 	}
-	/**
-	 * @param answer 1 is A, 2 is B, 3 is C, 4 is D
-	 */
-	public void saveAnswer(int answer){
-		boolean isCorrect = true; //default = true (?)
-		//Überprüfung auf Richtigkeit von answer beim Server um isCorrect zu ändern
-		
-		//Speichern der Anzahl der richtigen Antworten
-		if (isCorrect)
-		{
-			correctAnswers++;
-		}
-		//Anzeige von grünem oder rotem Feld auf gegebener Antwort blinkend für 2-3 Sekunden
-		//QuizGUI.showCorrectness(); -> wegen 3 Schicht Architektur hier trennen
-		//Aufruf von nextQuestion()
-	}
 	
-	private void nextQuestion(){
-		//Anzeige der nächsten Frage durch Serveranfrage
-		
-	}
+
 	
+	public Question nextQuestion(){
+		currentQuestion++;
+		return questions.popQuestion();
+	}
+
+
+
 	private void sendNumberOfCorrectAnswers(){
 		//Serveraufruf um die Anzahl der richtigen Antworten (correctAnswers) dort zu speichern
 		
 	}
-	public void ping() {
-		//hier die Antwort mit getAnswer() aus der GUI holen
+	
+	/**
+	 * @param chosenAnswer 1 is A, 2 is B, 3 is C, 4 is D
+	 */
+	public void checkAnswer(Answer chosenAnswer, QuizGUI gui) {
+		boolean isCorrect;
+		//Blockade der Buttons
+		gui.blockButtons();
+		
+		//Auswertung der Antwort
+		if(Server.getInstance().checkAnswer(questions.get(currentQuestion).id, chosenAnswer)){
+			correctAnswers++;
+			gui.highlight(true, chosenAnswer);
+		}
+		else{
+			gui.highlight(false, chosenAnswer);
+		}
+		
+		//Falls nicht die letzte, nächste Frage anzeigen
+		if(currentQuestion<10){
+			gui.showNextQuestion();
+		}
+		else{
+			//beenden des Quizmodus
+		}
 	}
 	
 	

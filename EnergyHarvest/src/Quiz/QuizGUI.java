@@ -1,9 +1,14 @@
 package Quiz;
 
+import backend.Question;
+import backend.Question.Answer;
+
 import com.example.energyharvest.R;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.service.wallpaper.WallpaperService.Engine;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +23,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 	Button btnAnswerD;
 	QuizLogic logic;
 	
-	int chosenAnswer = 0;
+	Question.Answer chosenAnswer = Answer.A;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,8 @@ public class QuizGUI extends Activity implements OnClickListener{
         setContentView(R.layout.activity_quiz);
         //Initializing the Logic
         logic = new QuizLogic();
+        logic.getQuestions();
+        
         //Initializing the textView and the buttons
         tvQuestion = (TextView) findViewById(R.id.question);
         
@@ -33,33 +40,102 @@ public class QuizGUI extends Activity implements OnClickListener{
         btnAnswerB = (Button) findViewById(R.id.answerB);
         btnAnswerC = (Button) findViewById(R.id.answerC);
         btnAnswerD = (Button) findViewById(R.id.answerD);
+        
         //Adding the Listener for the Answer-Buttons
         btnAnswerA.setOnClickListener(this);
         btnAnswerB.setOnClickListener(this);
         btnAnswerC.setOnClickListener(this);
         btnAnswerD.setOnClickListener(this);
+        
+        //Create the first Question
+        showNextQuestion();
     }
 
 	@Override
-	public void onClick(View v) {
-		//Close all Buttons
-		
-		//Differentiation which Button was clicked (all have the same Listener)
-		//PROBLEM DARAN: Zugriff von "oben nach unten"
-		
+	public void onClick(View v) {		
 		if(v.getId() == R.id.answerA){
-			chosenAnswer=1;
+			chosenAnswer=Answer.A;
 		}
 		else if(v.getId() == R.id.answerB){
-			chosenAnswer=2;
+			chosenAnswer=Answer.A;
 		}
 		else if(v.getId() == R.id.answerC){
-			chosenAnswer=3;
+			chosenAnswer=Answer.A;
 		}
 		else if(v.getId() == R.id.answerD){
-			chosenAnswer=4;
+			chosenAnswer=Answer.A;
 		}
-		logic.ping();
+		logic.checkAnswer(chosenAnswer, this);
 	}
-	//public int getAnswer();
+	/**
+	 * all buttons are blocked
+	 * this happens, after one answer is chosen
+	 */
+	public void blockButtons(){
+		btnAnswerA.setActivated(false);
+		btnAnswerB.setActivated(false);
+		btnAnswerC.setActivated(false);
+		btnAnswerD.setActivated(false);
+	}
+	
+	
+	/**
+	 * is called by the logic
+	 * the new question and the new answers are shown and
+	 * the button are enabled
+	 */
+	public void showNextQuestion(){
+		Question q = logic.nextQuestion();
+		
+		tvQuestion.setText(q.text);
+		btnAnswerA.setText(q.answerA);
+		btnAnswerB.setText(q.answerB);
+		btnAnswerC.setText(q.answerC);
+		btnAnswerD.setText(q.answerD);
+		
+		btnAnswerA.setActivated(true);
+		btnAnswerB.setActivated(true);
+		btnAnswerC.setActivated(true);
+		btnAnswerD.setActivated(true);
+	}
+	
+	/**
+	 * Highlights the chosen answer. Green if right, red otherwise.
+	 * @param correct is true, if the answer has been correct, otherwise it is false
+	 * @param chosenAnswer
+	 */
+	public void highlight(boolean correct, Answer chosenAnswer) {
+		if(chosenAnswer == Answer.A){
+			if(correct){
+				//A wird grün
+				btnAnswerA.setBackgroundColor(Color.GREEN);
+			}
+			//A wird rot
+			btnAnswerA.setBackgroundColor(Color.RED);
+		}
+		if(chosenAnswer == Answer.B){
+			if(correct){
+				//B wird grün
+				btnAnswerB.setBackgroundColor(Color.GREEN);
+			}
+			//B wird rot
+			btnAnswerB.setBackgroundColor(Color.RED);
+		}
+		if(chosenAnswer == Answer.C){
+			if(correct){
+				//C wird grün
+				btnAnswerC.setBackgroundColor(Color.GREEN);
+			}
+			//C wird rot
+			btnAnswerC.setBackgroundColor(Color.RED);
+		}
+		if(chosenAnswer == Answer.D){
+			if(correct){
+				//D wird grün
+				btnAnswerD.setBackgroundColor(Color.GREEN);
+			}
+			//D wird rot
+			btnAnswerD.setBackgroundColor(Color.RED);
+		}
+	}
 }

@@ -46,6 +46,15 @@ public class QuestionCatalog {
     }
 	
 	/**
+	 * analog to the get() from the LinkedList
+	 * @param i
+	 * @return
+	 */
+	public Question get(int i){
+		return questions.get(i);
+	}
+	
+	/**
 	 * pulls a question from the catalog
 	 * @return
 	 */
