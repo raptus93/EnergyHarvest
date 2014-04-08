@@ -26,21 +26,22 @@ public final class R {
         public static final int map_background=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
-        public static final int answerA=0x7f080009;
-        public static final int answerB=0x7f08000c;
-        public static final int answerC=0x7f08000b;
-        public static final int answerD=0x7f08000a;
+        public static final int action_settings=0x7f080010;
+        public static final int answerA=0x7f08000a;
+        public static final int answerB=0x7f08000d;
+        public static final int answerC=0x7f08000c;
+        public static final int answerD=0x7f08000b;
         public static final int button1=0x7f080002;
         public static final int button2=0x7f080001;
         public static final int button3=0x7f080005;
         public static final int button4=0x7f080006;
         public static final int button5=0x7f080007;
+        public static final int button6=0x7f080008;
         public static final int editText1=0x7f080003;
         public static final int editText2=0x7f080004;
-        public static final int editText3=0x7f08000d;
-        public static final int editText4=0x7f08000e;
-        public static final int question=0x7f080008;
+        public static final int editText3=0x7f08000e;
+        public static final int editText4=0x7f08000f;
+        public static final int question=0x7f080009;
         public static final int textView1=0x7f080000;
     }
     public static final class layout {
@@ -87,6 +88,7 @@ public final class R {
         public static final int title_activity_map=0x7f050019;
         public static final int title_activity_menu=0x7f050015;
         public static final int title_activity_profile=0x7f050018;
+        public static final int title_activity_quiz=0x7f05001c;
         public static final int title_activity_registry=0x7f05001b;
         public static final int title_activity_tutorial=0x7f05001a;
         public static final int username=0x7f05000a;
