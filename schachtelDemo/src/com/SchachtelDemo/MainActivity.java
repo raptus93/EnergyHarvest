@@ -9,6 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.metaio.sdk.MetaioDebug;
+import com.metaio.tools.io.AssetsManager;
+
 public class MainActivity extends Activity
 {
 	/**

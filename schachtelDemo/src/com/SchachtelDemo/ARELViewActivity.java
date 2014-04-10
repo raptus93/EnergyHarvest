@@ -3,6 +3,8 @@ package com.SchachtelDemo;
 
 import android.view.View;
 
+import com.metaio.sdk.ARELActivity;
+
 public class ARELViewActivity extends ARELActivity {
 
 	@Override

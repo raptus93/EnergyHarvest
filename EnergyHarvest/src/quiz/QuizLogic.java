@@ -4,7 +4,6 @@ import backend.Question;
 import backend.Question.Answer;
 import backend.AndroidServerInterface;
 import backend.QuestionCatalog;
-import backend.Server;
 
 public class QuizLogic {
 	//10 Fragen gleichzeitig holen

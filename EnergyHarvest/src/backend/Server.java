@@ -36,8 +36,6 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import android.util.Log;
-
 /**
  * 
  * @author Sergej Schefer

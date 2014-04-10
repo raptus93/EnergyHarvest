@@ -1,6 +1,5 @@
 package gui;
 
-import android.os.AsyncTask;
 import android.util.Log;
 import backend.AndroidServerInterface;
 import backend.ErrorCode;
@@ -15,8 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.NavUtils;
-
-import java.util.concurrent.ExecutionException;
 
 public class RegistryActivity extends Activity {
 

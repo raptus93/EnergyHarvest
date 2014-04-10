@@ -1,14 +1,13 @@
 package gui;
 
-import quiz.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.example.energyharvest.R;
 
 public class MenuActivity extends Activity {
@@ -68,4 +67,23 @@ public class MenuActivity extends Activity {
 	    startActivity(intent);
 	}
 
+	public void arImageDemo(View view)
+	
+	{
+		Intent i = new Intent(Intent.ACTION_MAIN);
+		PackageManager manager = getPackageManager();
+		i = manager.getLaunchIntentForPackage("com.valkyrieDemo");
+		i.addCategory(Intent.CATEGORY_LAUNCHER);
+		startActivity(i);
+	}
+	public void arMapDemo(View view)
+	
+	{
+		Intent i = new Intent(Intent.ACTION_MAIN);
+		PackageManager manager = getPackageManager();
+		i = manager.getLaunchIntentForPackage("com.SchachtelDemo");
+		i.addCategory(Intent.CATEGORY_LAUNCHER);
+		startActivity(i);
+	}
+	
 }

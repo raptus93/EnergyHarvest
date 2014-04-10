@@ -9,7 +9,6 @@ import com.example.energyharvest.R;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.service.wallpaper.WallpaperService.Engine;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;

@@ -1,9 +1,6 @@
 package gui;
 
 import com.example.energyharvest.R;
-import com.example.energyharvest.R.layout;
-import com.example.energyharvest.R.menu;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;

@@ -16,7 +16,8 @@ public class PasswordIncorrectDialog extends DialogFragment {
 	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        builder.setMessage(R.string.password_incorrect)
 	               .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
+	                   @Override
+					public void onClick(DialogInterface dialog, int id) {
 	                       // FIRE ZE MISSILES!
 	                	   dialog.dismiss();
 	                   }

@@ -30,5 +30,7 @@
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="title_activity_registry">RegistryActivity</string>
     <string name="title_activity_quiz">QuizActivity</string>
+    <string name="title_activity_fight">FightActivity</string>
+    <string name="title_activity_demo">DemoActivity</string>
 
 </resources>
