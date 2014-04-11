@@ -43,7 +43,8 @@ public class Package implements java.io.Serializable{
         RESPONSE_CHECK_LOGIN, RESPONSE_FETCH_QUESTIONS, RESPONSE_REGISTER_CLAN, RESPONSE_INVITE_MEMBER,
         REQUEST_GET_USER_BY_EMAIL, RESPONSE_GET_USER_BY_EMAIL, REQUEST_CLAN_INFO_BY_ID, RESPONSE_CLAN_INFO_BY_ID,
         REQUEST_CHECK_ANSWER, RESPONSE_CHECK_ANSWER, REQUEST_LEAVE_CLAN, RESPONSE_LEAVE_CLAN,
-        REQUEST_REGISTER_USER, RESPONSE_REGISTER_USER, FAILED_TO_CONNECT_TO_SERVER
+        REQUEST_REGISTER_USER, RESPONSE_REGISTER_USER, FAILED_TO_CONNECT_TO_SERVER, REQUEST_CHECK_CLAN_EXISTS_ON_LOGIN,
+        RESPONSE_CHECK_CLAN_EXISTS_ON_LOGIN
     }
 
     private HashMap<String, Object> content;
@@ -65,7 +66,7 @@ public class Package implements java.io.Serializable{
     public Object getFromContent(String key){
         Object o = getContent().get(key);
         if(o == null)
-            o = "0";
+            o = 0;
         return o;
     }
 

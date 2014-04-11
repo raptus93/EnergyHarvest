@@ -23,8 +23,7 @@ public class AndroidServerInterface {
                 }
             }
 
-            @Override
-			protected void onPostExecute(ErrorCode error) {
+            protected void onPostExecute(ErrorCode error) {
                 if(this.exception != null)
                     Log.i("error", this.exception.toString() + "  this is the exception");
 
@@ -107,8 +106,7 @@ public class AndroidServerInterface {
                 }
             }
 
-            @Override
-			protected void onPostExecute(ErrorCode error) {
+            protected void onPostExecute(ErrorCode error) {
                 if(this.exception != null)
                     Log.i("error", this.exception.toString() + "  this is the exception");
 
@@ -138,7 +136,7 @@ public class AndroidServerInterface {
             @Override
             protected Clan doInBackground(Integer... integers) {
                 try {
-                    return Server.getInstance().getClanByID(integers[0]);
+                    return Server.getInstance().getClanByID(integers[0], Server.getInstance().getActiveUser().id);
                 } catch (Exception e) {
                     this.exception = e;
                     return null;
@@ -215,8 +213,7 @@ public class AndroidServerInterface {
                 }
             }
 
-            @Override
-			protected void onPostExecute(ErrorCode error) {
+            protected void onPostExecute(ErrorCode error) {
                 if(this.exception != null)
                     Log.i("error", this.exception.toString() + "  this is the exception");
             }

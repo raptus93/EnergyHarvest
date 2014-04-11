@@ -39,13 +39,17 @@ public class User {
     public final int score;
     public final String name;
     public final String email;
-    public final Clan clan;
+    public Clan clan;
 
     public User(int id, String name, String email, int score, Clan clan){
         this.id = id;
         this.score = score;
         this.name = name;
         this.email = email;
+        setClan(clan);
+    }
+
+    public void setClan(Clan clan){
         this.clan = clan;
     }
 

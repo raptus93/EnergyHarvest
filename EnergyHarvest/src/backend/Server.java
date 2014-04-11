@@ -36,6 +36,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import android.util.Log;
+
 /**
  * 
  * @author Sergej Schefer
@@ -52,6 +54,7 @@ public class Server {
 
     /* config */
     private final String SERVER_IP = "caramelswirl.myqnapcloud.com";
+    private final String SERVER2_IP = "rawfood.no-ip.biz";
     private final int SERVER_PORT = 8888;
 
     /* members */
@@ -83,7 +86,7 @@ public class Server {
                 int clanID = (Integer) response.getFromContent("clanid");
 
                 /* need to fetch clan infos */
-                setUser(new User(id, name, response_email, score, getClanByID(clanID)));
+                setUser(new User(id, name, response_email, score, getClanByID(clanID, id)));
 
                 session = true;
             }
@@ -120,12 +123,20 @@ public class Server {
         map.put("userid", getActiveUser().id);
 
         Package response = sendPackage(new Package(Package.Type.REQUEST_REGISTER_CLAN, map));
-        return (ErrorCode) response.getFromContent("response");
+        ErrorCode e = (ErrorCode) response.getFromContent("response");
+
+        if(e == ErrorCode.SUCCESS){
+            int createdClanId = (Integer) response.getFromContent("clanid");
+            System.out.println("new created clan has id: " + createdClanId);
+            getActiveUser().setClan(getClanByID(createdClanId, getActiveUser().id));
+        }
+
+        return e;
 	}
 
-    public Clan getClanByID(int id){
+    public Clan getClanByID(int id, int userID){
 
-        if(id > 0){
+        if(id > 0 && checkClanExists(id, userID)){
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("id", id);
 
@@ -140,6 +151,15 @@ public class Server {
         }else{
             return new Clan(0, "No Clan", "No Logo", 0);
         }
+    }
+
+    public boolean checkClanExists(int clanID, int userID){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("clanid", clanID);
+        map.put("userid", userID);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_CHECK_CLAN_EXISTS_ON_LOGIN, map));
+        return (Boolean) response.getFromContent("response");
     }
 
     public boolean checkAnswer(int questionID, Question.Answer answer){
@@ -162,8 +182,19 @@ public class Server {
 
     // TODO
 
-    public boolean inviteMember(int id){
-        return true;
+    public ErrorCode inviteMember(int id){
+        if(getActiveUser().clan.id > 0){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("clanid", getActiveUser().clan.id);
+            map.put("memberID", id);
+
+            Package response = sendPackage(new Package(Package.Type.REQUEST_INVITE_MEMBER, map));
+            return (ErrorCode) response.getFromContent("response");
+        }else if(getActiveUser().id == id){
+            /* don't invite yourself, fool */
+            return ErrorCode.ACTIVE_USER_NOT_IN_CLAN;
+        }
+        return ErrorCode.ACTIVE_USER_NOT_IN_CLAN;
     }
 
     public ErrorCode register(String name, String email, String pw){
@@ -199,7 +230,7 @@ public class Server {
         Socket clientSocket;
 
         try {
-            clientSocket = new Socket(SERVER_IP, SERVER_PORT);
+            clientSocket = new Socket(SERVER2_IP, SERVER_PORT);
             ObjectOutputStream outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
             outToServer.writeObject(p);
             outToServer.flush();
