@@ -61,6 +61,15 @@ public class QuestionCatalog {
         return questions.remove(0);
     }
 
+    /**
+     * analog to the get() from the LinkedList
+     * @param i
+     * @return
+     */
+    public Question get(int i){
+        return questions.get(i);
+    }
+
     public LinkedList<Question> getQuestionList(){
         return questions;
     }
