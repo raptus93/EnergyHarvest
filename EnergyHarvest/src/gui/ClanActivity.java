@@ -7,6 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 
+/**
+ * @version 1.1.3 (12/04/2014)
+ * @author Kjell Bunjes
+ *
+ */
+
 public class ClanActivity extends Activity {
 
 	@Override

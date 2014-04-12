@@ -10,6 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import com.example.energyharvest.R;
 
+/**
+ * @version 1.1.3 (12/04/2014)
+ * @author Kjell Bunjes
+ *
+ */
+
 public class MenuActivity extends Activity {
 
 	@Override
@@ -43,7 +49,8 @@ public class MenuActivity extends Activity {
 	}
 	
 	public void goToMap(View view) {
-		Intent intent = new Intent(this, MapActivity.class);	    
+		Intent intent = new Intent(this, MapActivity.class);
+		intent.putExtra("debugging", "id: " + Math.random());
 	    startActivity(intent);
 	}
 	

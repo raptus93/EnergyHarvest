@@ -10,7 +10,7 @@
     <string name="question">How is that possible?</string>
     <string name="hello_world">Hello world!</string>
     <string name="email">E-mail</string>
-    <string name="password">Password</string>
+    <string name="password">Passwort</string>
     <string name="username">Benutzername</string>
     <string name="hello_clan">Hello Clan!</string>
     <string name="hello_map">Hello Map!</string>
@@ -19,7 +19,7 @@
     <string name="hello_menu">Hello Menu!</string>
     <string name="hello_registry">Hello Registry!</string>
     <string name="main_menu">Main Menu</string>
-    <string name="confirm">Confirm</string>
+    <string name="confirm">Bestätigen</string>
     <string name="username_not_found">Username does not exist!</string>
     <string name="password_incorrect">The password is not correct!</string>
     <string name="title_activity_menu">MenuActivity</string>

@@ -8,6 +8,12 @@ import android.os.Bundle;
 
 import com.example.energyharvest.R;
 
+/**
+ * @version 1.1.3 (12/04/2014)
+ * @author Kjell Bunjes
+ *
+ */
+
 public class PasswordIncorrectDialog extends DialogFragment {
 	
 	 @Override

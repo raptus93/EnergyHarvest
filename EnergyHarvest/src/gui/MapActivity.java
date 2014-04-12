@@ -1,11 +1,20 @@
 package gui;
 
-import com.example.energyharvest.R;
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+
+import com.example.energyharvest.R;
+
+/**
+ * @version 1.1.3 (12/04/2014)
+ * @author Kjell Bunjes
+ *
+ */
 
 public class MapActivity extends Activity {
 
@@ -13,6 +22,9 @@ public class MapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
+		
+		Intent intent = getIntent();
+		Log.i("debug", intent.getStringExtra("debugging"));
 	}
 
 
