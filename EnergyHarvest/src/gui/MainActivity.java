@@ -1,12 +1,13 @@
 package gui;
 
-import java.util.concurrent.CountDownLatch;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import backend.Server;
 import com.example.energyharvest.R;
 
 /**
- * @version 1.1.3 (12/04/2014)
+ * @version 1.1.3 (13/04/2014)
  * @author Kjell Bunjes
  *
  */
@@ -42,9 +43,17 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+	
 	public void login(View view) {
 		email = ((EditText)findViewById(R.id.loginEmail)).getText().toString();
 		password = ((EditText)findViewById(R.id.loginPassword)).getText().toString();
+		Log.i("debugging email", email);
+		Log.i("debugging password", password);
 		if(email.length() == 0 || password.length() == 0) {
 			Toast.makeText(MainActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
 		}
@@ -54,11 +63,9 @@ public class MainActivity extends Activity {
 		}		
 	}
 	
-	private class LoginTask extends AsyncTask<String, Void, Object> {
-		protected Object doInBackground(String...args) {
+	private class LoginTask extends AsyncTask<String, Void, Boolean> {
+		protected Boolean doInBackground(String...args) {
 			try {
-				
-				// TODO: ErrorCode Handling
 				errorCode = Server.getInstance().login(email, password);
 				loginSuccessful = (errorCode == ErrorCode.SUCCESS) ? true : false;
 			} catch (Exception e) {
@@ -67,7 +74,7 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		
-		protected void onPostExecute(Object result) {
+		protected void onPostExecute(Boolean result) {
 			if(MainActivity.this.progressDialog != null) {
 				MainActivity.this.progressDialog.dismiss();
 				if(loginSuccessful) {

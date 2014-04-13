@@ -8,7 +8,6 @@
     <string name="answerC">answerC</string>
     <string name="answerD">answerD</string>
     <string name="question">How is that possible?</string>
-    <string name="hello_world">Hello world!</string>
     <string name="email">E-mail</string>
     <string name="password">Passwort</string>
     <string name="username">Benutzername</string>
@@ -32,5 +31,17 @@
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="title_activity_fight">FightActivity</string>
     <string name="title_activity_demo">DemoActivity</string>
+    <string name="Registrieren">register</string>
+    <string name="register">Registrieren</string>
+    <string name="login">Anmelden</string>
+    <string name="logodescription">Energy Harvest Logo</string>
+    <string name="map">Karte</string>
+    <string name="clan">Clan</string>
+    <string name="profile">Profil</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="placeholder_quiz">[Quiz]</string>
+    <string name="placeholder_image_tracking">[Image Tracking]</string>
+    <string name="placeholder_3d_map_tracking">[3D Map Tracking]</string>
+    <string name="title_registry">Registrierung</string>
 
 </resources>

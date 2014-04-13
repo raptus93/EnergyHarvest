@@ -2,6 +2,8 @@ package gui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -11,7 +13,7 @@ import android.view.MenuItem;
 import com.example.energyharvest.R;
 
 /**
- * @version 1.1.3 (12/04/2014)
+ * @version 1.1.3 (13/04/2014)
  * @author Kjell Bunjes
  *
  */
@@ -50,6 +52,12 @@ public class MapActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 }
