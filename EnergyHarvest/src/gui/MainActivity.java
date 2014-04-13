@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 				MainActivity.this.progressDialog.dismiss();
 				if(loginSuccessful) {
 					Toast.makeText(MainActivity.this, "Anmeldung erfolgreich!", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(MainActivity.this, MenuActivity.class);	    
+					Intent intent = new Intent(MainActivity.this, MenuActivity.class);					
 					startActivity(intent);
 				}
 				else {

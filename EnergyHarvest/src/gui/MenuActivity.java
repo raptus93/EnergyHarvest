@@ -7,9 +7,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import backend.Server;
 
 import com.example.energyharvest.R;
 
@@ -44,11 +46,18 @@ public class MenuActivity extends Activity {
 			// more details, see the Navigation pattern on Android Design:
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
+			//			
 			NavUtils.navigateUpFromSameTask(this);
+			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Server.getInstance().logout();
 	}
 	
 	@Override
