@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
 		}
 		
 		protected void onPostExecute(Boolean result) {
+			Log.i("debugging ec", errorCode.toString());
 			if(MainActivity.this.progressDialog != null) {
 				MainActivity.this.progressDialog.dismiss();
 				if(loginSuccessful) {

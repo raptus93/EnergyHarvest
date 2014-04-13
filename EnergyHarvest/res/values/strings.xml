@@ -31,7 +31,6 @@
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="title_activity_fight">FightActivity</string>
     <string name="title_activity_demo">DemoActivity</string>
-    <string name="Registrieren">register</string>
     <string name="register">Registrieren</string>
     <string name="login">Anmelden</string>
     <string name="logodescription">Energy Harvest Logo</string>
