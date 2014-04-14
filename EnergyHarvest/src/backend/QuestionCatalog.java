@@ -66,7 +66,7 @@ public class QuestionCatalog {
      * @param i
      * @return
      */
-    public Question get(int i){
+    public Question getQuestion(int i){
         return questions.get(i);
     }
 

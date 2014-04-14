@@ -9,35 +9,50 @@ import com.example.energyharvest.R;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.service.wallpaper.WallpaperService.Engine;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class QuizGUI extends Activity implements OnClickListener{
+public class QuizGUI extends Activity implements OnClickListener, Runnable{
 	
-	TextView tvQuestion;
-	Button btnAnswerA;
-	Button btnAnswerB;
-	Button btnAnswerC;
-	Button btnAnswerD;
-	QuizLogic logic;
+	private TextView tvQuestion;
+	private Button btnAnswerA;
+	private Button btnAnswerB;
+	private Button btnAnswerC;
+	private Button btnAnswerD;
+	private QuizLogic logic;
 	
-	Question.Answer chosenAnswer = Answer.A;
+	private Handler handler;
+	
+	Answer chosenAnswer = Answer.A;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        handler = new Handler();
+        setupLayout();
+        
         //Initializing the Logic
         logic = new QuizLogic();
+        
+        //Get 10 Questions from the server
         logic.getQuestions();
         
-        //Initializing the textView and the buttons
-        tvQuestion = (TextView) findViewById(R.id.question);
-        
+        //Create the first Question
+        showNextQuestion();
+    }
+	
+	private void setupLayout(){
+		
+		 //Initializing the textView and the buttons
+		tvQuestion = (TextView) findViewById(R.id.question);
         btnAnswerA = (Button) findViewById(R.id.answerA);
         btnAnswerB = (Button) findViewById(R.id.answerB);
         btnAnswerC = (Button) findViewById(R.id.answerC);
@@ -49,17 +64,15 @@ public class QuizGUI extends Activity implements OnClickListener{
         btnAnswerC.setOnClickListener(this);
         btnAnswerD.setOnClickListener(this);
         
-        //Create the first Question
-        showNextQuestion();
-    }
+        //All Buttons are black from the beginning
+        btnAnswerA.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerB.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerC.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerD.setBackgroundColor(Color.rgb(155, 155, 155));
+        
+        
+	}
 	
-	////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	//Die folgende Methode wird benötigt, um die Activity in fullscreen zu haben, Standardmethode.
-	
-	
-	////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -77,31 +90,36 @@ public class QuizGUI extends Activity implements OnClickListener{
 		return super.onOptionsItemSelected(item);
 	}
 	
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	//Auskommentiert, da die Methode den Absturz verursacht. Ursache ist mir noch unklar :D
-
-
-	////////////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void onClick(View v) {		
-		/*if(v.getId() == R.id.answerA){
-			chosenAnswer=Answer.A;
+	public void onClick(View v) {
+		
+		switch(v.getId()){
+			case R.id.answerA : chosenAnswer=Answer.A;
+			case R.id.answerB : chosenAnswer=Answer.B;
+			case R.id.answerC : chosenAnswer=Answer.C;
+			case R.id.answerD : chosenAnswer=Answer.D;
 		}
-		else if(v.getId() == R.id.answerB){
-			chosenAnswer=Answer.A;
+		
+		blockButtons();
+		
+		if(logic.checkAnswer(chosenAnswer)){
+			Toast.makeText(getApplicationContext(), "correct Answer, BIIIIAAAATCH", Toast.LENGTH_SHORT).show();
+			highlight(true, chosenAnswer);
 		}
-		else if(v.getId() == R.id.answerC){
-			chosenAnswer=Answer.A;
+		else{
+			Toast.makeText(getApplicationContext(), "WRonG  #-.,.-'''-.,.->   Answer", Toast.LENGTH_SHORT).show();
+			highlight(false, chosenAnswer);
 		}
-		else if(v.getId() == R.id.answerD){
-			chosenAnswer=Answer.A;
+		
+		if(logic.getCurrentQuestion()<10){
+			showNextQuestion();
 		}
-		logic.checkAnswer(chosenAnswer, this);*/
+		else{
+			//quit the quiz
+			Toast.makeText(getApplicationContext(), "10 Questions are asked. Quit.", Toast.LENGTH_SHORT).show();
+		}
+		
+		
 	}
 	/**
 	 * all buttons are blocked
@@ -116,11 +134,16 @@ public class QuizGUI extends Activity implements OnClickListener{
 	
 	
 	/**
-	 * is called by the logic
-	 * the new question and the new answers are shown and
-	 * the button are enabled
+	 * the next question and the new answers are shown and
+	 * the buttons are enabled
 	 */
 	public void showNextQuestion(){
+		//Provisorisch!
+		btnAnswerA.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerB.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerC.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerD.setBackgroundColor(Color.rgb(155, 155, 155));
+		
 		Question q = logic.nextQuestion();
 		
 		tvQuestion.setText(q.text);
@@ -143,35 +166,61 @@ public class QuizGUI extends Activity implements OnClickListener{
 	public void highlight(boolean correct, Answer chosenAnswer) {
 		if(chosenAnswer == Answer.A){
 			if(correct){
-				//A wird grün
+				//A wird grï¿½n
 				btnAnswerA.setBackgroundColor(Color.GREEN);
 			}
-			//A wird rot
-			btnAnswerA.setBackgroundColor(Color.RED);
+			else{
+				//A wird rot
+				btnAnswerA.setBackgroundColor(Color.RED);
+			}
 		}
 		if(chosenAnswer == Answer.B){
 			if(correct){
-				//B wird grün
+				//B wird grï¿½n
 				btnAnswerB.setBackgroundColor(Color.GREEN);
 			}
-			//B wird rot
-			btnAnswerB.setBackgroundColor(Color.RED);
+			else{
+				//B wird rot
+				btnAnswerB.setBackgroundColor(Color.RED);
+			}
 		}
 		if(chosenAnswer == Answer.C){
 			if(correct){
-				//C wird grün
+				//C wird grï¿½n
 				btnAnswerC.setBackgroundColor(Color.GREEN);
 			}
-			//C wird rot
-			btnAnswerC.setBackgroundColor(Color.RED);
+			else{
+				//C wird rot
+				btnAnswerC.setBackgroundColor(Color.RED);
+			}
 		}
 		if(chosenAnswer == Answer.D){
 			if(correct){
-				//D wird grün
+				//D wird grï¿½n
 				btnAnswerD.setBackgroundColor(Color.GREEN);
 			}
-			//D wird rot
-			btnAnswerD.setBackgroundColor(Color.RED);
+			else{
+				//D wird rot
+				btnAnswerD.setBackgroundColor(Color.RED);	
+			}
+			
 		}
 	}
+	
+	@Override
+	public void run() {
+		countDown();
+		handler.postDelayed(this, 1000);
+	}
+	
+	public void startTime(){
+        //Handler adds event to eventqueue delayed 1 second
+        handler.postDelayed(this, 1000);
+	}
+	
+	private void countDown() {
+		System.out.println("Time-1");
+		//time--;
+	}
+	
 }
