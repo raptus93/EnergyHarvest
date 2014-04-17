@@ -62,7 +62,11 @@ public class Server {
     private final User GUEST_USER = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO", 0));
     private User user = GUEST_USER;
 	private Server(){}
-	
+
+
+    /*
+    * Possible Errors: INVALID_EMAIL, WRONG_PASSWORD, SUCCESS
+    * */
 	public ErrorCode login(String email, String pw){
         if(!session){
             HashMap<String, Object> request = new HashMap<String, Object>();
@@ -116,7 +120,10 @@ public class Server {
         Package response = sendPackage(new Package(Package.Type.REQUEST_FETCH_QUESTIONS, map));
 		return new QuestionCatalog((LinkedList<Question>) response.getFromContent("response"));
 	}
-	
+
+    /*
+    * Possible Errors: CLANNAME_TAKEN, SUCCESS
+    * */
 	public ErrorCode createClan(String name){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
@@ -180,8 +187,10 @@ public class Server {
         return (Boolean) response.getFromContent("response");
     }
 
-    // TODO
-
+    /*
+    * Possible Errorcodes: USER_DOES_NOT_EXIST, CLAN_INVITE_USER_ALREADY_IN_CLAN,
+    * ACTIVE_USER_NOT_IN_CLAN
+    * */
     public ErrorCode inviteMember(int id){
         if(getActiveUser().clan.id > 0){
             HashMap<String, Object> map = new HashMap<String, Object>();
@@ -197,6 +206,10 @@ public class Server {
         return ErrorCode.ACTIVE_USER_NOT_IN_CLAN;
     }
 
+    /*
+    * Possible Errors: SUCCESS, ERROR (Something bad happend!),
+    * USERNAME_TAKEN, EMAIL_TAKEN, EMAIL_AND_USER_NAME_TAKEN
+    * */
     public ErrorCode register(String name, String email, String pw){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
@@ -207,6 +220,10 @@ public class Server {
         return (ErrorCode) response.getFromContent("response");
     }
 
+
+    /*
+    * Possible Errors: INBOX_EMPTY, INBOX_CLAN_INVITE, INBOX_CHALLENGE
+    * */
     public ErrorCode checkInbox(){
 
         int id = getActiveUser().id;
