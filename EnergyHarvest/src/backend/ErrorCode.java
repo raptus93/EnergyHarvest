@@ -37,6 +37,8 @@ public enum ErrorCode implements java.io.Serializable{
     EMAIL_AND_USER_NAME_TAKEN, USER_DOES_NOT_EXIST, ACTIVE_USER_NOT_IN_CLAN,
     LOGIN_CLAN_DOES_NOT_EXIST,
 
+    INBOX_EMPTY, INBOX_CLAN_INVITE, INBOX_CHALLENGE,
+
     /* success messages */
     SUCCESS
 }

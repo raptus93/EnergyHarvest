@@ -207,6 +207,20 @@ public class Server {
         return (ErrorCode) response.getFromContent("response");
     }
 
+    public ErrorCode checkInbox(){
+
+        int id = getActiveUser().id;
+        if(id > 0){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("id", id);
+
+            Package response = sendPackage(new Package(Package.Type.REQUEST_CHECK_INBOX, map));
+            return (ErrorCode) response.getFromContent("response");
+        }
+
+        return ErrorCode.ERROR;
+    }
+
     public boolean leaveClan(){
         if(getActiveUser().clan.id > 0){
             HashMap<String, Object> map = new HashMap<String, Object>();

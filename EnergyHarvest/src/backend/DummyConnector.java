@@ -39,10 +39,16 @@ public class DummyConnector {
         /* try to invite a member ! */
         //System.out.println("Invite Member! " + Server.getInstance().inviteMember(1));
 
+
+        /* check inbox */
+        System.out.println(Server.getInstance().checkInbox());
+
         /* logout */
         Server.getInstance().logout();
 
         /* register new user */
         System.out.println(Server.getInstance().register("frosch", "ente@clown.de", "test"));
+
+
     }
 }
