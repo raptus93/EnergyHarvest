@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.LinkedList;
+
 /**
  * User: scarlet - Sergej Schefer
  * Date: 24.03.14
@@ -42,6 +44,14 @@ public class DummyConnector {
 
         /* check inbox */
         System.out.println(Server.getInstance().checkInbox());
+
+
+        /* make challenge */
+        LinkedList<Integer> playerList = new LinkedList<Integer>();
+        playerList.add(15);
+
+        System.out.println(Server.getInstance().makeChallenge(playerList));
+
 
         /* logout */
         Server.getInstance().logout();

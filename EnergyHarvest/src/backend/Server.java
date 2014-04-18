@@ -250,6 +250,16 @@ public class Server {
         return false;
     }
 
+    public ErrorCode makeChallenge(LinkedList<Integer> playerIDs){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("userid", getActiveUser().id);
+        map.put("clanid", getActiveUser().clan.id);
+        map.put("playerlist", playerIDs);
+
+        Package response = sendPackage(new Package(Package.Type.REQUEST_MAKE_CHALLENGE, map));
+        return (ErrorCode) response.getFromContent("response");
+    }
+
     /* PRIVATE */
 
     private void setUser(User user){
