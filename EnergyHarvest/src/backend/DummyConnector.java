@@ -24,7 +24,7 @@ public class DummyConnector {
             2. Refresh Users Clan
         */
 
-       // System.out.println("Clan creation " + Server.getInstance().createClan("kaffee12345"));
+        //System.out.println("Clan creation " + Server.getInstance().createClan("kaffee12345"));
 
         /* questions from server */
         QuestionCatalog fragen = Server.getInstance().getRandomQuestions(10);
@@ -39,7 +39,7 @@ public class DummyConnector {
         //System.out.println("LEAVE CLAN: " + Server.getInstance().leaveClan());
 
         /* try to invite a member ! */
-        //System.out.println("Invite Member! " + Server.getInstance().inviteMember(1));
+        System.out.println("Invite Member! " + Server.getInstance().inviteMember(12));
 
 
         /* check inbox */
@@ -57,7 +57,7 @@ public class DummyConnector {
         Server.getInstance().logout();
 
         /* register new user */
-        System.out.println(Server.getInstance().register("frosch", "ente@clown.de", "test"));
+        //System.out.println(Server.getInstance().register("frosch", "ente@clown.de", "test"));
 
 
     }

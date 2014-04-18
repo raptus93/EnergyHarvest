@@ -250,6 +250,9 @@ public class Server {
         return false;
     }
 
+    /*
+    * Possible Errors: YOUR_CLAN_ALREADY_HAS_A_ACTIVE_CHALLENGE, SUCCESS
+    * */
     public ErrorCode makeChallenge(LinkedList<Integer> playerIDs){
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("userid", getActiveUser().id);
