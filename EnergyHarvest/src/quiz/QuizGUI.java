@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class QuizGUI extends Activity implements OnClickListener, Runnable{
+public class QuizGUI extends Activity implements OnClickListener{
 	
 	private TextView tvQuestion;
 	private Button btnAnswerA;
@@ -28,15 +28,14 @@ public class QuizGUI extends Activity implements OnClickListener, Runnable{
 	private Button btnAnswerD;
 	private QuizLogic logic;
 	
-	private Handler handler;
 	
-	Answer chosenAnswer = Answer.A;
+	
+	
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        handler = new Handler();
         setupLayout();
         
         //Initializing the Logic
@@ -63,14 +62,6 @@ public class QuizGUI extends Activity implements OnClickListener, Runnable{
         btnAnswerB.setOnClickListener(this);
         btnAnswerC.setOnClickListener(this);
         btnAnswerD.setOnClickListener(this);
-        
-        //All Buttons are black from the beginning
-        btnAnswerA.setBackgroundColor(Color.rgb(155, 155, 155));
-		btnAnswerB.setBackgroundColor(Color.rgb(155, 155, 155));
-		btnAnswerC.setBackgroundColor(Color.rgb(155, 155, 155));
-		btnAnswerD.setBackgroundColor(Color.rgb(155, 155, 155));
-        
-        
 	}
 	
 	@Override
@@ -81,9 +72,7 @@ public class QuizGUI extends Activity implements OnClickListener, Runnable{
 			// activity, the Up button is shown. Use NavUtils to allow users
 			// to navigate up one level in the application structure. For
 			// more details, see the Navigation pattern on Android Design:
-			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
@@ -92,22 +81,23 @@ public class QuizGUI extends Activity implements OnClickListener, Runnable{
 	
 	@Override
 	public void onClick(View v) {
-		
-		switch(v.getId()){
-			case R.id.answerA : chosenAnswer=Answer.A;
-			case R.id.answerB : chosenAnswer=Answer.B;
-			case R.id.answerC : chosenAnswer=Answer.C;
-			case R.id.answerD : chosenAnswer=Answer.D;
+		Answer chosenAnswer = Answer.A;
+		if (v == btnAnswerB){
+			chosenAnswer = Answer.B;
+		}
+		else if (v == btnAnswerC){
+			chosenAnswer = Answer.C;	
+		}
+		else if (v == btnAnswerD){
+			chosenAnswer = Answer.D;
 		}
 		
 		blockButtons();
 		
 		if(logic.checkAnswer(chosenAnswer)){
-			Toast.makeText(getApplicationContext(), "correct Answer, BIIIIAAAATCH", Toast.LENGTH_SHORT).show();
 			highlight(true, chosenAnswer);
 		}
 		else{
-			Toast.makeText(getApplicationContext(), "WRonG  #-.,.-'''-.,.->   Answer", Toast.LENGTH_SHORT).show();
 			highlight(false, chosenAnswer);
 		}
 		
@@ -139,10 +129,10 @@ public class QuizGUI extends Activity implements OnClickListener, Runnable{
 	 */
 	public void showNextQuestion(){
 		//Provisorisch!
-		btnAnswerA.setBackgroundColor(Color.rgb(155, 155, 155));
-		btnAnswerB.setBackgroundColor(Color.rgb(155, 155, 155));
-		btnAnswerC.setBackgroundColor(Color.rgb(155, 155, 155));
-		btnAnswerD.setBackgroundColor(Color.rgb(155, 155, 155));
+		btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
+		btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
+		btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
+		btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
 		
 		Question q = logic.nextQuestion();
 		
@@ -167,60 +157,62 @@ public class QuizGUI extends Activity implements OnClickListener, Runnable{
 		if(chosenAnswer == Answer.A){
 			if(correct){
 				//A wird gr�n
-				btnAnswerA.setBackgroundColor(Color.GREEN);
+				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				Toast.makeText(getApplicationContext(), "A GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				//A wird rot
-				btnAnswerA.setBackgroundColor(Color.RED);
+				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				Toast.makeText(getApplicationContext(), "A RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.B){
 			if(correct){
 				//B wird gr�n
-				btnAnswerB.setBackgroundColor(Color.GREEN);
+				btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				Toast.makeText(getApplicationContext(), "B GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				//B wird rot
-				btnAnswerB.setBackgroundColor(Color.RED);
+				btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				Toast.makeText(getApplicationContext(), "B RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.C){
 			if(correct){
 				//C wird gr�n
-				btnAnswerC.setBackgroundColor(Color.GREEN);
+				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				Toast.makeText(getApplicationContext(), "C GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				//C wird rot
-				btnAnswerC.setBackgroundColor(Color.RED);
+				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				Toast.makeText(getApplicationContext(), "C RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.D){
 			if(correct){
 				//D wird gr�n
-				btnAnswerD.setBackgroundColor(Color.GREEN);
+				btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				Toast.makeText(getApplicationContext(), "D GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				//D wird rot
-				btnAnswerD.setBackgroundColor(Color.RED);	
+				btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerD.setBackgroundDrawable(null);
+				Toast.makeText(getApplicationContext(), "D RED", Toast.LENGTH_SHORT).show();
 			}
 			
 		}
+		
+		try{
+			Thread.sleep(1200);
+		}
+		catch(InterruptedException e){
+			e.printStackTrace();
+		}
 	}
 	
-	@Override
-	public void run() {
-		countDown();
-		handler.postDelayed(this, 1000);
-	}
 	
-	public void startTime(){
-        //Handler adds event to eventqueue delayed 1 second
-        handler.postDelayed(this, 1000);
-	}
-	
-	private void countDown() {
-		System.out.println("Time-1");
-		//time--;
-	}
-	
+
 }

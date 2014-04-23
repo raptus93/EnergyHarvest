@@ -8,14 +8,14 @@ import backend.AndroidServerInterface;
 import backend.QuestionCatalog;
 import backend.Server;
 
-public class QuizLogic{
+public class QuizLogic implements Runnable{
 
 	private int currentQuestion = 0;
 	
 
 	private int correctAnswers = 0;
 	private QuestionCatalog questionCatalog;
-	
+	private Handler handler = new Handler();
 	
 	
 	public void getQuestions(){
@@ -53,6 +53,22 @@ public class QuizLogic{
 	
 
 	
+	
+	@Override
+	public void run() {
+		countDown();
+		handler.postDelayed(this, 1000);
+	}
+	
+	public void startTime(){
+        //Handler adds event to eventqueue delayed 1 second
+        handler.postDelayed(this, 1000);
+	}
+	
+	private void countDown() {
+		System.out.println("Time-=1");
+		//time--;
+	}
 	
 	
 	

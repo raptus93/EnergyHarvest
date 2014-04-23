@@ -1,7 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,43 +14,37 @@
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/answerA"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_weight="0.90"
         android:gravity="center"
         android:text="@string/question"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/answerD"
+        android:id="@+id/answerA"
+        style="@color/answerDefault"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question"
-        android:layout_alignParentBottom="true"
-        android:text="@string/answerD" />
-
-    <Button
-        android:id="@+id/answerC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/answerD"
-        android:layout_alignLeft="@+id/question"
-        android:text="@string/answerC" />
+        android:layout_height="50dp"
+        android:text="@string/answerA" />
 
     <Button
         android:id="@+id/answerB"
+        style="@color/answerDefault"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/answerC"
-        android:layout_alignLeft="@+id/question"
+        android:layout_height="50dp"
         android:text="@string/answerB" />
 
     <Button
-        android:id="@+id/answerA"
+        android:id="@+id/answerC"
+        style="@color/answerDefault"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/answerB"
-        android:layout_alignLeft="@+id/question"
-        android:text="@string/answerA" />
+        android:layout_height="50dp"
+        android:text="@string/answerC" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/answerD"
+        style="@color/answerDefault"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/answerD" />
+
+</LinearLayout>
