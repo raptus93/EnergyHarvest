@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,20 +27,23 @@ public class QuizGUI extends Activity implements OnClickListener{
 	private Button btnAnswerB;
 	private Button btnAnswerC;
 	private Button btnAnswerD;
+	private ProgressBar timePB;
+	
 	private QuizLogic logic;
-	
-	
-	
-	
-	
+		
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        
+        //Sets up the Views
         setupLayout();
         
         //Initializing the Logic
         logic = new QuizLogic();
+        
+        //register this as observer
+        logic.registerGUI(this);
         
         //Get 10 Questions from the server
         logic.getQuestions();
@@ -56,6 +60,7 @@ public class QuizGUI extends Activity implements OnClickListener{
         btnAnswerB = (Button) findViewById(R.id.answerB);
         btnAnswerC = (Button) findViewById(R.id.answerC);
         btnAnswerD = (Button) findViewById(R.id.answerD);
+        timePB = (ProgressBar) findViewById(R.id.timeProgressBar);
         
         //Adding the Listener for the Answer-Buttons
         btnAnswerA.setOnClickListener(this);
@@ -81,6 +86,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		//Decision, what Button has been clicked
 		Answer chosenAnswer = Answer.A;
 		if (v == btnAnswerB){
 			chosenAnswer = Answer.B;
@@ -94,6 +100,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 		
 		blockButtons();
 		
+		//Check the correctness at the server, highlight depending on the result
 		if(logic.checkAnswer(chosenAnswer)){
 			highlight(true, chosenAnswer);
 		}
@@ -116,10 +123,10 @@ public class QuizGUI extends Activity implements OnClickListener{
 	 * this happens, after one answer is chosen
 	 */
 	public void blockButtons(){
-		btnAnswerA.setActivated(false);
+		/*btnAnswerA.setActivated(false);
 		btnAnswerB.setActivated(false);
 		btnAnswerC.setActivated(false);
-		btnAnswerD.setActivated(false);
+		btnAnswerD.setActivated(false);*/
 	}
 	
 	
@@ -128,7 +135,6 @@ public class QuizGUI extends Activity implements OnClickListener{
 	 * the buttons are enabled
 	 */
 	public void showNextQuestion(){
-		//Provisorisch!
 		btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
 		btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
 		btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
@@ -148,6 +154,13 @@ public class QuizGUI extends Activity implements OnClickListener{
 		btnAnswerD.setActivated(true);
 	}
 	
+	public void update(){
+		double tl = logic.getTimeLeft();
+		timePB.setMax(100);
+		int percent = (int) Math.round(100 * tl / 7);
+		timePB.setProgress(percent);
+	}
+	
 	/**
 	 * Highlights the chosen answer. Green if right, red otherwise.
 	 * @param correct is true, if the answer has been correct, otherwise it is false
@@ -156,55 +169,46 @@ public class QuizGUI extends Activity implements OnClickListener{
 	public void highlight(boolean correct, Answer chosenAnswer) {
 		if(chosenAnswer == Answer.A){
 			if(correct){
-				//A wird gr�n
-				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				//btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				btnAnswerA.setBackgroundColor(0xFF04B404);
 				Toast.makeText(getApplicationContext(), "A GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				//A wird rot
-				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				btnAnswerA.setBackgroundColor(0xFFB40404);
 				Toast.makeText(getApplicationContext(), "A RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.B){
 			if(correct){
-				//B wird gr�n
 				btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "B GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				//B wird rot
 				btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
 				Toast.makeText(getApplicationContext(), "B RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.C){
 			if(correct){
-				//C wird gr�n
 				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "C GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				//C wird rot
 				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
 				Toast.makeText(getApplicationContext(), "C RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.D){
 			if(correct){
-				//D wird gr�n
 				btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "D GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				//D wird rot
 				btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
-				//btnAnswerD.setBackgroundDrawable(null);
 				Toast.makeText(getApplicationContext(), "D RED", Toast.LENGTH_SHORT).show();
-			}
-			
+			}	
 		}
-		
 		try{
 			Thread.sleep(1200);
 		}

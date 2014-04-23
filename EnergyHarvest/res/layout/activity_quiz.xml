@@ -13,38 +13,48 @@
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.90"
+        android:layout_height="250dp"
         android:gravity="center"
         android:text="@string/question"
+        android:layout_weight="50"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ProgressBar
+        android:id="@+id/timeProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="76.61" />
 
     <Button
         android:id="@+id/answerA"
-        style="@color/answerDefault"
+        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_weight="10"
         android:text="@string/answerA" />
 
     <Button
         android:id="@+id/answerB"
-        style="@color/answerDefault"
+        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_weight="10"
         android:text="@string/answerB" />
 
     <Button
         android:id="@+id/answerC"
-        style="@color/answerDefault"
+        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_weight="10"
         android:text="@string/answerC" />
 
     <Button
         android:id="@+id/answerD"
-        style="@color/answerDefault"
+        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_weight="10"
         android:text="@string/answerD" />
 
 </LinearLayout>
