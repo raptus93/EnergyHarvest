@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="answerDefault">#FFB4B4B4</color>
+    <color name="answerWrong">#FFB40404</color>
+    <color name="answerCorrect">#FF04B404</color>
+    
+</resources>
