@@ -61,6 +61,7 @@ public class QuizGUI extends Activity implements OnClickListener{
         btnAnswerC = (Button) findViewById(R.id.answerC);
         btnAnswerD = (Button) findViewById(R.id.answerD);
         timePB = (ProgressBar) findViewById(R.id.timeProgressBar);
+        timePB.setMax(10); //later on this is 7
         
         //Adding the Listener for the Answer-Buttons
         btnAnswerA.setOnClickListener(this);
@@ -98,7 +99,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 			chosenAnswer = Answer.D;
 		}
 		
-		blockButtons();
+		//blockButtons();
 		
 		//Check the correctness at the server, highlight depending on the result
 		if(logic.checkAnswer(chosenAnswer)){
@@ -123,10 +124,10 @@ public class QuizGUI extends Activity implements OnClickListener{
 	 * this happens, after one answer is chosen
 	 */
 	public void blockButtons(){
-		/*btnAnswerA.setActivated(false);
+		btnAnswerA.setActivated(false);
 		btnAnswerB.setActivated(false);
 		btnAnswerC.setActivated(false);
-		btnAnswerD.setActivated(false);*/
+		btnAnswerD.setActivated(false);
 	}
 	
 	
@@ -135,6 +136,9 @@ public class QuizGUI extends Activity implements OnClickListener{
 	 * the buttons are enabled
 	 */
 	public void showNextQuestion(){
+		logic.resetTimer();
+		logic.startTimer();
+		
 		btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
 		btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
 		btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
@@ -155,10 +159,9 @@ public class QuizGUI extends Activity implements OnClickListener{
 	}
 	
 	public void update(){
-		double tl = logic.getTimeLeft();
-		timePB.setMax(100);
-		int percent = (int) Math.round(100 * tl / 7);
-		timePB.setProgress(percent);
+		System.out.println("Gui says: Left time is "+logic.getTimeLeft());
+		//timePB.setProgress((int) Math.round(100 * logic.getTimeLeft() / 7));
+		timePB.setProgress((int) logic.getTimeLeft());
 	}
 	
 	/**
@@ -167,15 +170,16 @@ public class QuizGUI extends Activity implements OnClickListener{
 	 * @param chosenAnswer
 	 */
 	public void highlight(boolean correct, Answer chosenAnswer) {
+		
 		if(chosenAnswer == Answer.A){
 			if(correct){
-				//btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
-				btnAnswerA.setBackgroundColor(0xFF04B404);
+				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				//btnAnswerA.setBackgroundColor(0xFF04B404);
 				Toast.makeText(getApplicationContext(), "A GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				//btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
-				btnAnswerA.setBackgroundColor(0xFFB40404);
+				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerA.setBackgroundColor(0xFFB40404);
 				Toast.makeText(getApplicationContext(), "A RED", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -209,12 +213,13 @@ public class QuizGUI extends Activity implements OnClickListener{
 				Toast.makeText(getApplicationContext(), "D RED", Toast.LENGTH_SHORT).show();
 			}	
 		}
-		try{
+		
+		/*try{
 			Thread.sleep(1200);
 		}
 		catch(InterruptedException e){
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	

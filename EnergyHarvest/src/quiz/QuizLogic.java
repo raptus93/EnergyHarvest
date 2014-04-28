@@ -24,12 +24,6 @@ public class QuizLogic implements Runnable{
 	}
 	
 	public Question nextQuestion(){
-		/*
-		vorher:
-		currentQuestion++;
-		return questionCatalog.pullQuestion();
-		nachher:
-		*/
 		currentQuestion++;
 		return questionCatalog.getQuestion(currentQuestion);
 	}
@@ -47,21 +41,16 @@ public class QuizLogic implements Runnable{
 			return false;
 		}
 	}
-	
-	private void sendNumberOfCorrectAnswers(){
-		//Serveraufruf um die Anzahl der richtigen Antworten (correctAnswers) dort zu speichern
-	}
 
 	@Override
 	public void run() {
-		countDown();
-		handler.postDelayed(this, 100);
-	}
-	
-	private void countDown() {
-		//every 0.1 seconds the time is reduced about 0.1 seconds
-		timeLeft = timeLeft - 0.1;
-		gui.update();
+		
+		if(timeLeft<=8){
+			timeLeft--;
+			System.out.println("Left time is "+timeLeft);
+			gui.update();
+			handler.postDelayed(this, 1000);
+		}
 	}
 
 	public double getTimeLeft() {
@@ -70,7 +59,19 @@ public class QuizLogic implements Runnable{
 
 	public void registerGUI(QuizGUI gui){
 		this.gui = gui;
+		System.out.println("gui is registered.");
 		handler.postDelayed(this, 100);
+	}
+
+	public void resetTimer() {
+		timeLeft = 0;
+		Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
+	}
+
+	public void startTimer() {
+		handler.post(this);
+		System.out.println("Timer started!");
+		Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
 	}
 }
 	

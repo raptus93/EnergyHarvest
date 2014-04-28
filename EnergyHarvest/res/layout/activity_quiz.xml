@@ -23,7 +23,7 @@
         android:id="@+id/timeProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_weight="76.61" />
+        android:layout_height="20dp"/>
 
     <Button
         android:id="@+id/answerA"
