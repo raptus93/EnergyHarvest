@@ -60,14 +60,15 @@ public class QuizGUI extends Activity implements OnClickListener{
 	
 	private void setupLayout(){
 		
-		 //Initializing the textView and the buttons
+		//Initializing the textView and the buttons
 		tvQuestion = (TextView) findViewById(R.id.question);
         btnAnswerA = (Button) findViewById(R.id.answerA);
         btnAnswerB = (Button) findViewById(R.id.answerB);
         btnAnswerC = (Button) findViewById(R.id.answerC);
         btnAnswerD = (Button) findViewById(R.id.answerD);
         timePB = (ProgressBar) findViewById(R.id.timeProgressBar);
-        timePB.setMax(10); //later on this is 7
+        timePB.setMax(7); //later on this is 7
+        timePB.setProgress(7);
         
         //Adding the Listener for the Answer-Buttons
         btnAnswerA.setOnClickListener(this);
@@ -122,8 +123,6 @@ public class QuizGUI extends Activity implements OnClickListener{
 			//quit the quiz
 			Toast.makeText(getApplicationContext(), "10 Questions are asked. Quit.", Toast.LENGTH_SHORT).show();
 		}
-		
-		
 	}
 	/**
 	 * all buttons are blocked
@@ -165,8 +164,6 @@ public class QuizGUI extends Activity implements OnClickListener{
 	}
 	
 	public void update(){
-		System.out.println("Gui says: Left time is "+logic.getTimeLeft());
-		//timePB.setProgress((int) Math.round(100 * logic.getTimeLeft() / 7));
 		timePB.setProgress((int) logic.getTimeLeft());
 	}
 	

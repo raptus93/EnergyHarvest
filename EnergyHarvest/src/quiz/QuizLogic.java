@@ -1,6 +1,7 @@
 package quiz;
 
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 import backend.Question;
 import backend.Question.Answer;
@@ -19,7 +20,7 @@ public class QuizLogic implements Runnable{
 	private int currentQuestion = 0;
 
 	private int correctAnswers = 0;
-	private double timeLeft;
+	private double timeLeft = 7;
 	private QuestionCatalog questionCatalog;
 	private Handler handler = new Handler();
 	//Observer:
@@ -50,11 +51,16 @@ public class QuizLogic implements Runnable{
 
 	@Override
 	public void run() {
-		if(timeLeft<=8){
-			timeLeft--;
-			System.out.println("Left time is "+timeLeft);
+		if(timeLeft > 0){
+			timeLeft = timeLeft - 1;
+			Toast.makeText(gui, "Time left: "+timeLeft, Toast.LENGTH_SHORT).show();
+			Log.i("debugging", "vor update()");
 			gui.update();
 			handler.postDelayed(this, 1000);
+			Log.i("debugging", "nach dem update()");
+		}
+		else{
+			Toast.makeText(gui, "Time is over!", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -65,29 +71,17 @@ public class QuizLogic implements Runnable{
 	public void registerGUI(QuizGUI gui){
 		this.gui = gui;
 		System.out.println("gui is registered.");
-		handler.postDelayed(this, 100);
+		handler.postDelayed(this, 1000);
 	}
 
 	public void resetTimer() {
-		timeLeft = 0;
+		timeLeft = 7;
 		Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
 	}
 
 	public void startTimer() {
-		handler.post(this);
+		handler.postDelayed(this, 1000);
 		System.out.println("Timer started!");
 		Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
 	}
 }
-	
-	/*
-	private void createPlayerList(){
-		//Liste anzeigen mit Checkboxen zur Auswahl der Mitspieler
-		//addSpec() aufrufen
-	}
-	
-	private void addSpec(){
-		//Liste mit Specs
-	}
-	*/
-
