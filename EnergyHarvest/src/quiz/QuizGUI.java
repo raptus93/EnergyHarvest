@@ -20,6 +20,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @version 1.1.4 (28/04/2014)
+ * @author Robert Verginien Nickel
+ *
+ */
+
 public class QuizGUI extends Activity implements OnClickListener{
 	
 	private TextView tvQuestion;

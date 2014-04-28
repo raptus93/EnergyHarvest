@@ -8,6 +8,12 @@ import backend.AndroidServerInterface;
 import backend.QuestionCatalog;
 import backend.Server;
 
+/**
+ * @version 1.1.4 (28/04/2014)
+ * @author Robert Verginien Nickel
+ *
+ */
+
 public class QuizLogic implements Runnable{
 
 	private int currentQuestion = 0;
@@ -44,7 +50,6 @@ public class QuizLogic implements Runnable{
 
 	@Override
 	public void run() {
-		
 		if(timeLeft<=8){
 			timeLeft--;
 			System.out.println("Left time is "+timeLeft);
