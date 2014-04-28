@@ -3,9 +3,7 @@ package quiz;
 import quiz.QuizLogic;
 import backend.Question;
 import backend.Question.Answer;
-
 import com.example.energyharvest.R;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -54,6 +52,9 @@ public class QuizGUI extends Activity implements OnClickListener{
         //Get 10 Questions from the server
         logic.getQuestions();
         
+        //Starts the Timer once
+        logic.startTimer();
+        
         //Create the first Question
         showNextQuestion();
     }
@@ -67,8 +68,8 @@ public class QuizGUI extends Activity implements OnClickListener{
         btnAnswerC = (Button) findViewById(R.id.answerC);
         btnAnswerD = (Button) findViewById(R.id.answerD);
         timePB = (ProgressBar) findViewById(R.id.timeProgressBar);
-        timePB.setMax(7);
-        timePB.setProgress(7);
+        timePB.setMax(logic.TIME_TO_ANSWER);
+        timePB.setProgress(logic.TIME_TO_ANSWER);
         
         //Adding the Listener for the Answer-Buttons
         btnAnswerA.setOnClickListener(this);
@@ -111,6 +112,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 		//Check the correctness at the server, highlight depending on the result
 		if(logic.checkAnswer(chosenAnswer)){
 			highlight(true, chosenAnswer);
+			logic.incrementCorrectAnswers();
 		}
 		else{
 			highlight(false, chosenAnswer);
@@ -142,7 +144,6 @@ public class QuizGUI extends Activity implements OnClickListener{
 	 */
 	public void showNextQuestion(){
 		logic.resetTimer();
-		logic.startTimer();
 		
 		btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
 		btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerDefault));
@@ -165,6 +166,12 @@ public class QuizGUI extends Activity implements OnClickListener{
 	
 	public void update(){
 		timePB.setProgress((int) logic.getTimeLeft());
+		//next Question, if the time is over
+		if(logic.getTimeLeft()<=0){
+			//Send to Server, that no Button was pressed!
+			logic.sendNonClick();
+			showNextQuestion();
+		}
 	}
 	
 	/**
@@ -182,6 +189,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 			}
 			else{
 				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				btnAnswerA.setText("Antwort A ist falsch!");
 				//btnAnswerA.setBackgroundColor(0xFFB40404);
 				Toast.makeText(getApplicationContext(), "A RED", Toast.LENGTH_SHORT).show();
 			}
@@ -197,7 +205,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 			}
 		}
 		if(chosenAnswer == Answer.C){
-			if(correct){
+			if(correct){ 
 				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "C GREEN", Toast.LENGTH_SHORT).show();
 			}
@@ -217,12 +225,12 @@ public class QuizGUI extends Activity implements OnClickListener{
 			}	
 		}
 		
-		/*try{
-			Thread.sleep(1200);
+		try{
+			Thread.sleep(5000);
 		}
 		catch(InterruptedException e){
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	

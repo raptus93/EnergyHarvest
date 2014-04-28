@@ -17,10 +17,12 @@ import backend.Server;
 
 public class QuizLogic implements Runnable{
 
+	public static final int TIME_TO_ANSWER = 15;
+
 	private int currentQuestion = 0;
 
 	private int correctAnswers = 0;
-	private double timeLeft = 7;
+	private double timeLeft = TIME_TO_ANSWER;
 	private QuestionCatalog questionCatalog;
 	private Handler handler = new Handler();
 	//Observer:
@@ -53,10 +55,7 @@ public class QuizLogic implements Runnable{
 	public void run() {
 		if(timeLeft > 0){
 			timeLeft = timeLeft - 1;
-			Toast.makeText(gui, "Time left: "+timeLeft, Toast.LENGTH_SHORT).show();
-			Log.i("debugging", "vor update()");
 			gui.update();
-			Log.i("debugging", "nach dem update()");
 			handler.postDelayed(this, 1000);
 		}
 		else{
@@ -74,13 +73,21 @@ public class QuizLogic implements Runnable{
 	}
 
 	public void resetTimer() {
-		timeLeft = 7;
+		timeLeft = TIME_TO_ANSWER + 1;
 		Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
 	}
 
 	public void startTimer() {
-		handler.postDelayed(this, 1000);
-		System.out.println("Timer started!");
+		handler.postDelayed(this, 1200);
 		Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
+	}
+
+	public void sendNonClick() {
+		// brauche ich erst Dienstags
+		
+	}
+	
+	public void incrementCorrectAnswers(){
+		correctAnswers++;
 	}
 }
