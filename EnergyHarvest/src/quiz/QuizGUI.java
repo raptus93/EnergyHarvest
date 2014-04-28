@@ -67,7 +67,7 @@ public class QuizGUI extends Activity implements OnClickListener{
         btnAnswerC = (Button) findViewById(R.id.answerC);
         btnAnswerD = (Button) findViewById(R.id.answerD);
         timePB = (ProgressBar) findViewById(R.id.timeProgressBar);
-        timePB.setMax(7); //later on this is 7
+        timePB.setMax(7);
         timePB.setProgress(7);
         
         //Adding the Listener for the Answer-Buttons
@@ -120,7 +120,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 			showNextQuestion();
 		}
 		else{
-			//quit the quiz
+			//quit the quiz -> Kjell fragen
 			Toast.makeText(getApplicationContext(), "10 Questions are asked. Quit.", Toast.LENGTH_SHORT).show();
 		}
 	}

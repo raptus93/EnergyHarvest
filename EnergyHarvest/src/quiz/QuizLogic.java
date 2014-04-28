@@ -56,8 +56,8 @@ public class QuizLogic implements Runnable{
 			Toast.makeText(gui, "Time left: "+timeLeft, Toast.LENGTH_SHORT).show();
 			Log.i("debugging", "vor update()");
 			gui.update();
-			handler.postDelayed(this, 1000);
 			Log.i("debugging", "nach dem update()");
+			handler.postDelayed(this, 1000);
 		}
 		else{
 			Toast.makeText(gui, "Time is over!", Toast.LENGTH_SHORT).show();
@@ -71,7 +71,6 @@ public class QuizLogic implements Runnable{
 	public void registerGUI(QuizGUI gui){
 		this.gui = gui;
 		System.out.println("gui is registered.");
-		handler.postDelayed(this, 1000);
 	}
 
 	public void resetTimer() {
