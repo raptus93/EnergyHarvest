@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 	private String email, password;
 
     /** test login **/
-    private Toast toast;
+    private Toast toastSuccess, toastEmail, toastPassword;
     private Intent menuIntent;
 
     @Override
@@ -41,7 +41,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
         /** init stuff **/
-        toast = Toast.makeText(this, "Anmeldung erfolgreich!", Toast.LENGTH_SHORT);
+        toastSuccess = Toast.makeText(this, "Anmeldung erfolgreich!", Toast.LENGTH_SHORT);
+        toastEmail = Toast.makeText(MainActivity.this, "E-Mail inkorrekt!", Toast.LENGTH_SHORT);
+        toastPassword = Toast.makeText(MainActivity.this, "Passwort inkorrekt!", Toast.LENGTH_SHORT);
         menuIntent = new Intent(this, MenuActivity.class);
 
         /** init server **/
@@ -71,7 +73,7 @@ public class MainActivity extends Activity {
         final String passwordString = password;
 
 		if(email.length() == 0 || password.length() == 0) {
-			Toast.makeText(MainActivity.this, "Angaben unvollstï¿½ndig!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(MainActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
 		}
 		else {
 			// Checking for internet connection
@@ -91,7 +93,7 @@ public class MainActivity extends Activity {
                             public void callback(Object... input) {
                                 Log.e("SOCKETIO", "Anmeldung erfolgreich!");
                                 MainActivity.this.progressDialog.dismiss();
-                                toast.show();
+                                toastSuccess.show();
                                 startActivity(menuIntent);
                             }
                         },
@@ -101,7 +103,7 @@ public class MainActivity extends Activity {
                             @Override
                             public void callback(Object... input) {
                                 MainActivity.this.progressDialog.dismiss();
-                                Toast.makeText(MainActivity.this, "Passwort inkorrekt!", Toast.LENGTH_SHORT).show();
+                                toastPassword.show();
                             }
                         },
 
@@ -110,7 +112,7 @@ public class MainActivity extends Activity {
                             @Override
                             public void callback(Object... input) {
                                 MainActivity.this.progressDialog.dismiss();
-                                Toast.makeText(MainActivity.this, "E-Mail inkorrekt!", Toast.LENGTH_SHORT).show();
+                                toastEmail.show();
                             }
                         }
                 );
