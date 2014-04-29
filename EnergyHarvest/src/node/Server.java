@@ -30,7 +30,8 @@ public class Server {
     private User user = GUEST_USER;
 
     /** config **/
-    private final String SERVER_IP = "caramelswirl.myqnapcloud.com";
+    private final String SERVER_IP = "rawfood.no-ip.biz";
+    //private final String SERVER_IP = "caramelswirl.myqnapcloud.com";
     private final String SERVER_PORT = "1337";
 
     private Server(){

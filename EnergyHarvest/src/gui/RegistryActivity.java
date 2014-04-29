@@ -16,6 +16,7 @@ import backend.ErrorCode;
 import backend.Server;
 
 import com.example.energyharvest.R;
+import node.Callback;
 
 /**
  * @version 1.1.3 (13/04/2014)
@@ -73,49 +74,46 @@ public class RegistryActivity extends Activity {
 		email = ((EditText)findViewById(R.id.registry_edit_text_email)).getText().toString();
 		password = ((EditText)findViewById(R.id.registry_edit_text_password)).getText().toString();
 		passwordRepeat = ((EditText)findViewById(R.id.registry_edit_text_password_repeat)).getText().toString();
+
+
+
+
 		if(username.length() == 0 || email.length() == 0 || password.length() == 0 || passwordRepeat.length() == 0) {
-			Toast.makeText(RegistryActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(RegistryActivity.this, "Angaben unvollstï¿½ndig!", Toast.LENGTH_SHORT).show();
 		}
 		else {
 			if(!password.equals(passwordRepeat)) {
-				Toast.makeText(RegistryActivity.this, "Passwort stimmt nicht überein!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegistryActivity.this, "Passwort stimmt nicht ï¿½berein!", Toast.LENGTH_SHORT).show();
 			}
 			else {
 				progressDialog = ProgressDialog.show(this, "Registrierung", "Bitte warten...");
-				new RegistryTask().execute("");
-			}
-		}
-	}
-	
-	private class RegistryTask extends AsyncTask<String, Void, Object> {
-		protected Object doInBackground(String...args) {
-			try {				
-				errorCode = Server.getInstance().register(username, email, password);
-				registrySuccessful = (errorCode == ErrorCode.SUCCESS) ? true : false;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-		
-		protected void onPostExecute(Object result) {
-			if(RegistryActivity.this.progressDialog != null) {
-				RegistryActivity.this.progressDialog.dismiss();
-				if(registrySuccessful) {
-					Toast.makeText(RegistryActivity.this, "Registrierung erfolgreich!", Toast.LENGTH_LONG).show();
-					NavUtils.navigateUpFromSameTask(RegistryActivity.this);
-				}
-				else {
-					switch(errorCode) {
-					case USERNAME_TAKEN: Toast.makeText(RegistryActivity.this, "Benutzername bereits vergeben!", Toast.LENGTH_SHORT).show();
-					break;
-					case EMAIL_TAKEN: Toast.makeText(RegistryActivity.this, "E-mail bereits vergeben!", Toast.LENGTH_SHORT).show();
-					break;
-					case EMAIL_AND_USER_NAME_TAKEN: Toast.makeText(RegistryActivity.this, "E-mail und Benutzername bereits vergeben!", Toast.LENGTH_SHORT).show();
-					break;
-					default: Toast.makeText(RegistryActivity.this, "Registrierung fehlgeschlagen!", Toast.LENGTH_SHORT).show();
-					}
-				}
+                /****
+                 * REGISTER NEW USER
+                 * ****/
+                node.Server.getInstance().register(username, email, password,
+                        /** success [no input] **/
+                        new Callback() {
+                            @Override
+                            public void callback(Object... input) {
+                                Toast.makeText(RegistryActivity.this, "Registrierung erfolgreich!", Toast.LENGTH_LONG).show();
+                                NavUtils.navigateUpFromSameTask(RegistryActivity.this);
+                            }
+                        },
+                        /** username taken [no input] **/
+                        new Callback() {
+                            @Override
+                            public void callback(Object... input) {
+                                Toast.makeText(RegistryActivity.this, "Benutzername bereits vergeben!", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        /** email taken [no input] **/
+                        new Callback() {
+                            @Override
+                            public void callback(Object... input) {
+                                Toast.makeText(RegistryActivity.this, "E-mail bereits vergeben!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
 			}
 		}
 	}
