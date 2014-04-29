@@ -6,11 +6,104 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ProfileActivity" >
+    tools:context=".ProfileActivity"
+    android:background="@drawable/menu_background" >
 
     <TextView
+        android:id="@+id/title_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_profile" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/title_profile"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#81c0df"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/profile_button_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/profile_text_view_name"
+        android:layout_alignBottom="@+id/profile_text_view_name"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/title_profile"
+        android:onClick="editName"
+        android:text="@string/button_edit" />
+
+    <ImageView
+        android:id="@+id/profile_logo_clan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/profile_text_view_clan"
+        android:layout_alignLeft="@+id/profile_button_edit"
+        android:contentDescription="@string/description_logo_clan"
+        android:src="@drawable/clan_logo" />
+
+    <TextView
+        android:id="@+id/profile_text_view_clan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profile_text_view_name"
+        android:layout_below="@+id/profile_button_edit"
+        android:layout_marginTop="50dp"
+        android:text="@string/textview_clan"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/profile_text_view_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profile_text_view_clan"
+        android:layout_below="@+id/profile_text_view_clan"
+        android:layout_marginTop="44dp"
+        android:text="@string/textview_email"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/profile_text_view_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profile_text_view_email"
+        android:layout_below="@+id/profile_text_view_email"
+        android:layout_marginTop="36dp"
+        android:text="@string/textview_id"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/profile_text_view_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profile_text_view_id"
+        android:layout_below="@+id/profile_text_view_id"
+        android:layout_marginTop="34dp"
+        android:text="@string/textview_points"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/profile_text_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_profile"
+        android:layout_marginRight="28dp"
+        android:layout_marginTop="25dp"
+        android:layout_toLeftOf="@+id/title_profile"
+        android:text="@string/textview_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/profile_edit_text_name"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profile_text_view_clan"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:inputType="text"
+        android:maxLength="8"
+        android:textSize="22sp" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

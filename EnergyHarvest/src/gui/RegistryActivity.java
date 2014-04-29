@@ -69,10 +69,10 @@ public class RegistryActivity extends Activity {
 	}
 	
 	public void confirm(View view) {
-		username = ((EditText)findViewById(R.id.registryUsername)).getText().toString();
-		email = ((EditText)findViewById(R.id.registryEmail)).getText().toString();
-		password = ((EditText)findViewById(R.id.registryPassword)).getText().toString();
-		passwordRepeat = ((EditText)findViewById(R.id.registryPasswordRepeat)).getText().toString();
+		username = ((EditText)findViewById(R.id.registry_edit_text_username)).getText().toString();
+		email = ((EditText)findViewById(R.id.registry_edit_text_email)).getText().toString();
+		password = ((EditText)findViewById(R.id.registry_edit_text_password)).getText().toString();
+		passwordRepeat = ((EditText)findViewById(R.id.registry_edit_text_password_repeat)).getText().toString();
 		if(username.length() == 0 || email.length() == 0 || password.length() == 0 || passwordRepeat.length() == 0) {
 			Toast.makeText(RegistryActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
 		}

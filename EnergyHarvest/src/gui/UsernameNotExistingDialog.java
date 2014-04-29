@@ -21,7 +21,7 @@ public class UsernameNotExistingDialog extends DialogFragment {
 	        // Use the Builder class for convenient dialog construction
 	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        builder.setMessage(R.string.username_not_found)
-	               .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+	               .setPositiveButton(R.string.button_confirm, new DialogInterface.OnClickListener() {
 	                   @Override
 					public void onClick(DialogInterface dialog, int id) {
 	                       // FIRE ZE MISSILES!

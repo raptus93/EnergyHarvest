@@ -2,9 +2,11 @@ package gui;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +20,7 @@ import backend.Server;
 import com.example.energyharvest.R;
 
 /**
- * @version 1.1.3 (13/04/2014)
+ * @version 1.1.4 (29/04/2014)
  * @author Kjell Bunjes
  *
  */
@@ -50,24 +52,34 @@ public class MainActivity extends Activity {
 	}
 	
 	public void login(View view) {
-		email = ((EditText)findViewById(R.id.loginEmail)).getText().toString();
-		password = ((EditText)findViewById(R.id.loginPassword)).getText().toString();
+		email = ((EditText)findViewById(R.id.login_edit_text_email)).getText().toString();
+		password = ((EditText)findViewById(R.id.login_edit_text_password)).getText().toString();
 		Log.i("debugging email", email);
 		Log.i("debugging password", password);
 		if(email.length() == 0 || password.length() == 0) {
 			Toast.makeText(MainActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
 		}
 		else {
-			progressDialog = ProgressDialog.show(this, "Anmeldung", "Bitte warten...");
-			new LoginTask().execute("");
+			// Checking for internet connection
+			boolean isConnected = false;
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			isConnected = cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+			
+			if(isConnected) {
+				progressDialog = ProgressDialog.show(this, "Anmeldung", "Bitte warten...");
+				new LoginTask().execute("");
+			}
+			else {
+				Toast.makeText(this, "Keine Internetverbindung!", Toast.LENGTH_LONG).show();
+			}			
 		}		
 	}
 	
-	private class LoginTask extends AsyncTask<String, Void, Boolean> {
-		protected Boolean doInBackground(String...args) {
+	private class LoginTask extends AsyncTask<String, Void, Boolean> {		
+		protected Boolean doInBackground(String...args) {			
 			try {
-				errorCode = Server.getInstance().login(email, password);
-				loginSuccessful = (errorCode == ErrorCode.SUCCESS) ? true : false;
+				errorCode = Server.getInstance().login(email, password);				
+				loginSuccessful = (errorCode == ErrorCode.SUCCESS) ? true : false;				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -75,7 +87,6 @@ public class MainActivity extends Activity {
 		}
 		
 		protected void onPostExecute(Boolean result) {
-			Log.i("debugging ec", errorCode.toString());
 			if(MainActivity.this.progressDialog != null) {
 				MainActivity.this.progressDialog.dismiss();
 				if(loginSuccessful) {

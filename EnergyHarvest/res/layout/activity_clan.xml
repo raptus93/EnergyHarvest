@@ -6,11 +6,66 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ClanActivity" >
+    tools:context=".ClanActivity"
+    android:background="@drawable/menu_background" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_clan" />
+            android:id="@+id/clan_text_view_clan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/clan_logo_clan"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="46dp"
+            android:text="@string/textview_clan"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/clan_text_view_captures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/clan_text_view_clan"
+            android:layout_below="@+id/clan_text_view_clan"
+            android:layout_marginTop="24dp"
+            android:text="@string/textview_captures"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/clan_text_view_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/clan_text_view_captures"
+            android:layout_below="@+id/clan_text_view_captures"
+            android:layout_marginTop="31dp"
+            android:text="@string/textview_points"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/clan_button_join"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/clan_text_view_points"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:onClick="clan_button_joinClicked"
+            android:text="@string/button_join" />
+
+        <Button
+            android:id="@+id/clan_button_create"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/clan_button_join"
+            android:layout_centerHorizontal="true"
+            android:onClick="clan_button_createClicked"
+            android:text="@string/button_create" />
+
+        <ImageView
+            android:id="@+id/clan_logo_clan"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/description_logo_clan"
+            android:src="@drawable/clan_logo_default" />
 
 </RelativeLayout>

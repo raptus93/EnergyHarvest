@@ -13,51 +13,51 @@
         android:id="@+id/login_logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:contentDescription="@string/logodescription"
+        android:contentDescription="@string/description_logo_main"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" />
     
     <EditText
-        android:id="@+id/loginEmail"
+        android:id="@+id/login_edit_text_email"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:ems="10"
         android:gravity="left"
-        android:hint="@string/email"
+        android:hint="@string/hint_email"
         android:inputType="textEmailAddress" />
     
    <requestFocus />
    
    <EditText
-        android:id="@+id/loginPassword"
+        android:id="@+id/login_edit_text_password"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/loginEmail"
-        android:layout_below="@id/loginEmail"
+        android:layout_alignRight="@+id/login_edit_text_email"
+        android:layout_below="@id/login_edit_text_email"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="@string/hint_password"
         android:inputType="textPassword" >
         
     </EditText>
     
    <Button
-        android:id="@+id/btnRegistry"
+        android:id="@+id/login_button_registry"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnLogin"
-        android:layout_alignLeft="@+id/loginPassword"
+        android:layout_alignBottom="@+id/login_button_login"
+        android:layout_alignLeft="@+id/login_edit_text_password"
         android:onClick="goToRegistry"
-        android:text="@string/register" />
+        android:text="@string/button_register" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/login_button_login"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/loginPassword"
-        android:layout_below="@+id/loginPassword"
+        android:layout_alignRight="@+id/login_edit_text_password"
+        android:layout_below="@+id/login_edit_text_password"
         android:onClick="login"
-        android:text="@string/login" />
+        android:text="@string/button_login" />
 
 </RelativeLayout>
