@@ -27,7 +27,6 @@
 
     <Button
         android:id="@+id/answerA"
-        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="10"
@@ -35,7 +34,6 @@
 
     <Button
         android:id="@+id/answerB"
-        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="10"
@@ -43,7 +41,6 @@
 
     <Button
         android:id="@+id/answerC"
-        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="10"
@@ -51,7 +48,6 @@
 
     <Button
         android:id="@+id/answerD"
-        android:background="@color/answerDefault"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="10"

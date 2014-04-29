@@ -1,5 +1,7 @@
 package quiz;
 
+import java.util.Random;
+
 import quiz.QuizLogic;
 import backend.Question;
 import backend.Question.Answer;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService.Engine;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -110,7 +113,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 		//blockButtons();
 		
 		//Check the correctness at the server, highlight depending on the result
-		if(logic.checkAnswer(chosenAnswer)){
+		if(logic.checkAnswer(chosenAnswer) == true){
 			highlight(true, chosenAnswer);
 			logic.incrementCorrectAnswers();
 		}
@@ -177,7 +180,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 	/**
 	 * Highlights the chosen answer. Green if right, red otherwise.
 	 * @param correct is true, if the answer has been correct, otherwise it is false
-	 * @param chosenAnswer
+	 * @param chosenAnswer Guess 3 times.
 	 */
 	public void highlight(boolean correct, Answer chosenAnswer) {
 		
@@ -185,6 +188,7 @@ public class QuizGUI extends Activity implements OnClickListener{
 			if(correct){
 				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				//btnAnswerA.setBackgroundColor(0xFF04B404);
+				Log.i("backgroundColor", "Button A: "+btnAnswerA.toString());
 				Toast.makeText(getApplicationContext(), "A GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
@@ -224,13 +228,13 @@ public class QuizGUI extends Activity implements OnClickListener{
 				Toast.makeText(getApplicationContext(), "D RED", Toast.LENGTH_SHORT).show();
 			}	
 		}
-		
+		/*
 		try{
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 		}
 		catch(InterruptedException e){
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	

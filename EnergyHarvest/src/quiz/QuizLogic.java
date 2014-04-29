@@ -1,5 +1,7 @@
 package quiz;
 
+import java.util.ArrayList;
+
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,8 +28,9 @@ public class QuizLogic implements Runnable{
 	private QuestionCatalog questionCatalog;
 	private Handler handler = new Handler();
 	//Observer:
-	private QuizGUI gui;
-	
+	//private QuizGUI gui;
+	private ArrayList<QuizGUI> gui = new ArrayList<QuizGUI>();
+
 	public void getQuestions(){
 		questionCatalog = AndroidServerInterface.getRandomQuestions(10);	
 	}
@@ -55,11 +58,13 @@ public class QuizLogic implements Runnable{
 	public void run() {
 		if(timeLeft > 0){
 			timeLeft = timeLeft - 1;
-			gui.update();
+			for(int i = 0; i < gui.size(); i++){
+				gui.get(i).update();
+			}
 			handler.postDelayed(this, 1000);
 		}
 		else{
-			Toast.makeText(gui, "Time is over!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(gui.get(0), "Time is over!", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -68,18 +73,17 @@ public class QuizLogic implements Runnable{
 	}
 
 	public void registerGUI(QuizGUI gui){
-		this.gui = gui;
-		System.out.println("gui is registered.");
+		this.gui.add(gui);
 	}
 
 	public void resetTimer() {
 		timeLeft = TIME_TO_ANSWER + 1;
-		Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(gui.get(0), "Time reset!", Toast.LENGTH_SHORT).show();
 	}
 
 	public void startTimer() {
 		handler.postDelayed(this, 1200);
-		Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(gui.get(0), "Timer started!", Toast.LENGTH_SHORT).show();
 	}
 
 	public void sendNonClick() {
