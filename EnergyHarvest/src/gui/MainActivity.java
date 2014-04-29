@@ -18,6 +18,7 @@ import backend.ErrorCode;
 import backend.Server;
 
 import com.example.energyharvest.R;
+import node.Callback;
 
 /**
  * @version 1.1.4 (29/04/2014)
@@ -28,14 +29,23 @@ import com.example.energyharvest.R;
 public class MainActivity extends Activity {
 	
 	private ProgressDialog progressDialog;
-	private boolean loginSuccessful;
 	private String email, password;
-	private ErrorCode errorCode;
 
-	@Override
+    /** test login **/
+    private Toast toast;
+    private Intent menuIntent;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+        /** init stuff **/
+        toast = Toast.makeText(this, "Anmeldung erfolgreich!", Toast.LENGTH_SHORT);
+        menuIntent = new Intent(this, MenuActivity.class);
+
+        /** init server **/
+        node.Server.getInstance();
 	}
 
 	@Override
@@ -56,8 +66,12 @@ public class MainActivity extends Activity {
 		password = ((EditText)findViewById(R.id.login_edit_text_password)).getText().toString();
 		Log.i("debugging email", email);
 		Log.i("debugging password", password);
+
+        final String emailString = email;
+        final String passwordString = password;
+
 		if(email.length() == 0 || password.length() == 0) {
-			Toast.makeText(MainActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(MainActivity.this, "Angaben unvollstï¿½ndig!", Toast.LENGTH_SHORT).show();
 		}
 		else {
 			// Checking for internet connection
@@ -67,45 +81,45 @@ public class MainActivity extends Activity {
 			
 			if(isConnected) {
 				progressDialog = ProgressDialog.show(this, "Anmeldung", "Bitte warten...");
-				new LoginTask().execute("");
-			}
-			else {
+                /****
+                 * LOGIN
+                 * ****/
+                node.Server.getInstance().login(emailString, passwordString,
+                        /** success [no input] **/
+                        new Callback() {
+                            @Override
+                            public void callback(Object... input) {
+                                Log.e("SOCKETIO", "Anmeldung erfolgreich!");
+                                MainActivity.this.progressDialog.dismiss();
+                                toast.show();
+                                startActivity(menuIntent);
+                            }
+                        },
+
+                        /** wrong password [no input] **/
+                        new Callback() {
+                            @Override
+                            public void callback(Object... input) {
+                                MainActivity.this.progressDialog.dismiss();
+                                Toast.makeText(MainActivity.this, "Passwort inkorrekt!", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+
+                        /** invalid email [no input] **/
+                        new Callback() {
+                            @Override
+                            public void callback(Object... input) {
+                                MainActivity.this.progressDialog.dismiss();
+                                Toast.makeText(MainActivity.this, "E-Mail inkorrekt!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+			} else {
 				Toast.makeText(this, "Keine Internetverbindung!", Toast.LENGTH_LONG).show();
 			}			
 		}		
 	}
-	
-	private class LoginTask extends AsyncTask<String, Void, Boolean> {		
-		protected Boolean doInBackground(String...args) {			
-			try {
-				errorCode = Server.getInstance().login(email, password);				
-				loginSuccessful = (errorCode == ErrorCode.SUCCESS) ? true : false;				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-		
-		protected void onPostExecute(Boolean result) {
-			if(MainActivity.this.progressDialog != null) {
-				MainActivity.this.progressDialog.dismiss();
-				if(loginSuccessful) {
-					Toast.makeText(MainActivity.this, "Anmeldung erfolgreich!", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(MainActivity.this, MenuActivity.class);					
-					startActivity(intent);
-				}
-				else {
-					switch(errorCode) {
-					case INVALID_EMAIL: Toast.makeText(MainActivity.this, "E-Mail inkorrekt!", Toast.LENGTH_SHORT).show();
-					break;
-					case WRONG_PASSWORD: Toast.makeText(MainActivity.this, "Passwort inkorrekt!", Toast.LENGTH_SHORT).show();
-					break;
-					default: Toast.makeText(MainActivity.this, "Anmeldung fehlgeschlagen!", Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-		}
-	}
+
 	
 	public void goToRegistry(View view) {
 		Intent intent = new Intent(this, RegistryActivity.class);	    
