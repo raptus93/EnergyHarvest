@@ -192,39 +192,39 @@ public class QuizGUI extends Activity implements OnClickListener{
 				Toast.makeText(getApplicationContext(), "A GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
-				btnAnswerA.setText("Antwort A ist falsch!");
+				//btnAnswerA.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerA.setText("Antwort A ist falsch!");
 				//btnAnswerA.setBackgroundColor(0xFFB40404);
 				Toast.makeText(getApplicationContext(), "A RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.B){
 			if(correct){
-				btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				//btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "B GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerB.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
 				Toast.makeText(getApplicationContext(), "B RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.C){
 			if(correct){ 
-				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				//btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "C GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerC.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
 				Toast.makeText(getApplicationContext(), "C RED", Toast.LENGTH_SHORT).show();
 			}
 		}
 		if(chosenAnswer == Answer.D){
 			if(correct){
-				btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
+				//btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerCorrect));
 				Toast.makeText(getApplicationContext(), "D GREEN", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
+				//btnAnswerD.setBackgroundColor(this.getResources().getColor(R.color.answerWrong));
 				Toast.makeText(getApplicationContext(), "D RED", Toast.LENGTH_SHORT).show();
 			}	
 		}
