@@ -71,8 +71,19 @@ public class Server {
                 public void on(String event, IOAcknowledge ack, Object... args) {
                     Log.e("SOCKET.IO", event + " & ack = " + (ack == null) + " OBJC = " + args[0].toString());
 
-                    //TODO:
-                    /** if event == INBOX -> call gui methode oder schicke direkt toast **/
+                    //TODO: WENN CHALLENGE_START -> schalte in die quiz gui
+                    //TODO: WENN CHALLENGE_QUESTION -> packe die frage irgendwo hin
+
+                    if(event.equals("NOTIFICATION")){
+                        try {
+                            JSONObject notification = new JSONObject(args[0].toString());
+                            NotificationCenter.getInstance().show(notification.getString("response"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
 
                     if(ack != null){
                         ack.ack(args);

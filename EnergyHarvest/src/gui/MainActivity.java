@@ -19,11 +19,14 @@ import backend.Server;
 
 import com.example.energyharvest.R;
 import node.Callback;
+import node.NotificationCenter;
 
 /**
  * @version 1.1.4 (29/04/2014)
  * @author Kjell Bunjes
  *
+ *
+ * Editiert: Sergej Schefer (30/04/2014)
  */
 
 public class MainActivity extends Activity {
@@ -48,7 +51,10 @@ public class MainActivity extends Activity {
 
         /** init server **/
         node.Server.getInstance();
-	}
+
+        /** init notification center **/
+        NotificationCenter.init(this);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,7 +79,7 @@ public class MainActivity extends Activity {
         final String passwordString = password;
 
 		if(email.length() == 0 || password.length() == 0) {
-			Toast.makeText(MainActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(MainActivity.this, "Angaben unvollstï¿½ndig!", Toast.LENGTH_SHORT).show();
 		}
 		else {
 			// Checking for internet connection
