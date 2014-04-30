@@ -26,7 +26,8 @@ public class Server {
     private SocketIO socket = null;
     private boolean session = false;
     private boolean challengeCreated = false;
-    private final User GUEST_USER = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO", 0));
+    public final User GUEST_USER = new User(0, "GUEST", "guest@no-reply.com", 0, new Clan(0, "GUESTCLAN", "GUESTLOGO", 0));
+    public final Clan GUEST_CLAN = new Clan(0, "GUESTCLAN", "GUESTLOGO", 0);
     private User user = GUEST_USER;
 
     /** config **/

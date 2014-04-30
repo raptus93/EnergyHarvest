@@ -36,6 +36,12 @@ public class NotificationCenter {
         Log.e("SOCKETIO", notification);
 
         if(notification.equals("CLAN_INVITE")){
+
+            /*
+            * TODO: send the clanid from the server to the client & fetch the clan from the DB
+            * TODO: OR -> send the clan info from the server to the client & just set it here
+            * */
+
             clanInviteToast.show();
         }else if(notification.equals("CHALLENGE_INVITE")){
             challengeInviteToast.show();

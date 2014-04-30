@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.energyharvest.R;
+import node.Callback;
+import node.Server;
 
 /**
  * @version 1.1.4 (29/04/2014)
@@ -28,6 +30,8 @@ public class ClanActivity extends Activity {
 	private String clanName;
 	private int clanLogo, captures, points;
 
+    private Toast leaveClanToast;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -39,6 +43,8 @@ public class ClanActivity extends Activity {
 		TextView tvPoints = (TextView) findViewById(R.id.clan_text_view_points);
 		Button button1 = (Button) findViewById(R.id.clan_button_join);
 		Button button2 = (Button) findViewById(R.id.clan_button_create);
+
+        leaveClanToast = Toast.makeText(this, "Resign Clicked!", Toast.LENGTH_SHORT);
 		
 		// CREATING PLACEHOLDER CLAN INFORMATION
 		isClanMember = true;
@@ -54,7 +60,7 @@ public class ClanActivity extends Activity {
 			tvClan.setText("Clan: " + clanName);
 			tvCaptures.setText("Eroberungen: " + captures);
 			tvPoints.setText("Punkte: " + points);
-			button1.setText("Hinzufügen");
+			button1.setText("Hinzufï¿½gen");
 			button2.setText("Austreten");
 			
 			button1.setOnClickListener(new OnClickListener() {
@@ -93,8 +99,14 @@ public class ClanActivity extends Activity {
 	}
 
 	private void btnResignClicked(View view) {
-		Toast.makeText(this, "Resign Clicked!", Toast.LENGTH_SHORT).show();
-	}
+        Server.getInstance().leaveClan(new Callback() {
+            @Override
+            public void callback(Object... input) {
+                Server.getInstance().getActiveUser().setClan(Server.getInstance().GUEST_CLAN);
+                leaveClanToast.show();
+            }
+        });
+    }
 	
 
 	@Override
