@@ -175,6 +175,24 @@ public class INTERFACES {
             }
         }, users);
 
+        /***
+         * START THE CHALLENGE
+         * **/
+        Server.getInstance().startChallenge(
+        /** success [no input] **/
+        new Callback() {
+            @Override
+            public void callback(Object... input) {
+
+            }
+        },
+        /** fail. you are not the challenge creator [no input] **/
+        new Callback() {
+            @Override
+            public void callback(Object... input) {
+
+            }
+        });
 
         /***
          * END THE CHALLENGE

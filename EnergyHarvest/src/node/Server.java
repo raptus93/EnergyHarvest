@@ -31,7 +31,6 @@ public class Server {
 
     /** config **/
     private final String SERVER_IP = "rawfood.no-ip.biz";
-    //private final String SERVER_IP = "caramelswirl.myqnapcloud.com";
     private final String SERVER_PORT = "1337";
 
     private Server(){
@@ -73,6 +72,7 @@ public class Server {
                     Log.e("SOCKET.IO", event + " & ack = " + (ack == null) + " OBJC = " + args[0].toString());
 
                     //TODO:
+                    /** if event == INBOX -> call gui methode oder schicke direkt toast **/
 
                     if(ack != null){
                         ack.ack(args);
@@ -101,7 +101,7 @@ public class Server {
                 public void ack(Object... args) {
                     /**
                      * nothing here.
-                    * **/
+                     * **/
                 }
             }, new JSONObject("{clanid: " + getActiveUser().getClan().getId() + "}"));
         } catch (JSONException e) {
@@ -210,8 +210,8 @@ public class Server {
     }
 
     /**
-        use only if user is in no clan !
-    **/
+     use only if user is in no clan !
+     **/
     public void createClan(String name, final Callback success, final Callback clanNameTaken){
         if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() == 0){
             try {
@@ -341,33 +341,33 @@ public class Server {
     }
 
     public void getOnlineMembersFromClan(final Callback success){
-       if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
-           try {
-               send().emit("GET_ONLINE_MEMBERS", new IOAcknowledge() {
-                   @Override
-                   public void ack(Object... args) {
-                       try {
-                           JSONObject result = new JSONObject(args[1].toString());
-                           String response = result.get("response").toString();
-                           JSONObject members = new JSONObject(response);
-                           LinkedList<User> users = new LinkedList<User>();
+        if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
+            try {
+                send().emit("GET_ONLINE_MEMBERS", new IOAcknowledge() {
+                    @Override
+                    public void ack(Object... args) {
+                        try {
+                            JSONObject result = new JSONObject(args[1].toString());
+                            String response = result.get("response").toString();
+                            JSONObject members = new JSONObject(response);
+                            LinkedList<User> users = new LinkedList<User>();
 
-                           for(int i = 0; i < members.length(); i++){
-                               JSONObject user = members.getJSONObject("" + i);
-                               users.add(new User(user.getInt("id"), user.getString("name"), "HIDDEN", user.getInt("score"), getActiveUser().getClan()));
-                           }
+                            for(int i = 0; i < members.length(); i++){
+                                JSONObject user = members.getJSONObject("" + i);
+                                users.add(new User(user.getInt("id"), user.getString("name"), "HIDDEN", user.getInt("score"), getActiveUser().getClan()));
+                            }
 
-                           success.callback(users);
+                            success.callback(users);
 
-                       } catch (JSONException e) {
-                           e.printStackTrace();
-                       }
-                   }
-               }, new JSONObject("{clanid : " + getActiveUser().getClan().getId() + ", id : "+ getActiveUser().getId() +"}"));
-           } catch (JSONException e) {
-               e.printStackTrace();
-           }
-       }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new JSONObject("{clanid : " + getActiveUser().getClan().getId() + ", id : "+ getActiveUser().getId() +"}"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void makeChallege(final Callback success, final Callback fail, LinkedList<User> users){
@@ -444,14 +444,46 @@ public class Server {
         }
     }
 
-    // TODO: master -> start challenge
     public void startChallenge(final Callback success, final Callback fail){
+        /** if master -> start challenge auf dem server **/
+        if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
+            try {
+                send().emit("CHALLENGE_START", new IOAcknowledge() {
+                    @Override
+                    public void ack(Object... args) {
+                        try {
+                            JSONObject result = new JSONObject(args[1].toString());
+                            String response = result.get("response").toString();
 
+                            if(response.equals("SUCCESS")){
+                                success.callback();
+                            }else if(response.equals("YOU_ARENT_THE_CHALLENGE_CREATOR")){
+                                fail.callback();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new JSONObject("{challengeID : " + getActiveUser().getClan().getId() + ", id : "+ getActiveUser().getId() +"}"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+
+
+    /** hier quiz starten  **/
+    /**
+     * CHALLENGE_STARTED ruft bei allen das quiz auf
+     * die fragen kommen per: CHALLENGE_QUESTION
+     * **/
+
 
     // TODO: accept invite?
     public void challengeResponse(final boolean accept, final Callback success, final Callback fail){
-
+        /** accept message -> server -> trägt client in die challenge liste ein! **/
     }
 
     /** STUB **/
