@@ -485,17 +485,35 @@ public class Server {
     }
 
 
-
-    /** hier quiz starten  **/
     /**
-     * CHALLENGE_STARTED ruft bei allen das quiz auf
-     * die fragen kommen per: CHALLENGE_QUESTION
+     * CHALLENGE_STARTED -> Opens the Quiz-GUI! Quiz-GUI waits for a question to come in
+     * CHALLENGE_QUESTION -> Notification Center -> Put Question into the list
      * **/
 
 
-    // TODO: accept invite?
     public void challengeResponse(final boolean accept, final Callback success, final Callback fail){
-        /** accept message -> server -> trägt client in die challenge liste ein! **/
+        try {
+            send().emit("CHALLENGE_RESPONSE", new IOAcknowledge() {
+                @Override
+                public void ack(Object... args) {
+
+                    try {
+                        JSONObject result = new JSONObject(args[1].toString());
+                        String response = result.get("response").toString();
+
+                        if(response.equals("CHALLENGE_ACCEPTED")){
+                            success.callback();
+                        }else if(response.equals("CHALLENGE_DECLINED")){
+                            fail.callback();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new JSONObject("{response : " + accept + ", challengeID : " + getActiveUser().getClan().getId() + ", name : " + getActiveUser().getName() + ", id: " + getActiveUser().getId() + "}"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /** STUB **/

@@ -212,6 +212,27 @@ public class INTERFACES {
         });
 
 
+
+        /***
+         * ACCEPT / DECLINE THE CHALLENGE
+         * **/
+        Server.getInstance().challengeResponse(true,
+                /** success [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+                },
+                /** fail [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+                });
+
+
     }
 
 }
