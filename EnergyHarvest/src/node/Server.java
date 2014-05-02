@@ -72,19 +72,21 @@ public class Server {
                 public void on(String event, IOAcknowledge ack, Object... args) {
                     Log.e("SOCKET.IO", event + " & ack = " + (ack == null) + " OBJC = " + args[0].toString());
 
-                    //TODO: WENN CHALLENGE_START -> schalte in die quiz gui
-                    //TODO: WENN CHALLENGE_QUESTION -> packe die frage irgendwo hin
-
                     if(event.equals("NOTIFICATION")){
                         try {
                             JSONObject notification = new JSONObject(args[0].toString());
+                            String message = notification.getString("response");
+
                             NotificationCenter.getInstance().show(notification.getString("response"));
+
+                            if(message.contains("CHALLENGE")){
+                                ChallengeBridge.getInstance().proccess(message, notification);
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
 
                     if(ack != null){
                         ack.ack(args);
@@ -486,33 +488,36 @@ public class Server {
 
 
     /**
+     * Kommt vom Server als push nachricht
      * CHALLENGE_STARTED -> Opens the Quiz-GUI! Quiz-GUI waits for a question to come in
      * CHALLENGE_QUESTION -> Notification Center -> Put Question into the list
      * **/
 
 
     public void challengeResponse(final boolean accept, final Callback success, final Callback fail){
-        try {
-            send().emit("CHALLENGE_RESPONSE", new IOAcknowledge() {
-                @Override
-                public void ack(Object... args) {
+        if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
+            try {
+                send().emit("CHALLENGE_RESPONSE", new IOAcknowledge() {
+                    @Override
+                    public void ack(Object... args) {
 
-                    try {
-                        JSONObject result = new JSONObject(args[1].toString());
-                        String response = result.get("response").toString();
+                        try {
+                            JSONObject result = new JSONObject(args[1].toString());
+                            String response = result.get("response").toString();
 
-                        if(response.equals("CHALLENGE_ACCEPTED")){
-                            success.callback();
-                        }else if(response.equals("CHALLENGE_DECLINED")){
-                            fail.callback();
+                            if(response.equals("CHALLENGE_ACCEPTED")){
+                                success.callback();
+                            }else if(response.equals("CHALLENGE_DECLINED")){
+                                fail.callback();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
-            }, new JSONObject("{response : " + accept + ", challengeID : " + getActiveUser().getClan().getId() + ", name : " + getActiveUser().getName() + ", id: " + getActiveUser().getId() + "}"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+                }, new JSONObject("{response : " + accept + ", challengeID : " + getActiveUser().getClan().getId() + ", name : " + getActiveUser().getName() + ", id: " + getActiveUser().getId() + "}"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

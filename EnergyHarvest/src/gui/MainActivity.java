@@ -19,6 +19,7 @@ import backend.Server;
 
 import com.example.energyharvest.R;
 import node.Callback;
+import node.ChallengeBridge;
 import node.NotificationCenter;
 
 /**
@@ -54,6 +55,7 @@ public class MainActivity extends Activity {
 
         /** init notification center **/
         NotificationCenter.init(this);
+
     }
 
 	@Override

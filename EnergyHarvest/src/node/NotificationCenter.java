@@ -13,7 +13,9 @@ public class NotificationCenter {
     }
 
     public static void init(Activity a){
-        instance = new NotificationCenter(a);
+        if(instance == null){
+            instance = new NotificationCenter(a);
+        }
     }
 
     private NotificationCenter(Activity a){
@@ -22,6 +24,8 @@ public class NotificationCenter {
         challengeInviteToast = Toast.makeText(activity, "Challenge-Einladung!", Toast.LENGTH_SHORT);
         challengeStartedToast = Toast.makeText(activity, "Challenge wurde gestartet!", Toast.LENGTH_SHORT);
         challengeNewQuestion = Toast.makeText(activity, "Neue Quiz-Frage erhalten!", Toast.LENGTH_SHORT);
+        challengeAccepted = Toast.makeText(activity, "Challenge akzeptiert!", Toast.LENGTH_SHORT);
+        challengeDeclined =  Toast.makeText(activity, "Challenge abgelehnt!", Toast.LENGTH_SHORT);
     }
 
     /** class members **/
@@ -30,6 +34,8 @@ public class NotificationCenter {
     private Toast challengeInviteToast;
     private Toast challengeStartedToast;
     private Toast challengeNewQuestion;
+    private Toast challengeAccepted;
+    private Toast challengeDeclined;
 
     public void show(String notification){
 
@@ -49,8 +55,11 @@ public class NotificationCenter {
             challengeStartedToast.show();
         }else if(notification.equals("CHALLENGE_QUESTION")){
             challengeNewQuestion.show();
+        }else if(notification.equals("CHALLENGE_DECLINED")){
+            challengeDeclined.show();
+        }else if(notification.equals("CHALLENGE_ACCEPTED")){
+            challengeAccepted.show();
         }
-
     }
 
 

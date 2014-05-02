@@ -69,7 +69,7 @@ public class RegistryActivity extends Activity {
 	    super.onConfigurationChanged(newConfig);
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
-	
+
 	public void confirm(View view) {
 		username = ((EditText)findViewById(R.id.registry_edit_text_username)).getText().toString();
 		email = ((EditText)findViewById(R.id.registry_edit_text_email)).getText().toString();
@@ -77,11 +77,11 @@ public class RegistryActivity extends Activity {
 		passwordRepeat = ((EditText)findViewById(R.id.registry_edit_text_password_repeat)).getText().toString();
 
 		if(username.length() == 0 || email.length() == 0 || password.length() == 0 || passwordRepeat.length() == 0) {
-			Toast.makeText(RegistryActivity.this, "Angaben unvollständig!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(RegistryActivity.this, "Angaben unvollstï¿½ndig!", Toast.LENGTH_SHORT).show();
 		}
 		else {
 			if(!password.equals(passwordRepeat)) {
-				Toast.makeText(RegistryActivity.this, "Passwort stimmt nicht überein!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegistryActivity.this, "Passwort stimmt nicht ï¿½berein!", Toast.LENGTH_SHORT).show();
 			}
 			else {
 				progressDialog = ProgressDialog.show(this, "Registrierung", "Bitte warten...");
