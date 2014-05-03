@@ -329,6 +329,7 @@ public class Server {
         }
     }
 
+    @Deprecated
     public void checkAnswer(int questionID, int answer, final Callback correctAnswer, final Callback falseAnswer){
         try {
             send().emit("CHECK_ANSWER", new IOAcknowledge() {
@@ -486,14 +487,6 @@ public class Server {
         }
     }
 
-
-    /**
-     * Kommt vom Server als push nachricht
-     * CHALLENGE_STARTED -> Opens the Quiz-GUI! Quiz-GUI waits for a question to come in
-     * CHALLENGE_QUESTION -> Notification Center -> Put Question into the list
-     * **/
-
-
     public void challengeResponse(final boolean accept, final Callback success, final Callback fail){
         if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
             try {
@@ -515,6 +508,21 @@ public class Server {
                         }
                     }
                 }, new JSONObject("{response : " + accept + ", challengeID : " + getActiveUser().getClan().getId() + ", name : " + getActiveUser().getName() + ", id: " + getActiveUser().getId() + "}"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sendAnswer(final int questionID, final int answer, final int challengeID){
+        if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
+            try {
+                send().emit("SEND_ANSWER", new IOAcknowledge() {
+                    @Override
+                    public void ack(Object... args) {
+                        /** no response **/
+                    }
+                }, new JSONObject("{questionID : " + questionID + ", answer : "+ answer + ", challengeID : "+ getActiveUser().getClan().getId() +"}"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

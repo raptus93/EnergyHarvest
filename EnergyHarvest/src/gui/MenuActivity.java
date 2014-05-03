@@ -7,14 +7,17 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import backend.Server;
 
 import com.example.energyharvest.R;
+import node.Callback;
 import node.ChallengeBridge;
+import node.Server;
+import node.User;
+
+import java.util.LinkedList;
 
 /**
  * @version 1.1.3 (13/04/2014)
@@ -61,7 +64,7 @@ public class MenuActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		Server.getInstance().logout();
+		node.Server.getInstance().logout();
 	}
 	
 	@Override
@@ -87,8 +90,53 @@ public class MenuActivity extends Activity {
 	}
 	
 	public void goToTutorial(View view) {
-		Intent intent = new Intent(this, TutorialActivity.class);
-	    startActivity(intent);
+        /***
+         * CREATE NEW CHALLENGE
+         * **/
+        LinkedList<User> users = new LinkedList<User>();
+        users.add(new User(14, "0", "0", 0, Server.getInstance().getActiveUser().getClan()));
+        users.add(new User(28, "0", "0", 0, Server.getInstance().getActiveUser().getClan()));
+
+
+        Server.getInstance().makeChallege(
+                /** success [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+                        try {
+                            Thread.sleep(10000);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
+
+                        /***
+                         * START THE CHALLENGE
+                         * **/
+                        Server.getInstance().startChallenge(
+                                /** success [no input] **/
+                                new Callback() {
+                                    @Override
+                                    public void callback(Object... input) {
+
+                                    }
+                                },
+                                /** fail. you are not the challenge creator [no input] **/
+                                new Callback() {
+                                    @Override
+                                    public void callback(Object... input) {
+
+                                    }
+                                });
+                    }
+                },
+                /** fail. challenge for clan already exists [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+                }, users);
 	}
 	
 	public void goToQuiz(View view) {

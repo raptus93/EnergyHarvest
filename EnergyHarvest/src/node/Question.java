@@ -27,50 +27,35 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package backend;
-
-import java.util.LinkedList;
+package node;
 
 /**
- * Contains 10 random Questions
  * @author Sergej Schefer
  */
-public class QuestionCatalog {
-	
-	private LinkedList<Question> questions;
-	private int currentQuestionID = -1;
-	
-	/* Stub */
-	public QuestionCatalog(LinkedList<Question> questions){
-        this.questions = questions;
-    }
-	
-	/**
-	 * pulls a question from the catalog
-	 * @return
-	 */
-	public Question pullQuestion(){
-		currentQuestionID++;
-		return questions.get(currentQuestionID);
-	}
+public class Question implements java.io.Serializable{
 
-    /**
-     * pops 1 question from the list (first to last)
-     */
-    public Question popQuestion(){
-        return questions.remove(0);
+    private static final long serialVersionUID = 1L;
+
+    public final int id;
+    public final String text;
+    public final String answerA;
+    public final String answerB;
+    public final String answerC;
+    public final String answerD;
+
+    public static enum Answer{A, B, C, D}
+
+    public Question(int id, String question, String answerA, String answerB, String answerC, String answerD){
+        this.id = id;
+        this.text = question;
+        this.answerA = answerA;
+        this.answerB = answerB;
+        this.answerC = answerC;
+        this.answerD = answerD;
     }
 
-    /**
-     * analog to the get() from the LinkedList
-     * @param i
-     * @return
-     */
-    public Question getQuestion(int i){
-        return questions.get(i);
-    }
-
-    public LinkedList<Question> getQuestionList(){
-        return questions;
+    @Override
+    public String toString(){
+        return "[" + text + " | " + answerA + " | " + answerB + " | " + answerC + " | " + answerD + "]";
     }
 }

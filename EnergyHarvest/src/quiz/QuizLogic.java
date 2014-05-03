@@ -1,15 +1,10 @@
 package quiz;
 
-import java.util.ArrayList;
-
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
-import backend.Question;
-import backend.Question.Answer;
-import backend.AndroidServerInterface;
-import backend.QuestionCatalog;
-import backend.Server;
+import node.ChallengeBridge;
+import node.Question;
 
 /**
  * @version 1.1.4 (28/04/2014)
@@ -19,79 +14,53 @@ import backend.Server;
 
 public class QuizLogic implements Runnable{
 
-	public static final int TIME_TO_ANSWER = 15;
+    public static final int TIME_TO_ANSWER = 15;
+    private double timeLeft = TIME_TO_ANSWER;
+    private Handler handler = new Handler();
 
-	private int currentQuestion = 0;
+    private QuizGUI gui;
 
-	private int correctAnswers = 0;
-	private double timeLeft = TIME_TO_ANSWER;
-	private QuestionCatalog questionCatalog;
-	private Handler handler = new Handler();
-	//Observer:
-	//private QuizGUI gui;
-	private ArrayList<QuizGUI> gui = new ArrayList<QuizGUI>();
+    public Question getCurrentQuestion() {
+        return ChallengeBridge.getInstance().getCurrentQuestion();
+    }
 
-	public void getQuestions(){
-		questionCatalog = AndroidServerInterface.getRandomQuestions(10);	
-	}
-	
-	public Question nextQuestion(){
-		currentQuestion++;
-		return questionCatalog.getQuestion(currentQuestion);
-	}
+    public void pushQuestion(Question q){
+        if(gui != null){
+            gui.showQuestion(q);
+        }else{
+            Log.e("QUESTION", "GUI IS NULL");
+        }
+    }
 
-	public int getCurrentQuestion() {
-		return currentQuestion;
-	}
 
-	public boolean checkAnswer(Answer chosenAnswer) {
-		if(AndroidServerInterface.checkAnswer(questionCatalog.getQuestion(currentQuestion).id, chosenAnswer)){
-			correctAnswers++;
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
+    @Override
+    public void run() {
+        if(timeLeft > 0){
+            timeLeft = timeLeft - 1;
+            gui.update();
+            handler.postDelayed(this, 1000);
+        }
+        else{
+            Toast.makeText(gui, "Time is over!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-	@Override
-	public void run() {
-		if(timeLeft > 0){
-			timeLeft = timeLeft - 1;
-			for(int i = 0; i < gui.size(); i++){
-				gui.get(i).update();
-			}
-			handler.postDelayed(this, 1000);
-		}
-		else{
-			Toast.makeText(gui.get(0), "Time is over!", Toast.LENGTH_SHORT).show();
-		}
-	}
+    public double getTimeLeft() {
+        return timeLeft;
+    }
 
-	public double getTimeLeft() {
-		return timeLeft;
-	}
+    public void registerGUI(QuizGUI gui){
+        this.gui = gui;
+    }
 
-	public void registerGUI(QuizGUI gui){
-		this.gui.add(gui);
-	}
+    public void resetTimer() {
+        timeLeft = TIME_TO_ANSWER + 1;
+        Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
+    }
 
-	public void resetTimer() {
-		timeLeft = TIME_TO_ANSWER + 1;
-		Toast.makeText(gui.get(0), "Time reset!", Toast.LENGTH_SHORT).show();
-	}
+    public void startTimer() {
+        handler.postDelayed(this, 1200);
+        Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
+    }
 
-	public void startTimer() {
-		handler.postDelayed(this, 1200);
-		Toast.makeText(gui.get(0), "Timer started!", Toast.LENGTH_SHORT).show();
-	}
-
-	public void sendNonClick() {
-		// brauche ich erst Dienstags
-		
-	}
-	
-	public void incrementCorrectAnswers(){
-		correctAnswers++;
-	}
 }
