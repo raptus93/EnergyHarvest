@@ -91,19 +91,25 @@ public class QuizGUI extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		//Decision, what Button has been clicked
-		Answer chosenAnswer = Answer.A;
-		if (v == btnAnswerB){
-			chosenAnswer = Answer.B;
-		}
-		else if (v == btnAnswerC){
-			chosenAnswer = Answer.C;
-		}
-		else if (v == btnAnswerD){
-			chosenAnswer = Answer.D;
-		}
 
-        Server.getInstance().sendAnswer(ChallengeBridge.getInstance().getCurrentQuestion().id, chosenAnswer.ordinal(), Server.getInstance().getActiveUser().getClan().getId());
+        if(v.isActivated()){
+
+            //Decision, what Button has been clicked
+            Answer chosenAnswer = Answer.A;
+            if (v == btnAnswerB){
+                chosenAnswer = Answer.B;
+            }
+            else if (v == btnAnswerC){
+                chosenAnswer = Answer.C;
+            }
+            else if (v == btnAnswerD){
+                chosenAnswer = Answer.D;
+            }
+
+            highlight((Button)v);
+            blockButtons();
+            Server.getInstance().sendAnswer(ChallengeBridge.getInstance().getCurrentQuestion().id, chosenAnswer.ordinal(), Server.getInstance().getActiveUser().getClan().getId());
+        }
     }
 
     public void update(){
@@ -120,6 +126,22 @@ public class QuizGUI extends Activity implements OnClickListener{
             Server.getInstance().sendAnswer(ChallengeBridge.getInstance().getCurrentQuestion().id, Answer.A.ordinal(), Server.getInstance().getActiveUser().getClan().getId());
             blockButtons();
         }
+    }
+
+    public void highlight(final Button highlight){
+        final int corr = this.getResources().getColor(R.color.answerCorrect);
+        final int def = this.getResources().getColor(R.color.answerDefault);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                btnAnswerA.setBackgroundColor(def);
+                btnAnswerB.setBackgroundColor(def);
+                btnAnswerC.setBackgroundColor(def);
+                btnAnswerD.setBackgroundColor(def);
+                highlight.setBackgroundColor(corr);
+            }
+        });
     }
 
 	/**
