@@ -97,7 +97,6 @@ public class MenuActivity extends Activity {
         users.add(new User(14, "0", "0", 0, Server.getInstance().getActiveUser().getClan()));
         users.add(new User(28, "0", "0", 0, Server.getInstance().getActiveUser().getClan()));
 
-
         Server.getInstance().makeChallege(
                 /** success [no input] **/
                 new Callback() {

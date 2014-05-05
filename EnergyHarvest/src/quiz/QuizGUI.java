@@ -23,7 +23,6 @@ import node.Server;
  *
  */
 
-
 public class QuizGUI extends Activity implements OnClickListener{
 	
 	private TextView tvQuestion;
@@ -44,14 +43,18 @@ public class QuizGUI extends Activity implements OnClickListener{
         setupLayout();
 
         logic = new QuizLogic();
-
-        logic.registerGUI(this);
-
+        
+        logic.registerGUI((QuizGUI) this);
+        
         ChallengeBridge.getInstance().setLogic(logic);
 
         //Starts the Timer once
         logic.startTimer();
 
+        //Hier war der Plan eigentlich, das die GUI NUR auf die Logik zugreift,
+        //sich die Frage also entweder aus dem Datenfeld oder über die Methode holt.
+        //Spricht dagegen, das alle Teilnehmer die GUI sehen?
+        
         showQuestion(ChallengeBridge.getInstance().getCurrentQuestion());
     }
 	
@@ -193,7 +196,5 @@ public class QuizGUI extends Activity implements OnClickListener{
             }
         });
     }
-
-	
 
 }

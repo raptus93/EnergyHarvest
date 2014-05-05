@@ -41,7 +41,7 @@ public class QuizLogic implements Runnable{
             handler.postDelayed(this, 1000);
         }
         else{
-            Toast.makeText(gui, "Time is over!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(gui, "Time is over!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -55,12 +55,12 @@ public class QuizLogic implements Runnable{
 
     public void resetTimer() {
         timeLeft = TIME_TO_ANSWER + 1;
-        Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(gui, "Time reset!", Toast.LENGTH_SHORT).show();
     }
 
     public void startTimer() {
         handler.postDelayed(this, 1200);
-        Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
     }
 
 }
