@@ -3,6 +3,8 @@ package node;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class NotificationCenter {
 
@@ -37,16 +39,23 @@ public class NotificationCenter {
     private Toast challengeAccepted;
     private Toast challengeDeclined;
 
-    public void show(String notification){
+    public void show(String notification, JSONObject json){
 
         Log.e("SOCKETIO", notification);
 
         if(notification.equals("CLAN_INVITE")){
 
-            /*
-            * TODO: send the clanid from the server to the client & fetch the clan from the DB
-            * TODO: OR -> send the clan info from the server to the client & just set it here
-            * */
+            try {
+                int memberCount = json.getInt("clanMembercount");
+                int clanID = json.getInt("clanID");
+                String clanName = json.getString("clanName");
+                String clanLogo = json.getString("clanLogo");
+
+                Server.getInstance().getActiveUser().setClan(new Clan(clanID, clanName, clanLogo, memberCount));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             clanInviteToast.show();
         }else if(notification.equals("CHALLENGE_INVITE")){

@@ -65,6 +65,7 @@ public class ChallengeBridge {
         }else if(message.equals("CHALLENGE_INVITE")){
 
             //TODO: -> erstmal auto-accept für alle challenge invites
+            //TODO: -> HIER POP UP
 
             /***
              * ACCEPT / DECLINE THE CHALLENGE

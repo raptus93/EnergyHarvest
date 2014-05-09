@@ -77,7 +77,7 @@ public class Server {
                             JSONObject notification = new JSONObject(args[0].toString());
                             String message = notification.getString("response");
 
-                            NotificationCenter.getInstance().show(notification.getString("response"));
+                            NotificationCenter.getInstance().show(message, notification);
 
                             if(message.contains("CHALLENGE")){
                                 ChallengeBridge.getInstance().proccess(message, notification);
