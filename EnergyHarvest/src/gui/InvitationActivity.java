@@ -50,8 +50,12 @@ public class InvitationActivity extends ListActivity {
                   LinkedList<User> users = (LinkedList<User>) input[0];
                   List<InvitationModel> list = new ArrayList<InvitationModel>();
 
-                  for(User u : users){
+                  /*for(User u : users){
                     list.add(new InvitationModel(u.getName()));
+                  }*/
+                  
+                  for(int i = 0; i < users.size(); i++) {
+                	 list.add(new InvitationModel(users.get(i)));
                   }
 
                   ArrayAdapter<InvitationModel> adapter = new InteractiveArrayAdapter(InvitationActivity.this, list);
@@ -60,35 +64,55 @@ public class InvitationActivity extends ListActivity {
           });
 	  }
 	  
-	  /** Hier Liste der Clanmitglieder erstellen**/
-	  private List<InvitationModel> getModel() {
-		LinkedList<User> testList = getFakeList();
-	    List<InvitationModel> list = new ArrayList<InvitationModel>();
-	    
-	    for(User element : testList) {
-	    	list.add(get(element.getName()));
-	    }
-	    return list;
-	  }
-	  
-	  private LinkedList<User> getFakeList() {
+	  public void invite(View view) {
 		  LinkedList<User> list = new LinkedList<User>();
-		  int memberCount = 15;
-		  for(int i = 0; i < memberCount; i++) {
-			  list.add(new User((100+i), "User_" + i, "user_" + i + "@mail.com", 2000, new Clan(100, "TestClan", "TestLogoURL", memberCount)));
-		  }
-		  
-		  return list;
-	  }
-
-	  private InvitationModel get(String s) {
-	    return new InvitationModel(s);
-	  }
-	  
-	  public void invite(View view) {		  
 		  for(int i = 0; i < getListView().getLastVisiblePosition(); i++) {
 			  InvitationModel element = (InvitationModel) getListView().getAdapter().getItem(i);
 			  Log.i("InviteCheck", "Username: " + element.getName() + " selected: " + element.isSelected());
+			  //list.add(element.getUser());
+			  if(element.isSelected()) {
+				  list.add(element.getUser());
+				  Log.i("debugging", "" + element.getUser().toString());
+			  }
 		  }
+		  Server.getInstance().makeChallege(
+	                /** success [no input] **/
+	                new Callback() {
+	                    @Override
+	                    public void callback(Object... input) {
+	                        try {
+	                            Thread.sleep(10000);
+
+	                        } catch (InterruptedException e) {
+	                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+	                        }
+
+	                        /***
+	                         * START THE CHALLENGE
+	                         * **/
+	                        Server.getInstance().startChallenge(
+	                                /** success [no input] **/
+	                                new Callback() {
+	                                    @Override
+	                                    public void callback(Object... input) {
+
+	                                    }
+	                                },
+	                                /** fail. you are not the challenge creator [no input] **/
+	                                new Callback() {
+	                                    @Override
+	                                    public void callback(Object... input) {
+
+	                                    }
+	                                });
+	                    }
+	                },
+	                /** fail. challenge for clan already exists [no input] **/
+	                new Callback() {
+	                    @Override
+	                    public void callback(Object... input) {
+
+	                    }
+	                }, list);
 	  }
 }
