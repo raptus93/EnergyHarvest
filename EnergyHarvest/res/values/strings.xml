@@ -50,5 +50,10 @@
     <string name="textview_email">E-mail:</string>
     <string name="textview_id">ID:</string>
     <string name="button_edit">Edit</string>
+    <string name="title_activity_creation">CreationActivity</string>
+    <string name="title_activity_invitation">InvitationActivity</string>
+    <string name="title_activity_lobby">LobbyActivity</string>
+    <string name="button_invitation">Invitation</string>
+    <string name="button_invite">Einladen</string>
 
 </resources>

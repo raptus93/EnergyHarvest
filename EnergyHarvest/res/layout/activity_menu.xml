@@ -63,5 +63,12 @@
         android:layout_height="wrap_content"
         android:onClick="goToTutorial"
         android:text="@string/button_tutorial" />
+    
+    <Button
+        android:id="@+id/menu_button_invitation"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:onClick="testInvitation"
+        android:text="@string/button_invitation" />
 
 </LinearLayout>

@@ -44,6 +44,7 @@
         </activity>
         <activity
             android:name="gui.ClanActivity"
+            android:noHistory="true"
             android:label="@string/title_activity_clan"
             android:parentActivityName="gui.MenuActivity" >
             <meta-data
@@ -92,6 +93,30 @@
 				            android:label="@string/title_activity_demo" >
 				        </activity>
         -->
+        <activity
+            android:name="gui.CreationActivity"
+            android:label="@string/title_activity_creation"
+            android:parentActivityName="gui.Clan" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gui.ClanActivity" />
+        </activity>
+        <activity
+            android:name="gui.InvitationActivity"
+            android:label="@string/title_activity_invitation"
+            android:parentActivityName="com.valkyrieDemo.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.valkyrieDemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="gui.LobbyActivity"
+            android:label="@string/title_activity_lobby"
+            android:parentActivityName="quiz.QuizGUI" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quiz.QuizGUI" />
+        </activity>
     </application>
 
 </manifest>

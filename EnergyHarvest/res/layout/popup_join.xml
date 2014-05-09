@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/main_color">
+ <LinearLayout 
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="vertical" 
+     android:layout_margin="1dp"
+     android:background="@android:color/black">
+     >
+     <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp">
+
+      <TextView
+          android:id="@+id/clan_popup_text_view_id"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:text="@string/textview_id"
+          android:textAppearance="?android:attr/textAppearanceLarge" />
+
+      <Button
+          android:id="@+id/clan_popup_button_confirm"
+          android:layout_width="200dp"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_below="@id/clan_popup_text_view_id"          
+          android:text="@string/button_confirm" />
+      </RelativeLayout>
+ </LinearLayout>
+</LinearLayout>

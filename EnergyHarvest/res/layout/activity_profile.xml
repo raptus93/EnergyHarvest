@@ -17,7 +17,7 @@
         android:layout_marginTop="15dp"
         android:text="@string/title_profile"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#81c0df"
+        android:textColor="@color/main_color"
         android:textSize="32sp" />
 
     <Button
@@ -103,7 +103,7 @@
         android:maxLength="8"
         android:textSize="22sp" >
 
-        <requestFocus />
+        
     </EditText>
 
 </RelativeLayout>

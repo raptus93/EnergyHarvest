@@ -47,7 +47,7 @@
             android:layout_below="@+id/clan_text_view_points"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="26dp"
-            android:onClick="clan_button_joinClicked"
+            android:onClick="btnJoinClicked"
             android:text="@string/button_join" />
 
         <Button
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/clan_button_join"
             android:layout_centerHorizontal="true"
-            android:onClick="clan_button_createClicked"
+            android:onClick="btnCreateClicked"
             android:text="@string/button_create" />
 
         <ImageView

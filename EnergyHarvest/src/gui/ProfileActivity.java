@@ -43,10 +43,10 @@ public class ProfileActivity extends Activity {
 		
 		// FAKEPROFIL ERSTELLEN
 		logo = R.drawable.clan_logo;
-		name = "iQew";
-		clan = "Infinity";
-		email = "Kjell.Bunjes@stud.hshl.de";
-		id = 28253;
+		name = node.Server.getInstance().getActiveUser().getName();
+		clan = node.Server.getInstance().getActiveUser().getClan().getName();
+		email = node.Server.getInstance().getActiveUser().getEmail();
+		id = node.Server.getInstance().getActiveUser().getId();
 		points = 3847;
 		
 		//
@@ -73,7 +73,6 @@ public class ProfileActivity extends Activity {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				// TODO Auto-generated method stub
 				v.setBackgroundResource(android.R.color.transparent);
 				v.setEnabled(false);
 				return false;

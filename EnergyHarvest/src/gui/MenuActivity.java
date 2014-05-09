@@ -73,9 +73,13 @@ public class MenuActivity extends Activity {
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
+	public void testInvitation(View view) {
+		Intent intent = new Intent(this, InvitationActivity.class);
+		startActivity(intent);
+	}
+	
 	public void goToMap(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
-		intent.putExtra("debugging", "id: " + Math.random());
 	    startActivity(intent);
 	}
 	
@@ -96,6 +100,7 @@ public class MenuActivity extends Activity {
         LinkedList<User> users = new LinkedList<User>();
         users.add(new User(14, "0", "0", 0, Server.getInstance().getActiveUser().getClan()));
         users.add(new User(28, "0", "0", 0, Server.getInstance().getActiveUser().getClan()));
+
 
         Server.getInstance().makeChallege(
                 /** success [no input] **/
