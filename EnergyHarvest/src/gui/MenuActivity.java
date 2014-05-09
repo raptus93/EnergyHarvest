@@ -148,23 +148,15 @@ public class MenuActivity extends Activity {
 	    startActivity(intent);
 	}
 
-	public void arImageDemo(View view)
+	public void goToAr(View view)
 	
 	{
 		Intent i = new Intent(Intent.ACTION_MAIN);
 		PackageManager manager = getPackageManager();
-		i = manager.getLaunchIntentForPackage("com.valkyrieDemo");
+		i = manager.getLaunchIntentForPackage("com.eimer");
 		i.addCategory(Intent.CATEGORY_LAUNCHER);
 		startActivity(i);
 	}
-	public void arMapDemo(View view)
 	
-	{
-		Intent i = new Intent(Intent.ACTION_MAIN);
-		PackageManager manager = getPackageManager();
-		i = manager.getLaunchIntentForPackage("com.SchachtelDemo");
-		i.addCategory(Intent.CATEGORY_LAUNCHER);
-		startActivity(i);
-	}
 	
 }

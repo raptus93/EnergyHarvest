@@ -14,20 +14,14 @@
         android:contentDescription="@string/description_logo_clan"
         android:src="@drawable/logo" />
     
-    <Button
-        android:id="@+id/menu_button_image_tracking"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:onClick="arImageDemo"
-        android:text="@string/placeholder_image_tracking" />
+
     
     <Button
-        android:id="@+id/menu_button_3d_map_tracking"
+        android:id="@+id/challenge_button_3d_map_tracking"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:onClick="arMapDemo"
-        android:text="@string/placeholder_3d_map_tracking" />
+        android:onClick="goToAr"
+        android:text="@string/button_challenge" />
     
     <Button
         android:id="@+id/menu_button_quiz"

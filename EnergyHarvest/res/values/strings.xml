@@ -34,9 +34,8 @@
     <string name="button_profile">Profil</string>
     <string name="button_tutorial">Tutorial</string>
     <string name="placeholder_quiz">[Quiz]</string>
-    <string name="placeholder_image_tracking">[Image Tracking]</string>
-    <string name="placeholder_3d_map_tracking">[3D Map Tracking]</string>
-    <string name="title_registry">Registrierung</string>
+    <string name="button_challenge">Herrausfordern</string>
+	<string name="title_registry">Registrierung</string>
     <string name="description_logo_clan">Clan Logo Placeholder</string>
     <string name="textview_clan">Clan:</string>
     <string name="textview_captures">Eroberungen:</string>
