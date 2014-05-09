@@ -17,15 +17,12 @@ public class InvitationModel {
 
 	  public InvitationModel(User user) {
 	    this.user = user;
+	    name = user.getName();
 	    selected = false;
 	  }
 
 	  public String getName() {
 	    return name;
-	  }
-
-	  public void setName(String name) {
-	    this.name = name;
 	  }
 
 	  public boolean isSelected() {

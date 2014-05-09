@@ -72,22 +72,47 @@ public class InvitationActivity extends ListActivity {
 			  //list.add(element.getUser());
 			  if(element.isSelected()) {
 				  list.add(element.getUser());
+				  Log.i("debugging", "" + element.getUser().toString());
 			  }
 		  }
-		  node.Server.getInstance().makeChallege(new Callback() {
-			
-			/** success [no input] **/
-			public void callback(Object... input) {
-				// TODO Auto-generated method stub
-				// toast
-			}
-		}, new Callback() {
-			
-			/** clan already in challenge [no input] **/
-			public void callback(Object... input) {
-				// TODO Auto-generated method stub
-				// toast
-			}
-		}, list);
+		  Server.getInstance().makeChallege(
+	                /** success [no input] **/
+	                new Callback() {
+	                    @Override
+	                    public void callback(Object... input) {
+	                        try {
+	                            Thread.sleep(10000);
+
+	                        } catch (InterruptedException e) {
+	                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+	                        }
+
+	                        /***
+	                         * START THE CHALLENGE
+	                         * **/
+	                        Server.getInstance().startChallenge(
+	                                /** success [no input] **/
+	                                new Callback() {
+	                                    @Override
+	                                    public void callback(Object... input) {
+
+	                                    }
+	                                },
+	                                /** fail. you are not the challenge creator [no input] **/
+	                                new Callback() {
+	                                    @Override
+	                                    public void callback(Object... input) {
+
+	                                    }
+	                                });
+	                    }
+	                },
+	                /** fail. challenge for clan already exists [no input] **/
+	                new Callback() {
+	                    @Override
+	                    public void callback(Object... input) {
+
+	                    }
+	                }, list);
 	  }
 }

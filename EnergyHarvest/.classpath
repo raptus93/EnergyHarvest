@@ -5,9 +5,5 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/schachtelDemo"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/schachtelSDK"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/valkyrieDemo"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/valkyrieSDK"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
