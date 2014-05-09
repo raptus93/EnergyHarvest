@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import node.Callback;
 import node.Clan;
+import node.Server;
 import node.User;
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -26,15 +28,36 @@ import com.example.energyharvest.R;
 public class InvitationActivity extends ListActivity {
 	/** Called when the activity is first created. */
 
+    public static InvitationActivity activity;
+
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    View footer = getLayoutInflater().inflate(R.layout.invitation_footer, null);
 	    ListView listView = getListView();
 	    listView.addFooterView(footer);
+
 	    // create an array of Strings, that will be put to our ListActivity
-	    ArrayAdapter<InvitationModel> adapter = new InteractiveArrayAdapter(this,
-	        getModel());
-	    setListAdapter(adapter);
+
+
+          /***
+           * GET ALL ONLINE MEMBERS FROM YOUR CLAN
+           * **/
+          Server.getInstance().getOnlineMembersFromClan(new Callback() {
+
+              /** success [input[0] = LinkedList<User>] **/
+              @Override
+              public void callback(Object... input) {
+                  LinkedList<User> users = (LinkedList<User>) input[0];
+                  List<InvitationModel> list = new ArrayList<InvitationModel>();
+
+                  for(User u : users){
+                    list.add(new InvitationModel(u.getName()));
+                  }
+
+                  ArrayAdapter<InvitationModel> adapter = new InteractiveArrayAdapter(InvitationActivity.this, list);
+                  setListAdapter(adapter);
+              }
+          });
 	  }
 	  
 	  /** Hier Liste der Clanmitglieder erstellen**/
