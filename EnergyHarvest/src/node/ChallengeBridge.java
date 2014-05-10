@@ -166,6 +166,25 @@ public class ChallengeBridge {
 
             /** close the quiz activity **/
             logic.close();
+        }else if(message.equals("CHALLENGE_REMOVED_USER")){
+            try {
+                String username = json.getString("username");
+
+                /** remove from lobby list **/
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }else if(message.equals("CHALLENGE_ADDED_USER")){
+            try {
+                String username = json.getString("username");
+
+                /** add to lobby list **/
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }

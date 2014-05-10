@@ -27,8 +27,10 @@ public class NotificationCenter {
         challengeStartedToast = Toast.makeText(activity, "Challenge wurde gestartet!", Toast.LENGTH_SHORT);
         challengeNewQuestion = Toast.makeText(activity, "Neue Quiz-Frage erhalten!", Toast.LENGTH_SHORT);
         challengeAccepted = Toast.makeText(activity, "Challenge akzeptiert!", Toast.LENGTH_SHORT);
-        challengeDeclined =  Toast.makeText(activity, "Challenge abgelehnt!", Toast.LENGTH_SHORT);
-        challengeEnded =  Toast.makeText(activity, "Challenge wurde beendet!", Toast.LENGTH_SHORT);
+        challengeDeclined = Toast.makeText(activity, "Challenge abgelehnt!", Toast.LENGTH_SHORT);
+        challengeEnded = Toast.makeText(activity, "Challenge wurde beendet!", Toast.LENGTH_SHORT);
+        challengeUserJoined = Toast.makeText(activity, "User joined!", Toast.LENGTH_SHORT);
+        challengeUserLeft = Toast.makeText(activity, "User left!", Toast.LENGTH_SHORT);
     }
 
     /** class members **/
@@ -40,6 +42,8 @@ public class NotificationCenter {
     private Toast challengeAccepted;
     private Toast challengeDeclined;
     private Toast challengeEnded;
+    private Toast challengeUserJoined;
+    private Toast challengeUserLeft;
 
     public void show(String notification, JSONObject json){
 
@@ -72,6 +76,10 @@ public class NotificationCenter {
             challengeAccepted.show();
         }else if(notification.equals("CHALLENGE_END")){
             challengeEnded.show();
+        }else if(notification.equals("CHALLENGE_REMOVED_USER")){
+            challengeUserLeft.show();
+        }else if(notification.equals("CHALLENGE_ADDED_USER")){
+            challengeUserJoined.show();
         }
     }
 
