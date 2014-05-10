@@ -28,6 +28,7 @@ public class NotificationCenter {
         challengeNewQuestion = Toast.makeText(activity, "Neue Quiz-Frage erhalten!", Toast.LENGTH_SHORT);
         challengeAccepted = Toast.makeText(activity, "Challenge akzeptiert!", Toast.LENGTH_SHORT);
         challengeDeclined =  Toast.makeText(activity, "Challenge abgelehnt!", Toast.LENGTH_SHORT);
+        challengeEnded =  Toast.makeText(activity, "Challenge wurde beendet!", Toast.LENGTH_SHORT);
     }
 
     /** class members **/
@@ -38,6 +39,7 @@ public class NotificationCenter {
     private Toast challengeNewQuestion;
     private Toast challengeAccepted;
     private Toast challengeDeclined;
+    private Toast challengeEnded;
 
     public void show(String notification, JSONObject json){
 
@@ -68,6 +70,8 @@ public class NotificationCenter {
             challengeDeclined.show();
         }else if(notification.equals("CHALLENGE_ACCEPTED")){
             challengeAccepted.show();
+        }else if(notification.equals("CHALLENGE_END")){
+            challengeEnded.show();
         }
     }
 

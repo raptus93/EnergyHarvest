@@ -91,6 +91,7 @@ public class ChallengeBridge {
     }
 
     public void proccess(String message, JSONObject json){
+        Log.e("CHALLENGE", message);
 
         if(message.equals("CHALLENGE_STARTED")){
             ChallengeBridge.getInstance().startChallenge();
@@ -134,6 +135,37 @@ public class ChallengeBridge {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }else if(message.equals("CHALLENGE_FORCE_END")){
+            Server.getInstance().endChallenge(
+            /** success **/
+            new Callback() {
+                @Override
+                public void callback(Object... input) {
+                   Log.e("CHALLENGE", "ENDED");
+                    /**
+                     * master user sendet -> challenge_end message an server
+                     * server sendet an alle challenge teilnehmer, dass die challenge zu ende ist
+                     * damit diese, die quiz activity schließen können.
+                     * **/
+                }
+            },
+            /** fail. user is not the master **/
+            new Callback() {
+                @Override
+                public void callback(Object... input) {
+
+                }
+            });
+        }else if(message.equals("CHALLENGE_END")){
+            /**
+             * hier noch statistiken anzeigen etc....
+             * **/
+
+
+            Log.e("CHALLENGE", "CLOSE DOWN ACTIVITY!");
+
+            /** close the quiz activity **/
+            logic.close();
         }
 
     }

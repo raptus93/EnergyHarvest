@@ -64,4 +64,8 @@ public class QuizLogic implements Runnable{
         Toast.makeText(gui, "Timer started!", Toast.LENGTH_SHORT).show();
     }
 
+    public void close(){
+        gui.close();
+    }
+
 }

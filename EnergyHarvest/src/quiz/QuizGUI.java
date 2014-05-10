@@ -194,6 +194,10 @@ public class QuizGUI extends Activity implements OnClickListener{
         });
     }
 
+    public void close(){
+        this.finish();
+    }
+
 	
 
 }
