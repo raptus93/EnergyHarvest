@@ -1,10 +1,23 @@
 package node;
 
+import gui.InvitationActivity;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings.System;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
+import android.widget.PopupWindow;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.energyharvest.R;
+
 import quiz.QuizGUI;
 import quiz.QuizLogic;
 
@@ -57,6 +70,25 @@ public class ChallengeBridge {
     public Question getCurrentQuestion(){
         return currentQuestion;
     }
+    
+    private void createAndShowPopup() {
+    	/**
+		 * Creating popup window
+		 */
+    	InvitationActivity act = new InvitationActivity();
+		LayoutInflater layoutInflater = (LayoutInflater) act.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View popupView = layoutInflater.inflate(R.layout.popup_join, null);
+		final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		Button btnConfirm = (Button)popupView.findViewById(R.id.clan_popup_button_confirm);
+		btnConfirm.setOnClickListener(new Button.OnClickListener(){
+		     @Override
+		     public void onClick(View v) {
+		      popupWindow.dismiss();
+		}});
+		
+		//popupWindow.showAtLocation(buttonTop, Gravity.CENTER, 0, 0);
+		popupWindow.showAtLocation(null, Gravity.CENTER, 0, 0);
+    }
 
     public void proccess(String message, JSONObject json){
 
@@ -66,6 +98,7 @@ public class ChallengeBridge {
 
             //TODO: -> erstmal auto-accept für alle challenge invites
             //TODO: -> HIER POP UP
+        	createAndShowPopup();
 
             /***
              * ACCEPT / DECLINE THE CHALLENGE

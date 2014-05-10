@@ -36,9 +36,6 @@ public class InvitationActivity extends ListActivity {
 	    ListView listView = getListView();
 	    listView.addFooterView(footer);
 
-	    // create an array of Strings, that will be put to our ListActivity
-
-
           /***
            * GET ALL ONLINE MEMBERS FROM YOUR CLAN
            * **/
@@ -49,10 +46,6 @@ public class InvitationActivity extends ListActivity {
               public void callback(Object... input) {
                   LinkedList<User> users = (LinkedList<User>) input[0];
                   List<InvitationModel> list = new ArrayList<InvitationModel>();
-
-                  /*for(User u : users){
-                    list.add(new InvitationModel(u.getName()));
-                  }*/
                   
                   for(int i = 0; i < users.size(); i++) {
                 	 list.add(new InvitationModel(users.get(i)));

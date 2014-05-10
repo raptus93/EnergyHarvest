@@ -1,5 +1,6 @@
 package quiz;
 
+import quiz.QuizGUI;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
