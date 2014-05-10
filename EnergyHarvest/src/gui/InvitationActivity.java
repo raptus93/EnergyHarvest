@@ -36,6 +36,8 @@ public class InvitationActivity extends ListActivity {
 	    ListView listView = getListView();
 	    listView.addFooterView(footer);
 
+          activity = this;
+
           /***
            * GET ALL ONLINE MEMBERS FROM YOUR CLAN
            * **/
@@ -45,23 +47,28 @@ public class InvitationActivity extends ListActivity {
               @Override
               public void callback(Object... input) {
                   LinkedList<User> users = (LinkedList<User>) input[0];
-                  List<InvitationModel> list = new ArrayList<InvitationModel>();
-                  
-                  for(int i = 0; i < users.size(); i++) {
-                	 list.add(new InvitationModel(users.get(i)));
+                  final List<InvitationModel> list = new ArrayList<InvitationModel>();
+
+                  for(User u : users){
+                      list.add(new InvitationModel(u));
                   }
 
-                  ArrayAdapter<InvitationModel> adapter = new InteractiveArrayAdapter(InvitationActivity.this, list);
-                  setListAdapter(adapter);
+                  runOnUiThread(new Runnable() {
+                      @Override
+                      public void run() {
+                          ArrayAdapter<InvitationModel> adapter = new InteractiveArrayAdapter(activity, list);
+                          activity.setListAdapter(adapter);
+                      }
+                  });
               }
           });
 	  }
-	  
+
 	  public void invite(View view) {
 		  LinkedList<User> list = new LinkedList<User>();
 		  for(int i = 0; i < getListView().getLastVisiblePosition(); i++) {
 			  InvitationModel element = (InvitationModel) getListView().getAdapter().getItem(i);
-			  Log.i("InviteCheck", "Username: " + element.getName() + " selected: " + element.isSelected());
+			  Log.e("InviteCheck", "Username: " + element.getName() + " selected: " + element.isSelected());
 			  //list.add(element.getUser());
 			  if(element.isSelected()) {
 				  list.add(element.getUser());
@@ -69,43 +76,43 @@ public class InvitationActivity extends ListActivity {
 			  }
 		  }
 		  Server.getInstance().makeChallege(
-	                /** success [no input] **/
-	                new Callback() {
-	                    @Override
-	                    public void callback(Object... input) {
-	                        try {
-	                            Thread.sleep(10000);
+            /** success [no input] **/
+            new Callback() {
+                @Override
+                public void callback(Object... input) {
+                    try {
+                        Thread.sleep(10000);
 
-	                        } catch (InterruptedException e) {
-	                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-	                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
 
-	                        /***
-	                         * START THE CHALLENGE
-	                         * **/
-	                        Server.getInstance().startChallenge(
-	                                /** success [no input] **/
-	                                new Callback() {
-	                                    @Override
-	                                    public void callback(Object... input) {
+                    /***
+                     * START THE CHALLENGE
+                     * **/
+                    Server.getInstance().startChallenge(
+                            /** success [no input] **/
+                            new Callback() {
+                                @Override
+                                public void callback(Object... input) {
 
-	                                    }
-	                                },
-	                                /** fail. you are not the challenge creator [no input] **/
-	                                new Callback() {
-	                                    @Override
-	                                    public void callback(Object... input) {
+                                }
+                            },
+                            /** fail. you are not the challenge creator [no input] **/
+                            new Callback() {
+                                @Override
+                                public void callback(Object... input) {
 
-	                                    }
-	                                });
-	                    }
-	                },
-	                /** fail. challenge for clan already exists [no input] **/
-	                new Callback() {
-	                    @Override
-	                    public void callback(Object... input) {
+                                }
+                            });
+                }
+            },
+            /** fail. challenge for clan already exists [no input] **/
+            new Callback() {
+                @Override
+                public void callback(Object... input) {
 
-	                    }
-	                }, list);
+                }
+            }, list);
 	  }
 }

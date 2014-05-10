@@ -32,9 +32,9 @@ public class InvitationModel {
 	  public void setSelected(boolean selected) {
 	    this.selected = selected;
 	  }
-	  
+
 	  public User getUser() {
 		  return user;
 	  }
 
-	} 
+	}
