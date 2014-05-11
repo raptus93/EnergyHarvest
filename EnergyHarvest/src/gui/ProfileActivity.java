@@ -77,6 +77,8 @@ public class ProfileActivity extends Activity {
 					KeyEvent event) {
 				v.setBackgroundResource(android.R.color.transparent);
 				v.setEnabled(false);
+				name = etName.getText().toString();
+				node.Server.getInstance().getActiveUser().setName(name);
 				return false;
 			}
 

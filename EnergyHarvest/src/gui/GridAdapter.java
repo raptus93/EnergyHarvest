@@ -19,7 +19,7 @@ public class GridAdapter extends BaseAdapter {
 	private Context context;
 	private Integer[] imageIds = {
             R.drawable.clan_logo, R.drawable.clan_logo_default, R.drawable.logo, R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo, 
-            R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo, 
+            R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo
 	};
 	
 	public GridAdapter(Context c) {

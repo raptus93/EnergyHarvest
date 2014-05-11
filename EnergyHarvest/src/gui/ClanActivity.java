@@ -125,8 +125,7 @@ import com.example.energyharvest.R;
 		buttonBottom.setEnabled(false);
 		
 		TextView tvID = (TextView) popupView.findViewById(R.id.clan_popup_text_view_id);
-		tvID.setText(tvID.getText().toString() + node.Server.getInstance().getActiveUser().getId());
-		
+		tvID.setText(tvID.getText().toString() + node.Server.getInstance().getActiveUser().getId());		
 	}
 	
 	public void btnCreateClicked(View view) {
