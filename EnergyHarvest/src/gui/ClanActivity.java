@@ -111,7 +111,7 @@ import com.example.energyharvest.R;
 		LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 		View popupView = layoutInflater.inflate(R.layout.popup_join, null);
 		final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		Button btnConfirm = (Button)popupView.findViewById(R.id.clan_popup_button_confirm);
+		Button btnConfirm = (Button) popupView.findViewById(R.id.clan_popup_button_confirm);
 		btnConfirm.setOnClickListener(new Button.OnClickListener(){
 		     @Override
 		     public void onClick(View v) {

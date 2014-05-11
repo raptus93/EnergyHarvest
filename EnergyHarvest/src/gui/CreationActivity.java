@@ -57,7 +57,6 @@ public class CreationActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
 				ImageView logo = (ImageView) findViewById(R.id.creation_logo);
 				ImageView logoClicked = (ImageView) view;
 				logo.setImageDrawable(logoClicked.getDrawable());

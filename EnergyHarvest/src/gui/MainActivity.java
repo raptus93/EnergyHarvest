@@ -130,8 +130,5 @@ public class MainActivity extends Activity {
 	public void goToRegistry(View view) {
 		Intent intent = new Intent(this, RegistryActivity.class);	    
 	    startActivity(intent);
-		
-//		final InvitationDialog dialog = new InvitationDialog(this);
-//		dialog.show();
 	}
 }

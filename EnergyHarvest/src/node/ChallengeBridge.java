@@ -88,21 +88,21 @@ public class ChallengeBridge {
             /***
              * ACCEPT / DECLINE THE CHALLENGE
              * **/
-            Server.getInstance().challengeResponse(true,
-                /** success [no input] **/
-                new Callback() {
-                    @Override
-                    public void callback(Object... input) {
-
-                    }
-                },
-                /** fail [no input] **/
-                new Callback() {
-                    @Override
-                    public void callback(Object... input) {
-
-                    }
-                });
+//            Server.getInstance().challengeResponse(true,
+//                /** success [no input] **/
+//                new Callback() {
+//                    @Override
+//                    public void callback(Object... input) {
+//
+//                    }
+//                },
+//                /** fail [no input] **/
+//                new Callback() {
+//                    @Override
+//                    public void callback(Object... input) {
+//
+//                    }
+//                });
         }else if(message.equals("CHALLENGE_QUESTION")){
             try {
                 JSONObject question = json.getJSONObject("question");
