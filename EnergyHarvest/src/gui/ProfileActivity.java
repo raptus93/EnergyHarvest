@@ -41,6 +41,8 @@ public class ProfileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		
+		ActivityHolder.getInstance().setActiveActivity(this);
+		
 		// FAKEPROFIL ERSTELLEN
 		logo = R.drawable.clan_logo;
 		name = node.Server.getInstance().getActiveUser().getName();

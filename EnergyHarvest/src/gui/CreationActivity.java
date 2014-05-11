@@ -48,6 +48,8 @@ public class CreationActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_creation);
 		
+		ActivityHolder.getInstance().setActiveActivity(this);
+		
 		// Liste mit vorgegebenen Clanlogos erstellen
 		GridView gridview = (GridView) findViewById(R.id.creation_gridview);		
 	    final GridAdapter gridadapter = new GridAdapter(this);

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.energyharvest.R;
+
 import node.Callback;
 import node.ChallengeBridge;
 import node.Server;
@@ -31,6 +32,8 @@ public class MenuActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
+		
+		ActivityHolder.getInstance().setActiveActivity(this);
 
         /** init challenge bridge **/
         ChallengeBridge.init(this, new Intent(this, quiz.QuizGUI.class));
@@ -144,8 +147,10 @@ public class MenuActivity extends Activity {
 	}
 	
 	public void goToQuiz(View view) {
-		Intent intent = new Intent(this, quiz.QuizGUI.class);	    
-	    startActivity(intent);
+//		Intent intent = new Intent(this, quiz.QuizGUI.class);	    
+//	    startActivity(intent);
+		Intent intent = new Intent(this, LobbyActivity.class);
+		startActivity(intent);
 	}
 
 	public void goToAr(View view)

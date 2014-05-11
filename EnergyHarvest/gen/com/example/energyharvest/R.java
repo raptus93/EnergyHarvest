@@ -42,19 +42,19 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f090023;
-        public static final int action_settings=0x7f090037;
+        public static final int action_settings=0x7f090039;
         public static final int answerA=0x7f090026;
         public static final int answerB=0x7f090027;
         public static final int answerC=0x7f090028;
         public static final int answerD=0x7f090029;
         public static final int challenge_button_3d_map_tracking=0x7f090014;
-        public static final int check=0x7f090036;
+        public static final int check=0x7f090038;
         public static final int clan_button_create=0x7f090005;
         public static final int clan_button_join=0x7f090004;
         public static final int clan_logo_clan=0x7f090001;
-        public static final int clan_popup_button_confirm=0x7f090034;
-        public static final int clan_popup_edit_text_id=0x7f090033;
-        public static final int clan_popup_text_view_id=0x7f090032;
+        public static final int clan_popup_button_confirm=0x7f090036;
+        public static final int clan_popup_edit_text_id=0x7f090035;
+        public static final int clan_popup_text_view_id=0x7f090034;
         public static final int clan_text_view_captures=0x7f090002;
         public static final int clan_text_view_clan=0x7f090000;
         public static final int clan_text_view_points=0x7f090003;
@@ -62,9 +62,11 @@ public final class R {
         public static final int creation_edit_text_name=0x7f090007;
         public static final int creation_gridview=0x7f090008;
         public static final int creation_logo=0x7f090006;
-        public static final int expandableListView1=0x7f090031;
+        public static final int dialog_button_confirm=0x7f090031;
+        public static final int dialog_button_decline=0x7f090032;
+        public static final int expandableListView1=0x7f090033;
         public static final int invitation_button_invite=0x7f09000b;
-        public static final int label=0x7f090035;
+        public static final int label=0x7f090037;
         public static final int listParticipants=0x7f09000c;
         public static final int lobbyStart=0x7f09000d;
         public static final int login_button_login=0x7f090012;
@@ -109,10 +111,11 @@ public final class R {
         public static final int activity_quiz=0x7f030007;
         public static final int activity_registry=0x7f030008;
         public static final int activity_tutorial=0x7f030009;
-        public static final int invitation_footer=0x7f03000a;
-        public static final int popup_add=0x7f03000b;
-        public static final int popup_join=0x7f03000c;
-        public static final int rowbuttonlayout=0x7f03000d;
+        public static final int dialog_invite=0x7f03000a;
+        public static final int invitation_footer=0x7f03000b;
+        public static final int popup_add=0x7f03000c;
+        public static final int popup_join=0x7f03000d;
+        public static final int rowbuttonlayout=0x7f03000e;
     }
     public static final class menu {
         public static final int clan=0x7f080000;
@@ -138,6 +141,7 @@ public final class R {
         public static final int button_clan=0x7f06001d;
         public static final int button_confirm=0x7f06000c;
         public static final int button_create=0x7f06002a;
+        public static final int button_decline=0x7f060037;
         public static final int button_edit=0x7f06002f;
         public static final int button_invitation=0x7f060033;
         public static final int button_invite=0x7f060034;
@@ -150,6 +154,7 @@ public final class R {
         public static final int button_tutorial=0x7f06001f;
         public static final int description_logo_clan=0x7f060023;
         public static final int description_logo_main=0x7f06001b;
+        public static final int dialog_invitation=0x7f060036;
         public static final int hello_tutorial=0x7f06000a;
         public static final int hint_email=0x7f060007;
         public static final int hint_password=0x7f060008;

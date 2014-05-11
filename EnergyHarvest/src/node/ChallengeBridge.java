@@ -1,6 +1,8 @@
 package node;
 
+import gui.ActivityHolder;
 import gui.InvitationActivity;
+import gui.InvitationDialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -70,25 +72,6 @@ public class ChallengeBridge {
     public Question getCurrentQuestion(){
         return currentQuestion;
     }
-    
-    private void createAndShowPopup() {
-    	/**
-		 * Creating popup window
-		 */
-    	InvitationActivity act = new InvitationActivity();
-		LayoutInflater layoutInflater = (LayoutInflater) act.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View popupView = layoutInflater.inflate(R.layout.popup_join, null);
-		final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		Button btnConfirm = (Button)popupView.findViewById(R.id.clan_popup_button_confirm);
-		btnConfirm.setOnClickListener(new Button.OnClickListener(){
-		     @Override
-		     public void onClick(View v) {
-		      popupWindow.dismiss();
-		}});
-		
-		//popupWindow.showAtLocation(buttonTop, Gravity.CENTER, 0, 0);
-		popupWindow.showAtLocation(null, Gravity.CENTER, 0, 0);
-    }
 
     public void proccess(String message, JSONObject json){
         Log.e("CHALLENGE", message);
@@ -99,7 +82,8 @@ public class ChallengeBridge {
 
             //TODO: -> erstmal auto-accept für alle challenge invites
             //TODO: -> HIER POP UP
-        	createAndShowPopup();
+        	final InvitationDialog dialog = new InvitationDialog(ActivityHolder.getInstance().getActiveActivity());
+        	dialog.show();
 
             /***
              * ACCEPT / DECLINE THE CHALLENGE

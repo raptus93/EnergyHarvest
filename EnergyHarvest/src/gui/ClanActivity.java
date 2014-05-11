@@ -51,6 +51,8 @@ import com.example.energyharvest.R;
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_clan);
 		
+		ActivityHolder.getInstance().setActiveActivity(this);
+		
 		ImageView logo = (ImageView) findViewById(R.id.clan_logo_clan);
 		TextView tvClan = (TextView) findViewById(R.id.clan_text_view_clan);
 		TextView tvCaptures = (TextView) findViewById(R.id.clan_text_view_captures);

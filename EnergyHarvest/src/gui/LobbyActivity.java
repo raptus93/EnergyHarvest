@@ -36,6 +36,7 @@ public class LobbyActivity extends Activity implements OnClickListener{
 		
 		listViewPlayers = (ListView) findViewById(R.id.listParticipants);
         start = (Button) findViewById(R.id.lobbyStart);
+        start.setOnClickListener(this);
        
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayPlayers);
        
