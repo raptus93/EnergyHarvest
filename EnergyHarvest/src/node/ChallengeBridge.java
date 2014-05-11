@@ -1,8 +1,7 @@
 package node;
 
-import gui.ActivityHolder;
-import gui.InvitationActivity;
-import gui.InvitationDialog;
+import android.widget.ArrayAdapter;
+import gui.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -82,27 +81,35 @@ public class ChallengeBridge {
 
             //TODO: -> erstmal auto-accept für alle challenge invites
             //TODO: -> HIER POP UP
-        	final InvitationDialog dialog = new InvitationDialog(ActivityHolder.getInstance().getActiveActivity());
-        	dialog.show();
+
+
+ /*           runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    final InvitationDialog dialog = new InvitationDialog(ActivityHolder.getInstance().getActiveActivity());
+                    dialog.show();
+                }
+            });*/
 
             /***
              * ACCEPT / DECLINE THE CHALLENGE
              * **/
-//            Server.getInstance().challengeResponse(true,
-//                /** success [no input] **/
-//                new Callback() {
-//                    @Override
-//                    public void callback(Object... input) {
-//
-//                    }
-//                },
-//                /** fail [no input] **/
-//                new Callback() {
-//                    @Override
-//                    public void callback(Object... input) {
-//
-//                    }
-//                });
+            Server.getInstance().challengeResponse(true,
+               /** success [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+                },
+                /** fail [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+            });
+
         }else if(message.equals("CHALLENGE_QUESTION")){
             try {
                 JSONObject question = json.getJSONObject("question");
