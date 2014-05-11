@@ -1,6 +1,9 @@
 package quiz;
 
-import com.example.energyharvest.R;
+import node.ChallengeBridge;
+import node.Question;
+import node.Question.Answer;
+import node.Server;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,11 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import node.ChallengeBridge;
-import node.Question;
-import node.Question.Answer;
-import node.Server;
+
+import com.example.energyharvest.R;
 
 /**
  * @version 1.1.4 (28/04/2014)
