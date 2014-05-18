@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -26,7 +28,7 @@ public class LobbyActivity extends Activity implements OnClickListener{
 	
 	private Button start;
 	private ListView listViewPlayers;
-	private String[] arrayPlayers = { "Player One", "Player Two", "Player Three", "Player Four", "Player Five", "a","b","c","d","e","f","g","h","i","j","k" };
+	private ArrayList<String> arrayPlayers;
 	private ArrayAdapter<String> adapter;
 	
 	@Override
@@ -55,7 +57,7 @@ public class LobbyActivity extends Activity implements OnClickListener{
 		}
 	}
 	
-	public void setArrayPlayers(String[] array){
+	public void setArrayPlayers(ArrayList<String> array){
 		arrayPlayers = array;
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayPlayers);
         listViewPlayers.setAdapter(adapter);
