@@ -5,6 +5,7 @@ import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -526,6 +527,111 @@ public class Server {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void getBuildingByID(final int ID, final Callback success, final Callback fail){
+        try {
+            send().emit("GET_BUILDING_BY_ID", new IOAcknowledge() {
+                @Override
+                public void ack(Object... args) {
+                    try {
+                        JSONObject result = new JSONObject(args[1].toString());
+                        String response = result.get("response").toString();
+
+                        if(response.equals("SUCCESS")){
+                            System.out.println(result.getJSONObject("building"));
+
+                            JSONObject building = result.getJSONObject("building");
+
+                            int id = building.getInt("id");
+
+                            String cat0_name = building.getString("c0");
+                            String cat1_name = building.getString("c1");
+                            String cat2_name = building.getString("c2");
+                            String cat3_name = building.getString("c3");
+
+                            int c0_holding_id = building.getInt("c0_holding_ID");
+                            int c1_holding_id = building.getInt("c1_holding_ID");
+                            int c2_holding_id = building.getInt("c2_holding_ID");
+                            int c3_holding_id = building.getInt("c3_holding_ID");
+
+                            int c0_locktime = building.getInt("c0_locktime");
+                            int c1_locktime = building.getInt("c1_locktime");
+                            int c2_locktime = building.getInt("c2_locktime");
+                            int c3_locktime = building.getInt("c3_locktime");
+
+                            JSONArray holdingClans = building.getJSONArray("holding_clans");
+                            LinkedList<Clan> clans = new LinkedList<Clan>();
+
+                            for(int i = 0; i < holdingClans.length(); i++){
+                                JSONObject clan = holdingClans.getJSONObject(i);
+
+                                int clanID = clan.getInt("id");
+                                int memberCount = clan.getInt("membercount");
+                                String logo = clan.getString("logo");
+                                String clanname = clan.getString("name");
+
+                                clans.add(new Clan(clanID, clanname, logo, memberCount));
+                            }
+
+                            /**
+                             * FILL THE BUILDING OBJECT
+                             * **/
+
+                            Building resultBuilding = new Building();
+
+                            /**
+                             * Set clans!
+                             * **/
+                            for(int i = 0; i < clans.size(); i++){
+                                if(clans.get(i).getId() == c0_holding_id){
+                                    resultBuilding.setCat0_clan(clans.get(i));
+                                }
+
+                                if(clans.get(i).getId() == c1_holding_id){
+                                    resultBuilding.setCat1_clan(clans.get(i));
+                                }
+
+                                if(clans.get(i).getId() == c2_holding_id){
+                                    resultBuilding.setCat2_clan(clans.get(i));
+                                }
+
+                                if(clans.get(i).getId() == c3_holding_id){
+                                    resultBuilding.setCat3_clan(clans.get(i));
+                                }
+                            }
+
+                            /**
+                             * Set unlock times
+                             * **/
+                            resultBuilding.setCat0_unlockTime(c0_locktime);
+                            resultBuilding.setCat1_unlockTime(c1_locktime);
+                            resultBuilding.setCat2_unlockTime(c2_locktime);
+                            resultBuilding.setCat3_unlockTime(c3_locktime);
+
+                            //set ID
+                            resultBuilding.setId(id);
+
+                            /**
+                             * Set Category-Names
+                             * **/
+                            resultBuilding.setCat0(cat0_name);
+                            resultBuilding.setCat1(cat1_name);
+                            resultBuilding.setCat2(cat2_name);
+                            resultBuilding.setCat3(cat3_name);
+
+                            success.callback(resultBuilding);
+                        }else if(response.equals("BUILDING_DOES_NOT_EXIST")){
+                            fail.callback();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new JSONObject("{id : " + ID + "}"));
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
