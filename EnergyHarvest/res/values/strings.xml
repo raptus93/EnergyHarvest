@@ -57,5 +57,6 @@
     <string name="lobbyStartSpec">Wait for Host</string>
     <string name="dialog_invitation">Einladung akzeptieren?</string>
     <string name="button_decline">Ablehnen</string>
+    <string name="button_startquiz">Button</string>
 
 </resources>

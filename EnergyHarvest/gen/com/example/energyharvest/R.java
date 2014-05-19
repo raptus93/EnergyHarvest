@@ -178,6 +178,7 @@ public final class R {
         public static final int button_profile=0x7f06001e;
         public static final int button_register=0x7f060019;
         public static final int button_resign=0x7f060028;
+        public static final int button_startquiz=0x7f060038;
         public static final int button_tutorial=0x7f06001f;
         public static final int description_logo_clan=0x7f060023;
         public static final int description_logo_main=0x7f06001b;
