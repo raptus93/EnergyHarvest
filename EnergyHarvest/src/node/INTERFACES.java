@@ -233,7 +233,32 @@ public class INTERFACES {
             }
         });
 
+        /***
+         * GET BUILDING BY ID
+         * ID = [1, 2, 3, 4]
+         * **/
 
+        final int buildingID = 1;
+        Server.getInstance().getBuildingByID(buildingID,
+                /**
+                 * success
+                 * input[0] = building
+                 * **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+                        ((Building)input[0]).print();
+                        System.out.println("SUCCESS");
+                    }
+                },
+                /** fail [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+                        System.out.println("FAIL");
+                    }
+                }
+        );
     }
 
 }

@@ -47,6 +47,9 @@ public class ChallengeBridge {
     private QuizLogic logic;
     private Question currentQuestion;
 
+    /** lobby **/
+    private LobbyActivity lobby;
+
     private ChallengeBridge(Activity activity, Intent intent){
         this.activity = activity;
         this.intent = intent;
@@ -62,6 +65,10 @@ public class ChallengeBridge {
         if(logic != null){
             logic.pushQuestion(q);
         }
+    }
+
+    public void setLobby(LobbyActivity lobby){
+        this.lobby = lobby;
     }
 
     public void setLogic(QuizLogic logic){
@@ -162,6 +169,9 @@ public class ChallengeBridge {
                 String username = json.getString("username");
 
                 /** remove from lobby list **/
+                if(lobby != null){
+                    lobby.getArrayPlayers().remove(username);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -172,6 +182,9 @@ public class ChallengeBridge {
                 String username = json.getString("username");
 
                 /** add to lobby list **/
+                if(lobby != null){
+                    lobby.getArrayPlayers().add(username);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();

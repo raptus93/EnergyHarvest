@@ -43,6 +43,8 @@ public class LobbyActivity extends Activity implements OnClickListener{
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayPlayers);
        
         listViewPlayers.setAdapter(adapter);
+
+        setArrayPlayers(new ArrayList<String>());
 	}
 
 	/**
@@ -56,6 +58,10 @@ public class LobbyActivity extends Activity implements OnClickListener{
 			start.setText(getResources().getColor(R.string.lobbyStartSpec));
 		}
 	}
+
+    public ArrayList<String> getArrayPlayers(){
+        return arrayPlayers;
+    }
 	
 	public void setArrayPlayers(ArrayList<String> array){
 		arrayPlayers = array;
