@@ -199,7 +199,7 @@ public class ChallengeBridge {
 
                 /** remove from lobby list **/
                 if(lobby != null){
-                    lobby.getArrayPlayers().remove(username);
+                    lobby.removePlayer(username);
                 }
 
             } catch (JSONException e) {
@@ -212,7 +212,7 @@ public class ChallengeBridge {
 
                 /** add to lobby list **/
                 if(lobby != null){
-                    lobby.getArrayPlayers().add(username);
+                    lobby.addPlayer(username);
                 }
 
             } catch (JSONException e) {

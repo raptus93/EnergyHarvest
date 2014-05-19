@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.energyharvest.R;
 
 /**
- * @version 1.1.4 (05/05/2014)
+ * @version 1.1.4 (19/05/2014)
  * @author Robert Verginien Nickel
  *
  */
@@ -28,7 +28,7 @@ public class LobbyActivity extends Activity implements OnClickListener{
 	
 	private Button start;
 	private ListView listViewPlayers;
-	private ArrayList<String> arrayPlayers;
+	private ArrayList<String> arrayPlayers = new ArrayList<String>();
 	private ArrayAdapter<String> adapter;
 	
 	@Override
@@ -41,10 +41,16 @@ public class LobbyActivity extends Activity implements OnClickListener{
         start.setOnClickListener(this);
        
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayPlayers);
-       
+        
+        //
+        arrayPlayers.add("first");
+        arrayPlayers.add("second");
+        arrayPlayers.add("third");
+        arrayPlayers.add("fourth");
+        arrayPlayers.add("fifth");
+        //
+        
         listViewPlayers.setAdapter(adapter);
-
-        setArrayPlayers(new ArrayList<String>());
 	}
 
 	/**
@@ -58,15 +64,13 @@ public class LobbyActivity extends Activity implements OnClickListener{
 			start.setText(getResources().getColor(R.string.lobbyStartSpec));
 		}
 	}
-
-    public ArrayList<String> getArrayPlayers(){
-        return arrayPlayers;
-    }
 	
-	public void setArrayPlayers(ArrayList<String> array){
-		arrayPlayers = array;
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayPlayers);
-        listViewPlayers.setAdapter(adapter);
+	public void addPlayer(String name){
+		arrayPlayers.add(name);
+	}
+	
+	public void removePlayer(String name){
+		arrayPlayers.remove("name");
 	}
 
 	@Override
