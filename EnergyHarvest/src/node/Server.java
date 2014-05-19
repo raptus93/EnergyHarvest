@@ -415,7 +415,7 @@ public class Server {
         }
     }
 
-    public void makeChallege(final Callback success, final Callback fail, LinkedList<User> users){
+    public void makeChallege(final Callback success, final Callback fail, LinkedList<User> users, int buildingID, int categoryID){
         if(getActiveUser().getId() > 0 && getActiveUser().getClan().getId() > 0){
 
             /** prepare userlist **/
@@ -454,7 +454,9 @@ public class Server {
                             e.printStackTrace();
                         }
                     }
-                }, new JSONObject("{name :"+ getActiveUser().getName() +", clanid : " + getActiveUser().getClan().getId() + ", id : "+ getActiveUser().getId() + "," +
+                }, new JSONObject("{name :"+ getActiveUser().getName() +", clanid : " + getActiveUser().getClan().getId() + ", catID : " + categoryID +
+                        ", buildingID : " + buildingID +
+                        ", id : "+ getActiveUser().getId() + "," +
                         " userlist: " + userlist + "}"));
             } catch (JSONException e) {
                 e.printStackTrace();

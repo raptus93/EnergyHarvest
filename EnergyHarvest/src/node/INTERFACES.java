@@ -188,6 +188,10 @@ public class INTERFACES {
         users.add(Server.getInstance().getActiveUser());
         users.add(Server.getInstance().getActiveUser());
 
+        final int buildingID = 0;
+        final int categoryID = 0;
+
+
         Server.getInstance().makeChallege(
         /** success [no input] **/
         new Callback() {
@@ -202,7 +206,7 @@ public class INTERFACES {
             public void callback(Object... input) {
 
             }
-        }, users);
+        }, users, buildingID, categoryID);
 
         /***
          * START THE CHALLENGE
@@ -267,8 +271,8 @@ public class INTERFACES {
          * ID = [1, 2, 3, 4]
          * **/
 
-        final int buildingID = 1;
-        Server.getInstance().getBuildingByID(buildingID,
+        final int building_ID = 1;
+        Server.getInstance().getBuildingByID(building_ID,
                 /**
                  * success
                  * input[0] = building

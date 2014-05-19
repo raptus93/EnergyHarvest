@@ -75,6 +75,10 @@ public class InvitationActivity extends ListActivity {
 				  Log.i("debugging", "" + element.getUser().toString());
 			  }
 		  }
+
+          /**
+           * TODO: BUILDING ID & CATEGORY ID
+           * **/
 		  Server.getInstance().makeChallege(
             /** success [no input] **/
             new Callback() {
@@ -113,6 +117,6 @@ public class InvitationActivity extends ListActivity {
                 public void callback(Object... input) {
 
                 }
-            }, list);
+            }, list, 0, 0);
 	  }
 }
