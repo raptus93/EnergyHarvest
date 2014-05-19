@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.energyharvest.R;
+import node.Callback;
+import node.Server;
 
 /**
  * @version 1.1.4 (19/05/2014)
@@ -105,6 +107,24 @@ public class LobbyActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		Toast.makeText(this, "Start the activity", Toast.LENGTH_SHORT).show();
+        /***
+         * START THE CHALLENGE
+         * **/
+        Server.getInstance().startChallenge(
+                /** success [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+                },
+                /** fail. you are not the challenge creator [no input] **/
+                new Callback() {
+                    @Override
+                    public void callback(Object... input) {
+
+                    }
+                }
+        );
 	}
 }

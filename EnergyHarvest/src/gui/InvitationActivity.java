@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.content.Intent;
 import node.Callback;
 import node.Clan;
 import node.Server;
@@ -84,32 +85,13 @@ public class InvitationActivity extends ListActivity {
             new Callback() {
                 @Override
                 public void callback(Object... input) {
-                    try {
-                        Thread.sleep(10000);
+                  /*
+                  * Start Lobby Activity
+                  * */
+                    Intent intent = new Intent(InvitationActivity.this, LobbyActivity.class);
+                    startActivity(intent);
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    }
-
-                    /***
-                     * START THE CHALLENGE
-                     * **/
-                    Server.getInstance().startChallenge(
-                            /** success [no input] **/
-                            new Callback() {
-                                @Override
-                                public void callback(Object... input) {
-
-                                }
-                            },
-                            /** fail. you are not the challenge creator [no input] **/
-                            new Callback() {
-                                @Override
-                                public void callback(Object... input) {
-
-                                }
-                            });
-                }
+                 }
             },
             /** fail. challenge for clan already exists [no input] **/
             new Callback() {
