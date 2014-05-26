@@ -2,6 +2,8 @@ package gui;
 
 import java.util.ArrayList;
 
+import node.Callback;
+import node.Server;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -14,11 +16,8 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.energyharvest.R;
-import node.Callback;
-import node.Server;
 
 /**
  * @version 1.1.4 (19/05/2014)

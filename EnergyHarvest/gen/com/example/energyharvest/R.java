@@ -58,7 +58,8 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09002e;
-        public static final int action_settings=0x7f090044;
+        public static final int RelativeLayout1=0x7f09003c;
+        public static final int action_settings=0x7f090046;
         public static final int answerA=0x7f090031;
         public static final int answerB=0x7f090032;
         public static final int answerC=0x7f090033;
@@ -68,13 +69,13 @@ public final class R {
         public static final int button_l3=0x7f090017;
         public static final int button_l4=0x7f090018;
         public static final int challenge_button_3d_map_tracking=0x7f09001f;
-        public static final int check=0x7f090043;
+        public static final int check=0x7f090045;
         public static final int clan_button_create=0x7f090005;
         public static final int clan_button_join=0x7f090004;
         public static final int clan_logo_clan=0x7f090001;
-        public static final int clan_popup_button_confirm=0x7f090041;
-        public static final int clan_popup_edit_text_id=0x7f090040;
-        public static final int clan_popup_text_view_id=0x7f09003f;
+        public static final int clan_popup_button_confirm=0x7f090043;
+        public static final int clan_popup_edit_text_id=0x7f090042;
+        public static final int clan_popup_text_view_id=0x7f090041;
         public static final int clan_text_view_captures=0x7f090002;
         public static final int clan_text_view_clan=0x7f090000;
         public static final int clan_text_view_points=0x7f090003;
@@ -82,12 +83,13 @@ public final class R {
         public static final int creation_edit_text_name=0x7f090007;
         public static final int creation_gridview=0x7f090008;
         public static final int creation_logo=0x7f090006;
-        public static final int dialog_button_confirm=0x7f09003c;
-        public static final int dialog_button_decline=0x7f09003d;
-        public static final int expandableListView1=0x7f09003e;
+        public static final int dialog_button_confirm=0x7f09003e;
+        public static final int dialog_button_decline=0x7f09003f;
+        public static final int expandableListView1=0x7f090040;
         public static final int invitation_button_invite=0x7f09000b;
-        public static final int label=0x7f090042;
+        public static final int label=0x7f090044;
         public static final int listParticipants=0x7f09000c;
+        public static final int listStatistics=0x7f09003d;
         public static final int lobbyStart=0x7f09000d;
         public static final int login_button_login=0x7f090012;
         public static final int login_button_registry=0x7f090011;
@@ -137,12 +139,13 @@ public final class R {
         public static final int activity_profile=0x7f030006;
         public static final int activity_quiz=0x7f030007;
         public static final int activity_registry=0x7f030008;
-        public static final int activity_tutorial=0x7f030009;
-        public static final int dialog_invite=0x7f03000a;
-        public static final int invitation_footer=0x7f03000b;
-        public static final int popup_add=0x7f03000c;
-        public static final int popup_join=0x7f03000d;
-        public static final int rowbuttonlayout=0x7f03000e;
+        public static final int activity_statistics=0x7f030009;
+        public static final int activity_tutorial=0x7f03000a;
+        public static final int dialog_invite=0x7f03000b;
+        public static final int invitation_footer=0x7f03000c;
+        public static final int popup_add=0x7f03000d;
+        public static final int popup_join=0x7f03000e;
+        public static final int rowbuttonlayout=0x7f03000f;
     }
     public static final class menu {
         public static final int clan=0x7f080000;
