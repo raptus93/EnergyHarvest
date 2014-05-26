@@ -666,6 +666,29 @@ public class Server {
         }
     }
 
+    public void captureBuilding(final int buildingID, final int clanID, final int categoryID, final long timestamp, final Callback callback){
+        try {
+            send().emit("CAPTURE_BUILDING", new IOAcknowledge() {
+                @Override
+                public void ack(Object... args) {
+                    try {
+                        JSONObject result = new JSONObject(args[1].toString());
+                        String response = result.get("response").toString();
+
+                        if(response.equals("SUCCESS")){
+                            callback.callback();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new JSONObject("{buildingID : " + buildingID + ", clanID : "+ clanID +"," +
+                    "categoryID : " + categoryID + ", timestamp: " + timestamp + "}"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     /** STUB **/
     public void login(String email, String password, IOAcknowledge callback){
         try {

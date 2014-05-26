@@ -34,6 +34,7 @@ import node.Server;
 import node.User;
 
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class INTERFACES {
 
@@ -292,6 +293,22 @@ public class INTERFACES {
                     }
                 }
         );
+
+        /***
+         * CAPTURE BUILDING
+         * [Methode fehlt noch auf dem Server]
+         * **/
+
+        int building__ID = 1; // [1, 2, 3, 4]
+        int clan__ID = Server.getInstance().getActiveUser().getClan().getId();
+        int category__ID = 1; // [1, 2, 3, 4]
+        long timestamp = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
+        Server.getInstance().captureBuilding(building__ID, clan__ID, category__ID, timestamp, new Callback() {
+            @Override
+            public void callback(Object... input) {
+                System.out.println("READY");
+            }
+        });
     }
 
 }
