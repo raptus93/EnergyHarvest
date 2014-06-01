@@ -1,10 +1,17 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import node.Building;
+import node.Callback;
+import node.Clan;
 import android.R.color;
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -31,6 +38,8 @@ public class MapActivity extends Activity {
 	private ImageButton tab_3;
 	private ImageButton tab_4;
 	
+	private Building building;
+	private TextView tabContent;
 	
 
     @Override
@@ -43,12 +52,66 @@ public class MapActivity extends Activity {
     	tab_3 = (ImageButton)findViewById(R.id.tab_3); // getting the third tab of the map
     	tab_4 = (ImageButton)findViewById(R.id.tab_4); // getting the fourth tab of the map
     	
+    	tabContent = (TextView)findViewById(R.id.tab_content);
+    	
     	activeBuilding = 1;
-        changeTab(tab_1);
+        //changeTab(tab_1);
+        
+        updateInformation(activeBuilding);
+        //tabContent.setText("Anzahl Eroberer: " + numberConqueror);
+    }
+    
+    private void updateInformation(int buildingClicked) {
+    	
+    	
+    	node.Server.getInstance().getBuildingByID(buildingClicked,
+    			/** success [no input] **/	
+    	    	new Callback() {
+			
+    					@Override
+    					public void callback(Object... input) {
+    						// TODO Auto-generated method stub
+    						building = (Building) input[0];
+    				        
+    				        runOnUiThread(new Runnable() {
+    		                      @Override
+    		                      public void run() {
+    		                    	  
+    		    						Log.i("info", "entered!");
+    		    						ArrayList<Clan> conquerors = new ArrayList<Clan>();
+    		    				    	conquerors.add(building.getCat0_clan());
+    		    				    	conquerors.add(building.getCat1_clan());
+    		    				    	conquerors.add(building.getCat2_clan());
+    		    				    	
+    		    				    	// Deleting doubled entries
+    		    				    	HashSet<Clan> hashSet = new HashSet<Clan>(conquerors);
+    		    				        conquerors.clear();
+    		    				        conquerors.addAll(hashSet);
+    		    				       
+    		    				        numberConqueror = conquerors.size();
+    		    				       
+    		    				        tabContent.setText("Anzahl Eroberer: " + numberConqueror);
+    		    				        
+    		    				        for(int i = 0; i < numberConqueror; i++) {
+    		    				        	Log.i("test", conquerors.get(i).getName());
+    		    				        }
+    		                      }
+    		                  });
+    					}
+    				},
+    	/** fail [no input] **/
+    	new Callback() {
+			
+			@Override
+			public void callback(Object... input) {
+				// TODO Auto-generated method stub
+				Log.e("error", "No Building returned!");
+			}
+		});
     }
 
     public void changeBuilding(View view){
-    	View mapLayout = findViewById(R.id.map_content); // getting the layout of the map
+    	/*View mapLayout = findViewById(R.id.map_content); // getting the layout of the map
     	
     	if (view.getId() == R.id.button_l1){
     		mapLayout.setBackgroundResource(R.drawable.map_background_l1); // setting the background
@@ -64,6 +127,26 @@ public class MapActivity extends Activity {
     		activeBuilding = 4;
     	}
     	
+    	changeTab(tab_1);
+    	changeTabIcons();*/
+    	
+    	View mapLayout = findViewById(R.id.map_content); // getting the layout of the map
+    	
+    	if (view.getId() == R.id.button_l1){
+    		mapLayout.setBackgroundResource(R.drawable.map_background_l1); // setting the background
+    		activeBuilding = 1;    		
+    	} else if(view.getId() == R.id.button_l2){
+    		mapLayout.setBackgroundResource(R.drawable.map_background_l2);
+    		activeBuilding = 2;
+    	} else if(view.getId() == R.id.button_l3){
+    		mapLayout.setBackgroundResource(R.drawable.map_background_l3);
+    		activeBuilding = 3;
+    	} else if(view.getId() == R.id.button_l4){
+    		mapLayout.setBackgroundResource(R.drawable.map_background_l4);
+    		activeBuilding = 4;
+    	}
+    	
+    	updateInformation(activeBuilding);
     	changeTab(tab_1);
     	changeTabIcons();
     }
@@ -119,90 +202,31 @@ public class MapActivity extends Activity {
     	}
 	}
 	
-	private void changeTabContent(View view){
-		TextView tabContent = (TextView)findViewById(R.id.tab_content);
-		if(view.getId() == R.id.tab_1){
-    		if(activeBuilding == 1){
-    			numberConqueror = 3;
-    		} else if(activeBuilding == 2){
-    			numberConqueror = 2;  		
-    		} else if(activeBuilding == 3){
-    			numberConqueror = 1;   		
-    		} else if(activeBuilding == 4){
-    			numberConqueror = 3;  		
-    		}
-    		tabContent.setText("Anzahl Eroberer: " + numberConqueror);
-    	} else if(view.getId() == R.id.tab_2){
-    		if(activeBuilding == 1){
-    			category = "Biologie";
-    			conqueror = "Developer";
+	private void changeTabContent(View view){		
+		if(view.getId() != R.id.tab_1){
+			if(view.getId() == R.id.tab_2){    		
+    			category = building.getCat0();
+    			conqueror = building.getCat0_clan().getName();
     			points = 2000;
-    			time = "00.23.10";
-
-    		} else if(activeBuilding == 2){
-    			category = "Kunst";
-    			conqueror = "Developer2";
-    			points = 3000;    	
-    			time = "00.25.30";
-    		} else if(activeBuilding == 3){
-    			category = "Film und Fernsehen";
-    			conqueror = "Developer3";
-    			points = 4000;
-    			time = "00.28.20";
-    		} else if(activeBuilding == 4){
-    			category = "Geschichte";
-    			conqueror = "Developer4";
-    			points = 5000;
-    			time = "01.12.30";
-    		}
-    		tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
-    		} else if(view.getId() == R.id.tab_3){
-    		if(activeBuilding == 1){
-    			category = "Physik";
-    			conqueror = "Developer5";
-    			points = 6000;
-    			time = "01.42.20";
-    		} else if(activeBuilding == 2){
-    			category = "Musik";
-    			conqueror = "Developer6";
-    			points = 7000;
-    			time = "01.52.30";
-    		} else if(activeBuilding == 3){
-    			category = "Sport";
-    			conqueror = "Developer7";
-    			points = 8000;
-    			time = "01.12.27";
-    		} else if(activeBuilding == 4){
-    			category = "Geographie";
-    			conqueror = "Developer8";
-    			points = 9000;
-    			time = "01.05.10";
-    		}
-    		tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
-    	} else if(view.getId() == R.id.tab_4){
-    		if(activeBuilding == 1){
-    			category = "Chemie";
-    			conqueror = "Developer9";
-    			points = 10000;
-    			time = "01.52.45";
-    		} else if(activeBuilding == 2){
-    			category = "Literatur";
-    			conqueror = "Developer10";
-    			points = 11000;
-    			time = "01.35.00";
-    		} else if(activeBuilding == 3){
-    			category = "Essen und Trinken";
-    			conqueror = "Developer11";
-    			points = 12000;
-    			time = "01.55.02";
-    		} else if(activeBuilding == 4){
-    			category = "Politik";
-    			conqueror = "Developer12";
-    			points = 13000;
-    			time = "01.46.32";
-    		}
-    		tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
+    			time = "" + building.getCat0_unlockTime();    		
+			}
+			else if(view.getId() == R.id.tab_3){    		
+				category = building.getCat1();
+				conqueror = building.getCat1_clan().getName();
+				points = 3000;
+				time = "" + building.getCat1_unlockTime();
+			}
+			else if(view.getId() == R.id.tab_4){    		
+				category = building.getCat2();
+				conqueror = building.getCat2_clan().getName();
+				points = 3000;
+				time = "" + building.getCat2_unlockTime();
+			}
+			tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
     	}
+		else {
+			tabContent.setText("Anzahl Eroberer: " + numberConqueror);
+		}
 	}
 	
 	public void changeTab(View view){

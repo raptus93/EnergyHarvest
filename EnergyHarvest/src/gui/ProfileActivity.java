@@ -43,7 +43,7 @@ public class ProfileActivity extends Activity {
 		
 		ActivityHolder.getInstance().setActiveActivity(this);
 		
-		// FAKEPROFIL ERSTELLEN
+		
 		logo = R.drawable.clan_logo;
 		name = node.Server.getInstance().getActiveUser().getName();
 		clan = node.Server.getInstance().getActiveUser().getClan().getName();
@@ -51,8 +51,7 @@ public class ProfileActivity extends Activity {
 		id = node.Server.getInstance().getActiveUser().getId();
 		points = 3847;
 		
-		//
-		
+				
 		clanLogo = (ImageView) findViewById(R.id.profile_logo_clan);
 		tvName = (TextView) findViewById(R.id.profile_text_view_name);
 		etName = (EditText) findViewById(R.id.profile_edit_text_name);

@@ -162,6 +162,4 @@ public class MenuActivity extends Activity {
 		i.addCategory(Intent.CATEGORY_LAUNCHER);
 		startActivity(i);
 	}
-	
-	
 }
