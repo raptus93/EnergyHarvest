@@ -46,9 +46,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/clan_text_view_points"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
             android:onClick="btnJoinClicked"
-            android:text="@string/button_join" />
+            android:text="@string/button_join"
+            android:background="@drawable/button_style"
+        	style="@style/button_text" />
 
         <Button
             android:id="@+id/clan_button_create"
@@ -56,8 +59,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/clan_button_join"
             android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
             android:onClick="btnCreateClicked"
-            android:text="@string/button_create" />
+            android:text="@string/button_create"
+            android:background="@drawable/button_style"
+        	style="@style/button_text" />
 
         <ImageView
             android:id="@+id/clan_logo_clan"

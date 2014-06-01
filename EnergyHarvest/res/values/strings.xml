@@ -35,6 +35,7 @@
     <string name="button_tutorial">Tutorial</string>
     <string name="placeholder_quiz">[Quiz]</string>
     <string name="button_challenge">Herrausfordern</string>
+    <string name="title_login">Anmelden</string>
 	<string name="title_registry">Registrierung</string>
     <string name="description_logo_clan">Clan Logo Placeholder</string>
     <string name="textview_clan">Clan:</string>

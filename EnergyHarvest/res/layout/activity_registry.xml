@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/registry_logo"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="150dp"
         android:contentDescription="@string/description_logo_main"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo" />"res/layout/activity_main.xml"
 
     <TextView
         android:id="@+id/title_registry"
@@ -29,8 +29,10 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:inputType="textPersonName"
-        android:hint="@string/hint_username" >
+        android:hint="@string/hint_username"
+        android:background="@drawable/edittext_style" >
         <requestFocus />
     </EditText>
 
@@ -38,28 +40,37 @@
         android:id="@+id/registry_edit_text_email"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:inputType="textEmailAddress"
-        android:hint="@string/hint_email" />
+        android:hint="@string/hint_email"
+        android:background="@drawable/edittext_style" />
 
     <EditText
         android:id="@+id/registry_edit_text_password"
        	android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:inputType="textPassword"
-        android:hint="@string/hint_password" />
+        android:hint="@string/hint_password"
+        android:background="@drawable/edittext_style" />
 
     <EditText
         android:id="@+id/registry_edit_text_password_repeat"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:inputType="textPassword"
-        android:hint="@string/hint_password" />
+        android:hint="@string/hint_password"
+        android:background="@drawable/edittext_style" />
 
     <Button
         android:id="@+id/registry_button_confirm"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="confirm"
-        android:text="@string/button_confirm" />
+        android:text="@string/button_confirm" 
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
 </LinearLayout>

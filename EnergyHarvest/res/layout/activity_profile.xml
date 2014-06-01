@@ -29,7 +29,9 @@
         android:layout_marginLeft="28dp"
         android:layout_toRightOf="@+id/title_profile"
         android:onClick="editName"
-        android:text="@string/button_edit" />
+        android:text="@string/button_edit"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
     <ImageView
         android:id="@+id/profile_logo_clan"

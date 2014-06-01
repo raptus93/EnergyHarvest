@@ -47,7 +47,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:onClick="createClan"
-        android:text="@string/button_confirm" />
+        android:text="@string/button_confirm"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
     <TextView
         android:id="@+id/textView1"
@@ -60,12 +62,13 @@
 
     <Button
         android:id="@+id/invitation_button_invite"
-        style="?android:attr/buttonStyleSmall"
+        style="@style/button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/creation_edit_text_name"
         android:layout_alignBottom="@+id/creation_edit_text_name"
-        android:layout_toRightOf="@+id/creation_logo"
+        android:layout_toRightOf="@+id/creation_button_create"
+        android:background="@drawable/button_style"
         android:onClick="editClanName"
         android:text="@string/button_edit" />
 

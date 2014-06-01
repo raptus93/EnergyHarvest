@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/profile_logo_clan"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="150dp"
         android:contentDescription="@string/description_logo_clan"
         android:src="@drawable/logo" />
@@ -20,49 +20,70 @@
         android:id="@+id/challenge_button_3d_map_tracking"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="goToAr"
-        android:text="@string/button_challenge" />
+        android:text="@string/button_challenge" 
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
     
     <Button
         android:id="@+id/menu_button_quiz"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="goToQuiz"
-        android:text="@string/placeholder_quiz" />
+        android:text="@string/placeholder_quiz"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
     
     <Button
         android:id="@+id/menu_button_map"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="goToMap"
-        android:text="@string/button_map" />
+        android:text="@string/button_map"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
     <Button
         android:id="@+id/menu_button_clan"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="goToClan"
-        android:text="@string/button_clan" />
+        android:text="@string/button_clan"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
     <Button
         android:id="@+id/menu_button_profile"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="goToProfile"
-        android:text="@string/button_profile" />
+        android:text="@string/button_profile"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
     <Button
         android:id="@+id/menu_button_tutorial"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="goToTutorial"
-        android:text="@string/button_tutorial" />
+        android:text="@string/button_tutorial"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
     
     <Button
         android:id="@+id/menu_button_invitation"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="testInvitation"
-        android:text="@string/button_invitation" />
+        android:text="@string/button_invitation"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
 </LinearLayout>

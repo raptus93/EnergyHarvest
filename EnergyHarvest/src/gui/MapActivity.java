@@ -1,12 +1,9 @@
 package gui;
 
-import node.Building;
-import node.Callback;
-import node.Clan;
 import android.R.color;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,28 +11,18 @@ import android.widget.TextView;
 import com.example.energyharvest.R;
 
 /**
- * @version 1.2.0 (13/04/2014)
+ * @version 1.3.0 (13/04/2014)
  * @author Katja Lange
  *
  */
 
-//
-//
-//
-//	ZEILE IN CHANGETABCONTENT AUSKOMMENTIERT!!! (26/05/2014)
-//
-//
-//
-//
-
 public class MapActivity extends Activity {
 	
-	private Building building;
-	
 	private String category;
-	private Clan[] conquerors;
-	private int[] unlockTimes;
-	private String points;
+	private String conqueror;
+	private int points;
+	private int numberConqueror;
+	private String time;
 	
 	private int activeBuilding;
 	private int activeTab;
@@ -57,34 +44,7 @@ public class MapActivity extends Activity {
     	tab_4 = (ImageButton)findViewById(R.id.tab_4); // getting the fourth tab of the map
     	
     	activeBuilding = 1;
-        activateTab(tab_1);
-        
-        conquerors = new Clan[3];
-        unlockTimes = new int[3];
-    }
-    
-    private void updateInfo(int id) {
-    	node.Server.getInstance().getBuildingByID(id, new Callback() {
-			/** success [no input] **/
-			@Override
-			public void callback(Object... input) {
-				// TODO Auto-generated method stub
-				building = (Building) input[0];
-				conquerors[0] = building.getCat0_clan();
-				conquerors[1] = building.getCat1_clan();
-				conquerors[2] = building.getCat2_clan();
-				unlockTimes[0] = building.getCat0_unlockTime();
-				unlockTimes[1] = building.getCat1_unlockTime();
-				unlockTimes[2] = building.getCat2_unlockTime();
-			}
-		}, new Callback() {
-			/** fail [no input] **/
-			@Override
-			public void callback(Object... input) {
-				// TODO Auto-generated method stub
-				Log.i("testing", "getting building failed");
-			}
-		});
+        changeTab(tab_1);
     }
 
     public void changeBuilding(View view){
@@ -104,32 +64,32 @@ public class MapActivity extends Activity {
     		activeBuilding = 4;
     	}
     	
-    	activateTab(tab_1);
+    	changeTab(tab_1);
     	changeTabIcons();
     }
    
     private void changeTabIcons(){
 
     	if (activeBuilding == 1){
-    		tab_1.setImageResource(R.drawable.ic_element_1); // setting the icon on tab_1
-    		tab_2.setImageResource(R.drawable.ico1);	// setting the icon on tab_2
-    		tab_3.setImageResource(R.drawable.ico2); // setting the icon on tab_3
-    		tab_4.setImageResource(R.drawable.ic_cat_l1_1); // setting the icon on tab_4
+    		tab_1.setImageResource(R.drawable.icon_fire); // setting the icon on tab_1
+    		tab_2.setImageResource(R.drawable.icon_biology);	// setting the icon on tab_2
+    		tab_3.setImageResource(R.drawable.icon_physics); // setting the icon on tab_3
+    		tab_4.setImageResource(R.drawable.icon_chemistry); // setting the icon on tab_4
     	} else if(activeBuilding == 2){
-    		tab_1.setImageResource(R.drawable.ic_element_2);
-    		tab_2.setImageResource(R.drawable.ic_cat_l2_1);
-    		tab_3.setImageResource(R.drawable.ic_cat_l2_1);
-    		tab_4.setImageResource(R.drawable.ic_cat_l2_1);
+    		tab_1.setImageResource(R.drawable.icon_water);
+    		tab_2.setImageResource(R.drawable.icon_art);
+    		tab_3.setImageResource(R.drawable.icon_music);
+    		tab_4.setImageResource(R.drawable.icon_literature);
     	} else if(activeBuilding == 3){
-    		tab_1.setImageResource(R.drawable.ic_element_3);
-    		tab_2.setImageResource(R.drawable.ic_cat_l3_1);
-    		tab_3.setImageResource(R.drawable.ic_cat_l3_1);
-    		tab_4.setImageResource(R.drawable.ic_cat_l3_1);    		
+    		tab_1.setImageResource(R.drawable.icon_earth);
+    		tab_2.setImageResource(R.drawable.icon_movie);
+    		tab_3.setImageResource(R.drawable.icon_sports);
+    		tab_4.setImageResource(R.drawable.icon_food);    		
     	} else if(activeBuilding == 4){
-    		tab_1.setImageResource(R.drawable.ic_element_4);
-    		tab_2.setImageResource(R.drawable.ic_cat_l4_1);
-    		tab_3.setImageResource(R.drawable.ic_cat_l4_1);
-    		tab_4.setImageResource(R.drawable.ic_cat_l4_1);
+    		tab_1.setImageResource(R.drawable.icon_wind);
+    		tab_2.setImageResource(R.drawable.icon_history);
+    		tab_3.setImageResource(R.drawable.icon_geography);
+    		tab_4.setImageResource(R.drawable.icon_politics);
     	}
     }
    
@@ -144,7 +104,7 @@ public class MapActivity extends Activity {
     		tab_4.setBackgroundColor(color.transparent);
     	}
     	
-    	if(view.getId() == R.id.tab_1 || view == null){
+    	if(view.getId() == R.id.tab_1){
     		tab_1.setBackgroundResource(R.drawable.active_tab);
     		activeTab = 1;
     	} else if(view.getId() == R.id.tab_2){
@@ -163,9 +123,86 @@ public class MapActivity extends Activity {
 		TextView tabContent = (TextView)findViewById(R.id.tab_content);
 		if(view.getId() == R.id.tab_1){
     		if(activeBuilding == 1){
-    			//tabContent.setText("Kategorie: " + category + "\nEroberer: " + conqueror + "\nPunkte: " + points);
+    			numberConqueror = 3;
+    		} else if(activeBuilding == 2){
+    			numberConqueror = 2;  		
+    		} else if(activeBuilding == 3){
+    			numberConqueror = 1;   		
+    		} else if(activeBuilding == 4){
+    			numberConqueror = 3;  		
     		}
-    	} 
+    		tabContent.setText("Anzahl Eroberer: " + numberConqueror);
+    	} else if(view.getId() == R.id.tab_2){
+    		if(activeBuilding == 1){
+    			category = "Biologie";
+    			conqueror = "Developer";
+    			points = 2000;
+    			time = "00.23.10";
+
+    		} else if(activeBuilding == 2){
+    			category = "Kunst";
+    			conqueror = "Developer2";
+    			points = 3000;    	
+    			time = "00.25.30";
+    		} else if(activeBuilding == 3){
+    			category = "Film und Fernsehen";
+    			conqueror = "Developer3";
+    			points = 4000;
+    			time = "00.28.20";
+    		} else if(activeBuilding == 4){
+    			category = "Geschichte";
+    			conqueror = "Developer4";
+    			points = 5000;
+    			time = "01.12.30";
+    		}
+    		tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
+    		} else if(view.getId() == R.id.tab_3){
+    		if(activeBuilding == 1){
+    			category = "Physik";
+    			conqueror = "Developer5";
+    			points = 6000;
+    			time = "01.42.20";
+    		} else if(activeBuilding == 2){
+    			category = "Musik";
+    			conqueror = "Developer6";
+    			points = 7000;
+    			time = "01.52.30";
+    		} else if(activeBuilding == 3){
+    			category = "Sport";
+    			conqueror = "Developer7";
+    			points = 8000;
+    			time = "01.12.27";
+    		} else if(activeBuilding == 4){
+    			category = "Geographie";
+    			conqueror = "Developer8";
+    			points = 9000;
+    			time = "01.05.10";
+    		}
+    		tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
+    	} else if(view.getId() == R.id.tab_4){
+    		if(activeBuilding == 1){
+    			category = "Chemie";
+    			conqueror = "Developer9";
+    			points = 10000;
+    			time = "01.52.45";
+    		} else if(activeBuilding == 2){
+    			category = "Literatur";
+    			conqueror = "Developer10";
+    			points = 11000;
+    			time = "01.35.00";
+    		} else if(activeBuilding == 3){
+    			category = "Essen und Trinken";
+    			conqueror = "Developer11";
+    			points = 12000;
+    			time = "01.55.02";
+    		} else if(activeBuilding == 4){
+    			category = "Politik";
+    			conqueror = "Developer12";
+    			points = 13000;
+    			time = "01.46.32";
+    		}
+    		tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
+    	}
 	}
 	
 	public void changeTab(View view){

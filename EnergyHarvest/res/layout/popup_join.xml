@@ -28,9 +28,12 @@
           android:id="@+id/clan_popup_button_confirm"
           android:layout_width="200dp"
           android:layout_height="wrap_content"
+          android:layout_margin="5dp"
           android:layout_centerHorizontal="true"
           android:layout_below="@id/clan_popup_text_view_id"          
-          android:text="@string/button_confirm" />
+          android:text="@string/button_confirm"
+          android:background="@drawable/button_style"
+	      style="@style/button_text" />
       </RelativeLayout>
  </LinearLayout>
 </LinearLayout>

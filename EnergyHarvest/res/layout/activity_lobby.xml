@@ -22,6 +22,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:text="@string/button_startquiz" />
+        android:text="@string/button_startquiz"
+        android:background="@drawable/button_style"
+        style="@style/button_text" />
 
 </RelativeLayout>

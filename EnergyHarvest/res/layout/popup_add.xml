@@ -31,10 +31,12 @@
             android:id="@+id/clan_popup_edit_text_id"
 		    android:layout_width="115dp"
 		    android:layout_height="wrap_content"
+		    android:layout_margin="5dp"
 		    android:layout_toEndOf="@id/clan_popup_text_view_id"
 		    android:ems="10"
 		    android:textSize="22sp"
-		    android:inputType="number">            
+		    android:inputType="number" 
+		    android:background="@drawable/edittext_style" >            
             <requestFocus />
         </EditText>
 		    
@@ -44,7 +46,10 @@
 	<Button
 	    android:id="@+id/clan_popup_button_confirm"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"         
-        android:text="@string/button_confirm" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"        
+        android:text="@string/button_confirm"
+        android:background="@drawable/button_style"
+	    style="@style/button_text" />
 </LinearLayout>
 </LinearLayout>

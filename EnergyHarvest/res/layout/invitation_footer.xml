@@ -11,6 +11,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:onClick="invite"
-        android:text="@string/button_invite" />
+        android:text="@string/button_invite"
+        android:background="@drawable/button_style"
+	    style="@style/button_text" />
 
 </RelativeLayout>
