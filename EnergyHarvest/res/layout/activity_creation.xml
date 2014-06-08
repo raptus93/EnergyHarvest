@@ -8,6 +8,7 @@
         android:id="@+id/creation_logo"
         android:layout_width="175dp"
         android:layout_height="175dp"
+        android:layout_marginTop="15dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/description_logo_clan"
@@ -28,7 +29,7 @@
     <GridView 
 	    android:id="@+id/creation_gridview"
 	    android:layout_width="match_parent"
-	    android:layout_height="215dp"
+	    android:layout_height="300dp"
 	    android:gravity="center"
 	    android:layout_below="@+id/creation_edit_text_name"
 	    android:stretchMode="columnWidth"
@@ -51,15 +52,6 @@
         android:background="@drawable/button_style"
         style="@style/button_text" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/creation_edit_text_name"
-        android:layout_toLeftOf="@+id/creation_logo"
-        android:text="@string/textview_name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Button
         android:id="@+id/invitation_button_invite"
         style="@style/button_text"
@@ -71,5 +63,15 @@
         android:background="@drawable/button_style"
         android:onClick="editClanName"
         android:text="@string/button_edit" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/creation_edit_text_name"
+        android:layout_alignBottom="@+id/creation_edit_text_name"
+        android:layout_toLeftOf="@+id/creation_logo"
+        android:text="@string/textview_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

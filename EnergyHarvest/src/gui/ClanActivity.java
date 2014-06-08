@@ -73,7 +73,7 @@ import com.example.energyharvest.R;
 		clanName = clan.getName();
 		
 		// PLACEHOLDER INFORMATION
-		clanLogo = R.drawable.clan_logo;
+		clanLogo = R.drawable.clan_logo_1;
 		captures = 2;
 		points = 21533;
 		

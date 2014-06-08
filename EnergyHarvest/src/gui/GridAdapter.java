@@ -18,8 +18,9 @@ import com.example.energyharvest.R;
 public class GridAdapter extends BaseAdapter {
 	private Context context;
 	private Integer[] imageIds = {
-            R.drawable.clan_logo, R.drawable.clan_logo_default, R.drawable.logo, R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo, 
-            R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo, R.drawable.clan_logo
+            R.drawable.clan_logo_default, R.drawable.clan_logo_1, R.drawable.clan_logo_2, R.drawable.clan_logo_3,
+            R.drawable.clan_logo_4, R.drawable.clan_logo_5, R.drawable.clan_logo_6, R.drawable.clan_logo_7, 
+            R.drawable.clan_logo_8, R.drawable.clan_logo_9
 	};
 	
 	public GridAdapter(Context c) {

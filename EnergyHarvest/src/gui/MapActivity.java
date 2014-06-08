@@ -27,6 +27,7 @@ public class MapActivity extends Activity {
 	
 	private String category;
 	private String conqueror;
+	private String element;
 	private int points;
 	private int numberConqueror;
 	private String time;
@@ -54,8 +55,9 @@ public class MapActivity extends Activity {
     	
     	tabContent = (TextView)findViewById(R.id.tab_content);
     	
+    	element = "fire";
     	activeBuilding = 1;
-        //changeTab(tab_1);
+        changeTab(tab_1);
         
         updateInformation(activeBuilding);
         //tabContent.setText("Anzahl Eroberer: " + numberConqueror);
@@ -90,7 +92,7 @@ public class MapActivity extends Activity {
     		    				       
     		    				        numberConqueror = conquerors.size();
     		    				       
-    		    				        tabContent.setText("Anzahl Eroberer: " + numberConqueror);
+    		    				        tabContent.setText("Gebäude: " + element + "\n\nAnzahl Eroberer: " + numberConqueror);
     		    				        
     		    				        for(int i = 0; i < numberConqueror; i++) {
     		    				        	Log.i("test", conquerors.get(i).getName());
@@ -169,7 +171,7 @@ public class MapActivity extends Activity {
     		tab_3.setImageResource(R.drawable.icon_sports);
     		tab_4.setImageResource(R.drawable.icon_food);    		
     	} else if(activeBuilding == 4){
-    		tab_1.setImageResource(R.drawable.icon_wind);
+    		tab_1.setImageResource(R.drawable.icon_air);
     		tab_2.setImageResource(R.drawable.icon_history);
     		tab_3.setImageResource(R.drawable.icon_geography);
     		tab_4.setImageResource(R.drawable.icon_politics);
@@ -225,7 +227,16 @@ public class MapActivity extends Activity {
 			tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
     	}
 		else {
-			tabContent.setText("Anzahl Eroberer: " + numberConqueror);
+			if(activeBuilding == 1){
+				element = "Feuer";
+			} else if(activeBuilding == 2){
+				element = "Wasser";
+			} else if(activeBuilding == 3){
+				element = "Erde";
+			} else{
+				element = "Luft";
+			}
+			tabContent.setText("Gebäude: " + element + "\n\nAnzahl Eroberer: " + numberConqueror);
 		}
 	}
 	

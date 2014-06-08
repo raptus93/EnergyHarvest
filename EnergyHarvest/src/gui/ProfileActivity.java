@@ -44,7 +44,7 @@ public class ProfileActivity extends Activity {
 		ActivityHolder.getInstance().setActiveActivity(this);
 		
 		
-		logo = R.drawable.clan_logo;
+		logo = R.drawable.clan_logo_1;
 		name = node.Server.getInstance().getActiveUser().getName();
 		clan = node.Server.getInstance().getActiveUser().getClan().getName();
 		email = node.Server.getInstance().getActiveUser().getEmail();
