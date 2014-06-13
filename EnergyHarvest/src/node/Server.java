@@ -666,6 +666,31 @@ public class Server {
         }
     }
 
+    public void changeClanLogo(final String clanLogo, final Callback callback){
+        if(getActiveUser().getClan().getId() > 0 && getActiveUser().getId() > 0){
+            try {
+                send().emit("CHANGE_CLAN_LOGO", new IOAcknowledge() {
+                    @Override
+                    public void ack(Object... args) {
+                        JSONObject result = null;
+                        try {
+                            result = new JSONObject(args[1].toString());
+                            String response = result.get("response").toString();
+                            if(response.equals("SUCCESS")){
+                                callback.callback();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
+                    }
+                }, new JSONObject("{clanid : " + getActiveUser().getClan().getId() + ", logo : "+ clanLogo +"}"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     public void captureBuilding(final int buildingID, final int clanID, final int categoryID, final long timestamp, final Callback callback){
         try {
             send().emit("CAPTURE_BUILDING", new IOAcknowledge() {
