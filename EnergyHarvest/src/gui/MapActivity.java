@@ -74,16 +74,24 @@ public class MapActivity extends Activity {
     					public void callback(Object... input) {
     						// TODO Auto-generated method stub
     						building = (Building) input[0];
-    				        
-    				        runOnUiThread(new Runnable() {
+    						
+    						runOnUiThread(new Runnable() {
     		                      @Override
     		                      public void run() {
     		                    	  
     		    						Log.i("info", "entered!");
     		    						ArrayList<Clan> conquerors = new ArrayList<Clan>();
-    		    				    	conquerors.add(building.getCat0_clan());
-    		    				    	conquerors.add(building.getCat1_clan());
-    		    				    	conquerors.add(building.getCat2_clan());
+    		    				    	
+    		    						if(building.getCat0_clan() != null) {
+    		    							conquerors.add(building.getCat0_clan());
+    		    						}
+    		    						if(building.getCat1_clan() != null) {
+    		    							conquerors.add(building.getCat1_clan());
+    		    						}
+    		    						if(building.getCat2_clan() != null) {
+    		    							conquerors.add(building.getCat2_clan());
+    		    						}
+    		    				    	
     		    				    	
     		    				    	// Deleting doubled entries
     		    				    	HashSet<Clan> hashSet = new HashSet<Clan>(conquerors);
@@ -91,9 +99,11 @@ public class MapActivity extends Activity {
     		    				        conquerors.addAll(hashSet);
     		    				       
     		    				        numberConqueror = conquerors.size();
+    		    				        Log.i("msg", "Number: " + numberConqueror);
+    		    				        
     		    				       
     		    				        tabContent.setText("Gebäude: " + element + "\n\nAnzahl Eroberer: " + numberConqueror);
-    		    				        
+    		    				        Log.i("test", conquerors.toString());
     		    				        for(int i = 0; i < numberConqueror; i++) {
     		    				        	Log.i("test", conquerors.get(i).getName());
     		    				        }
@@ -206,22 +216,30 @@ public class MapActivity extends Activity {
 	
 	private void changeTabContent(View view){		
 		if(view.getId() != R.id.tab_1){
+			conqueror = "";
+			points = 0;
 			if(view.getId() == R.id.tab_2){    		
-    			category = building.getCat0();
-    			conqueror = building.getCat0_clan().getName();
-    			points = 2000;
+    			category = building.getCat0();    			
+    			if(building.getCat0_clan() != null) {
+    				conqueror = building.getCat0_clan().getName();
+    			}
+    			// Punktestand des haltenden Clans der Kategorie hier updaten
     			time = "" + building.getCat0_unlockTime();    		
 			}
 			else if(view.getId() == R.id.tab_3){    		
 				category = building.getCat1();
-				conqueror = building.getCat1_clan().getName();
-				points = 3000;
+				if(building.getCat1_clan() != null) {
+    				conqueror = building.getCat1_clan().getName();
+    			}
+				// Punktestand des haltenden Clans der Kategorie hier updaten
 				time = "" + building.getCat1_unlockTime();
 			}
 			else if(view.getId() == R.id.tab_4){    		
 				category = building.getCat2();
-				conqueror = building.getCat2_clan().getName();
-				points = 3000;
+				if(building.getCat2_clan() != null) {
+    				conqueror = building.getCat2_clan().getName();
+    			}
+				// Punktestand des haltenden Clans der Kategorie hier updaten
 				time = "" + building.getCat2_unlockTime();
 			}
 			tabContent.setText(category + "\n\nEroberer: " + conqueror + "\nPunkte: " + points + "\nZeit: " + time);
