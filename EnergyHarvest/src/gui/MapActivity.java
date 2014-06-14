@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.example.energyharvest.R;
 
 /**
- * @version 1.3.0 (13/04/2014)
+ * @version 1.3.1 (14/06/2014)
  * @author Katja Lange
  *
  */
